@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Method"
+  short_description: "Align methods, equations, algorithms, and code"
+  default_prompt: "Use $star-writing-method to audit this method's information contract, notation, equations, and implementation alignment."

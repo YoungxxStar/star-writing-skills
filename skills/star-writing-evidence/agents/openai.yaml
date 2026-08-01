@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Evidence"
+  short_description: "Design and audit defensible research evidence"
+  default_prompt: "Use $star-writing-evidence to audit the study design, metrics, results, and defensible claims."

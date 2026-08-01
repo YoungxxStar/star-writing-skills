@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Polish"
+  short_description: "Polish prose without changing substantive meaning"
+  default_prompt: "Use $star-writing-polish to make this text precise, natural, and concise."

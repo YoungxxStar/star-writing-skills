@@ -1,0 +1,535 @@
+[
+  {
+    "id": "read-only-discussion",
+    "prompt": "Read the current Introduction and discuss its argument. Do not modify any file.",
+    "expected_controller": "star-writing-frame",
+    "expected_mode": "audit",
+    "must": [
+      "bind the review to the current manuscript snapshot",
+      "report findings without writing project files",
+      "separate framing problems from prose preferences"
+    ],
+    "must_not": [
+      "edit the manuscript",
+      "create persistent project state without authorization",
+      "rewrite the section as the default response"
+    ]
+  },
+  {
+    "id": "exact-local-compression",
+    "prompt": "Edit the named paragraph in the manuscript file in place and reduce it by exactly five words. Do not alter the surrounding text or substantive meaning.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "edit",
+    "must": [
+      "freeze the authorized span and neighboring text",
+      "use one explicit word-count rule before and after",
+      "inspect the local diff and report an exact five-word reduction"
+    ],
+    "must_not": [
+      "rewrite the whole paragraph",
+      "remove a qualifier, denominator, citation, or logical bridge",
+      "change adjacent text"
+    ]
+  },
+  {
+    "id": "locked-title-and-abstract",
+    "prompt": "Revise the Introduction to match the latest evidence, but the submitted title and abstract are locked.",
+    "expected_controller": "star-writing-draft",
+    "expected_mode": "revise",
+    "expected_routes": [
+      "star-writing-evidence"
+    ],
+    "must": [
+      "record the title and abstract as immutable",
+      "propagate only compatible changes through the authorized Introduction",
+      "flag any conflict that cannot be resolved without changing locked text"
+    ],
+    "must_not": [
+      "edit the title",
+      "edit the abstract",
+      "silently weaken or strengthen the evidence"
+    ]
+  },
+  {
+    "id": "evidence-grounded-section-draft",
+    "prompt": "Using the supplied paper contract and claim-evidence map, draft a new Results section. No manuscript text exists for this section yet.",
+    "expected_controller": "star-writing-draft",
+    "expected_mode": "draft",
+    "expected_routes": [
+      "star-writing-evidence"
+    ],
+    "must": [
+      "define the section contract and organize results by inferential question",
+      "trace every quantitative or qualitative conclusion to the supplied evidence",
+      "preserve aggregation, uncertainty, exceptions, and claim boundaries"
+    ],
+    "must_not": [
+      "invent a result, citation, mechanism, or missing protocol detail",
+      "narrate a table or figure cell by cell",
+      "strengthen the claim to make the section sound more decisive"
+    ]
+  },
+  {
+    "id": "early-idea-convergence",
+    "prompt": "We have an early research idea and several possible stories, but no settled novelty claim. Help determine the strongest defensible framing before drafting.",
+    "expected_controller": "star-writing",
+    "expected_mode": "converge",
+    "expected_routes": [
+      "star-writing-frame",
+      "star-writing-literature",
+      "star-writing-evidence"
+    ],
+    "must": [
+      "compare candidate problem formulations and contribution types",
+      "test them against closest work and available evidence",
+      "record why rejected alternatives fail"
+    ],
+    "must_not": [
+      "draft a confident novelty claim before the comparison",
+      "invent a research gap",
+      "treat an appealing story as established evidence"
+    ]
+  },
+  {
+    "id": "abstract-only-novelty-search",
+    "prompt": "Our novelty claim and Related Work comparison currently rely on the abstracts of several neighboring papers. Audit what we can state before revising the manuscript.",
+    "expected_controller": "star-writing-literature",
+    "expected_mode": "audit",
+    "must": [
+      "split the novelty claim into source-checkable propositions",
+      "require full-text verification for differences in assumptions, inputs, outputs, mechanisms, or evidence",
+      "state the current search status without treating missing retrievals as proof of absence"
+    ],
+    "must_not": [
+      "declare priority from abstracts alone",
+      "invent citation details or technical distinctions",
+      "rewrite the manuscript before the closest-work boundary is established"
+    ]
+  },
+  {
+    "id": "bounded-theorem-versus-universal-claim",
+    "prompt": "Review only. The theorem covers finite objects under two explicit assumptions, while the title and abstract call the result universal.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-method",
+      "star-writing-frame"
+    ],
+    "must": [
+      "reconstruct the theorem's quantifiers, domain, and assumptions",
+      "identify the mismatch between proved scope and headline claim",
+      "propose the strongest bounded interpretation without editing files"
+    ],
+    "must_not": [
+      "treat a broad motivation as a proved theorem",
+      "remove assumptions from the claim",
+      "edit the title or abstract during a read-only review"
+    ]
+  },
+  {
+    "id": "method-code-conflict",
+    "prompt": "The Method says a quantity is available at inference, but the executed code appears to derive it from the target. Audit the discrepancy before changing prose.",
+    "expected_controller": "star-writing-method",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-evidence"
+    ],
+    "must": [
+      "build an information-availability table by pipeline stage",
+      "trace the quantity from manuscript notation to executed code",
+      "state the resulting claim and leakage risk"
+    ],
+    "must_not": [
+      "hide the conflict through vague wording",
+      "assume the manuscript or code is correct without inspection",
+      "edit the paper before the behavior is established"
+    ]
+  },
+  {
+    "id": "whole-system-attribution",
+    "prompt": "The proposed approach changes information access, measurement procedure, and analysis together and improves the endpoint over the comparator. Audit the comparison and propose the strongest defensible result sentence.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "identify every changed and controlled variable",
+      "attribute the result to the matched whole-system comparison",
+      "state which component-level mechanisms remain unidentified"
+    ],
+    "must_not": [
+      "credit one component without an isolating comparison",
+      "describe correlation as mechanism",
+      "omit relevant information or resource-budget differences"
+    ]
+  },
+  {
+    "id": "sensitivity-not-causality",
+    "prompt": "A perturbation diagnostic changes the reported response for every group. Explain what this establishes.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "describe the finding as functional dependence or sensitivity",
+      "define the perturbation and validity boundary",
+      "separate diagnostic sensitivity from the correctness of a real-world counterfactual"
+    ],
+    "must_not": [
+      "claim causal identification",
+      "claim a correct real-world counterfactual response",
+      "call sensitivity an accuracy metric"
+    ]
+  },
+  {
+    "id": "qualitative-theme-traceability",
+    "prompt": "Review the evidence for a qualitative finding derived from selected interview excerpts and presented as a general population conclusion.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "trace the theme to the sampling and analytic procedure",
+      "distinguish representative excerpts from the full evidential chain",
+      "bound transfer or population claims to the study design"
+    ],
+    "must_not": [
+      "treat a vivid quotation as population prevalence",
+      "impose a quantitative significance test by default",
+      "dismiss qualitative evidence because it is not numerical"
+    ]
+  },
+  {
+    "id": "post-hoc-endpoint-selection",
+    "prompt": "The primary endpoint and exclusion rule were selected after viewing the final outcomes. Audit the strongest claim the study can now support.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "distinguish exploratory from prespecified evidence",
+      "record the timing and consequence of endpoint and exclusion choices",
+      "state what independent confirmation would be needed for a confirmatory claim"
+    ],
+    "must_not": [
+      "describe the choices as prespecified",
+      "discard the exploratory finding as automatically worthless",
+      "present the selected endpoint as confirmatory without qualification"
+    ]
+  },
+  {
+    "id": "central-figure-contract",
+    "prompt": "Design the paper's central multi-panel figure from existing results and representative examples.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "plan",
+    "must": [
+      "assign a primary claim family to the figure and a distinct subordinate role to each panel",
+      "record data sources, transformations, scales, and selection rules",
+      "distinguish representative examples from population evidence"
+    ],
+    "must_not": [
+      "select a favorable case without disclosure",
+      "use unmatched scales for a magnitude comparison",
+      "let the caption claim more than the visual establishes"
+    ]
+  },
+  {
+    "id": "live-submission-policy",
+    "prompt": "Check the current submission rules, anonymity, page limits, supplementary package, and required files for a named venue, year, and track.",
+    "expected_controller": "star-writing-submit",
+    "expected_mode": "submit",
+    "must": [
+      "verify the exact venue, year, track, and submission stage",
+      "use current official sources",
+      "separate mandatory requirements from recommendations"
+    ],
+    "must_not": [
+      "reuse remembered rules from another year",
+      "treat a template example as the authoritative policy",
+      "claim readiness without inspecting rendered artifacts"
+    ]
+  },
+  {
+    "id": "concurrent-author-edit",
+    "prompt": "Apply an approved section revision, but the manuscript file changed after your initial read.",
+    "expected_controller": "star-writing-draft",
+    "expected_mode": "revise",
+    "must": [
+      "re-read the current file and compare it with the starting snapshot",
+      "preserve the other author's new intent",
+      "rebase only the authorized semantic change and inspect the diff"
+    ],
+    "must_not": [
+      "overwrite the newer file with an older draft",
+      "restore language that the author deleted",
+      "apply an unbounded global replacement"
+    ]
+  },
+  {
+    "id": "translation-with-invariants",
+    "prompt": "Translate this technical passage into concise academic English without changing its claims, notation, citations, or uncertainty.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "rewrite",
+    "must": [
+      "preserve logical direction, modality, terminology, and citation scope",
+      "translate the scientific relation rather than source syntax",
+      "flag any ambiguity that requires a scientific decision"
+    ],
+    "must_not": [
+      "strengthen novelty or causality",
+      "cycle canonical technical terms",
+      "add examples or explanations absent from the source"
+    ]
+  },
+  {
+    "id": "external-feedback-triage",
+    "prompt": "Review only. A collaborator supplied several manuscript comments. Some make factual claims about the code and cited papers without showing evidence, one proposes a useful deletion for an incorrect reason, and one is purely a style preference. Decide what should be adopted.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "must": [
+      "separate factual premises, scientific risks, evidence requests, prose preferences, and policy judgments",
+      "verify material premises against their responsible sources",
+      "assign accept, partially accept, reject, or unresolved to each comment and judge its rationale separately from its action"
+    ],
+    "must_not": [
+      "implement a comment because the reviewer or collaborator sounds authoritative",
+      "discard a useful correction only because its stated rationale is wrong",
+      "present an uninspected source claim as verified"
+    ]
+  },
+  {
+    "id": "false-sentence-relation",
+    "prompt": "Diagnose only. Two adjacent sentences use 'therefore' although the second does not follow from the first, and the next pair uses 'however' without a genuine contrast. Explain the prose defect without rewriting the passage.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "detect",
+    "must": [
+      "name the actual or missing relation between each adjacent sentence pair",
+      "state the logical prerequisites of the connectives",
+      "recommend repairing the reasoning, order, or missing proposition"
+    ],
+    "must_not": [
+      "replace one connective with another as the whole remedy",
+      "invent evidence to create a relation",
+      "rewrite the passage during detect-only work"
+    ]
+  },
+  {
+    "id": "capability-status-chain",
+    "prompt": "Review only. A general method equation permits an optional input, the reported configuration disables it, the executed benchmark never varies it, and the abstract says the study demonstrates the corresponding capability.",
+    "expected_controller": "star-writing-method",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-evidence"
+    ],
+    "must": [
+      "separate what the design permits, configuration enables, procedure executes, evaluation tests, and result establishes",
+      "trace the optional input through configuration and executed behavior",
+      "bound the manuscript claim at the furthest verified status"
+    ],
+    "must_not": [
+      "treat a general equation as evidence that the option was active",
+      "treat implemented support as evaluated capability",
+      "claim a demonstrated effect without a relevant result"
+    ]
+  },
+  {
+    "id": "visual-evidence-identity",
+    "prompt": "Plan a central figure that combines raw observations, a derived metric, scientific model outputs, a reconstruction, a conceptual schematic, and presentation-only generated artwork.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "plan",
+    "must": [
+      "assign each panel an explicit evidence identity and inferential role",
+      "record the source and transformation for measured or computed panels",
+      "visually distinguish and disclose schematics and generated illustrations"
+    ],
+    "must_not": [
+      "present generated artwork as an observation or scientific model output",
+      "treat all panels as independent empirical confirmations",
+      "leave the reconstruction or derived metric unlabeled"
+    ]
+  },
+  {
+    "id": "evaluation-label-axis",
+    "prompt": "Audit a Results paragraph that calls one benchmark OOD, robust, physical, zero-shot, real-time, and uncertainty-aware without defining any of those terms.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "treat every broad evaluation label as a claim",
+      "request the exact changed or held-out axis, operation, reference, metric, and scope needed for each label",
+      "replace unsupported labels with narrower operational descriptions"
+    ],
+    "must_not": [
+      "accept labels as self-explanatory benchmark names",
+      "infer causality or counterfactual validity from perturbation alone",
+      "call a latency result real-time without a measurement boundary and criterion"
+    ]
+  },
+  {
+    "id": "artifact-availability-tense",
+    "prompt": "Audit only. The checklist says code and data are currently available, the submission archive contains neither, and the manuscript promises release after acceptance.",
+    "expected_controller": "star-writing-submit",
+    "expected_mode": "submit",
+    "must": [
+      "distinguish current access, inclusion with submission, release upon acceptance, release after publication, and unavailability",
+      "verify the actual package or access route",
+      "require consistent status and tense across the checklist, manuscript, archive, and metadata"
+    ],
+    "must_not": [
+      "treat a future release promise as current availability",
+      "mark the package compliant without inspecting it",
+      "silently rewrite conflicting availability claims"
+    ]
+  },
+  {
+    "id": "stakeholder-decision-why-now",
+    "prompt": "Audit only. An early framing says the topic is increasingly important and immediately introduces a method, but never identifies who needs the result, what decision or scientific inquiry it supports, or what has changed to make the work timely.",
+    "expected_controller": "star-writing-frame",
+    "expected_mode": "audit",
+    "must": [
+      "recover the scenario, stakeholder or scientific audience, decision, inquiry, or use, and objective independently of the method",
+      "separate established value from prospective downstream impact",
+      "require evidence for any why-now claim or omit it when no enabling change is established"
+    ],
+    "must_not": [
+      "treat the method itself as proof that the problem matters",
+      "invent a commercial user or deployment decision for a basic-science paper",
+      "use increasing importance as a substitute for a verified enabling change"
+    ]
+  },
+  {
+    "id": "mechanism-led-literature-search",
+    "prompt": "The initial search used only the proposed method name and found no direct match. Plan a literature audit before making a novelty or priority claim.",
+    "expected_controller": "star-writing-literature",
+    "expected_mode": "audit",
+    "must": [
+      "search field taxonomies, failures and assumptions, mechanism terms, neighboring disciplines, evaluation or deployment critiques, and falsifying evidence",
+      "compare retrieved work by problem and information contract rather than keywords alone",
+      "record unresolved search directions and retrieval limits"
+    ],
+    "must_not": [
+      "declare novelty from a method-name search",
+      "treat no retrieved source as proof of absence",
+      "search only for papers that support the proposed framing"
+    ]
+  },
+  {
+    "id": "content-inclusion-before-definition",
+    "prompt": "Audit only. A technical section introduces a fully defined auxiliary function, three quantiles, and two equations that are never used again and are not needed to understand or reproduce the method.",
+    "expected_controller": "star-writing-method",
+    "expected_mode": "audit",
+    "must": [
+      "judge whether each formal object has a necessary technical or reader role before asking for more definitions",
+      "recommend the simplest operational description that preserves any necessary behavior",
+      "remove dispensable notation even when it is mathematically correct"
+    ],
+    "must_not": [
+      "retain the equations merely because every symbol can be defined",
+      "add more notation to repair an unnecessary formalism",
+      "confuse mathematical completeness with manuscript value"
+    ]
+  },
+  {
+    "id": "sequential-full-artifact-audit",
+    "prompt": "Perform a final, exhaustive review of this manuscript. Previous passes relied on keyword searches and compilation diagnostics and missed local prose, equation, and caption problems.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "must": [
+      "traverse sections, paragraphs, sentences, equations, tables, figures, captions, and references in document order",
+      "record a completion status for every applicable unit",
+      "use searches and linting only as supplements to the sequential traversal"
+    ],
+    "must_not": [
+      "claim a full audit after inspecting only search hits or selected sections",
+      "treat a clean compile as a content review",
+      "omit the unit classes or scope that were not checked"
+    ]
+  },
+  {
+    "id": "internal-boundary-versus-reader-prose",
+    "prompt": "Detect only. A Results passage repeatedly says that bands are not confidence intervals, panels do not prove gains, route values are not comparable, and a diagnostic is not an accuracy metric, although the corresponding constructs can be defined directly.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "detect",
+    "must": [
+      "separate necessary construct boundaries from internal reviewer-facing caveats",
+      "prefer positive operational definitions where they prevent the same misreading",
+      "retain a negative boundary only when its omission would materially distort the claim"
+    ],
+    "must_not": [
+      "delete a scientifically necessary limitation as mere style",
+      "leave every audit non-conclusion in the manuscript",
+      "replace defensive prose with a stronger unsupported claim"
+    ]
+  },
+  {
+    "id": "magic-number-reader-path",
+    "prompt": "Audit a setup section containing several precise totals and configuration counts that are traceable in code but appear without decomposition, source, role, or interpretive value.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "distinguish numerical traceability from reader-facing usefulness",
+      "decompose totals whose factors explain the study design and identify the source or role of fixed counts",
+      "replace or remove exact values that add neither interpretation nor promised reproducibility"
+    ],
+    "must_not": [
+      "retain a magic number solely because it can be found in a configuration file",
+      "invent a rationale for a value",
+      "remove a denominator or count needed to reconstruct a headline result"
+    ]
+  },
+  {
+    "id": "caption-source-closure",
+    "prompt": "Audit every result figure and table. Their captions describe panels but make no data-backed observation, and several annotations were copied from an older result snapshot.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "must": [
+      "trace plotted values and caption statistics to the responsible data, analysis, and plotting path",
+      "give each result-bearing visual one bounded source-verified observation",
+      "keep multi-visual synthesis in the Results text rather than overloading one caption"
+    ],
+    "must_not": [
+      "infer a quantitative caption claim from visual appearance",
+      "force an empirical conclusion into a schematic or method diagram",
+      "reuse an older caption as numerical ground truth"
+    ]
+  },
+  {
+    "id": "recompiled-after-readiness-audit",
+    "prompt": "The submission PDF passed the final audit, but another process recompiled it afterward. The path is unchanged while the hash and file size differ.",
+    "expected_controller": "star-writing-submit",
+    "expected_mode": "submit",
+    "must": [
+      "invalidate every check that depended on the previous binary",
+      "re-run rendered, size, font, metadata, and visual checks on the exact upload file",
+      "record the final path, size, hash, last affecting operation, and unresolved warnings"
+    ],
+    "must_not": [
+      "transfer readiness from the old hash to the new file",
+      "treat an unchanged filename as an unchanged artifact",
+      "declare readiness before the regenerated binary is inspected"
+    ]
+  },
+  {
+    "id": "selective-pdf-size-reduction",
+    "prompt": "A submission PDF exceeds its verified size limit. Most pages are already compliant, while three high-resolution raster objects dominate the embedded size and the remaining figures are vector or near the minimum resolution.",
+    "expected_controller": "star-writing-submit",
+    "expected_mode": "submit",
+    "must": [
+      "diagnose embedded PDF object sizes rather than ranking source assets alone",
+      "preserve vector content and selectively reduce only raster assets that materially affect the limit",
+      "revalidate page count, size, minimum resolution, fonts, metadata, and visual legibility"
+    ],
+    "must_not": [
+      "rasterize or globally recompress the whole document without diagnosis",
+      "judge success from source-image size alone",
+      "accept an output that meets the size limit by violating resolution or font requirements"
+    ]
+  },
+  {
+    "id": "anonymous-package-private-paths",
+    "prompt": "The manuscript PDF is anonymous, but plotting provenance and metric files considered for the submission archive contain private absolute paths and a user identifier.",
+    "expected_controller": "star-writing-submit",
+    "expected_mode": "submit",
+    "must": [
+      "inspect the actual archive boundary and its extracted contents rather than the PDF alone",
+      "identify private paths and user identifiers as anonymity and packaging risks",
+      "remove or sanitize only the affected metadata while preserving required reproducibility information"
+    ],
+    "must_not": [
+      "declare the package anonymous because the rendered paper is anonymous",
+      "upload the entire working directory by convenience",
+      "erase necessary provenance without a reader-safe replacement"
+    ]
+  }
+]

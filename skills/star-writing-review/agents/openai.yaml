@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Review"
+  short_description: "Audit papers as a skeptical expert reviewer"
+  default_prompt: "Use $star-writing-review to identify the strongest claims, gaps, and rejection risks."

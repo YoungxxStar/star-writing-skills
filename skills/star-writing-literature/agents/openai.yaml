@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Literature"
+  short_description: "Position claims against the closest literature"
+  default_prompt: "Use $star-writing-literature to audit the closest work and position this contribution."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Frame"
+  short_description: "Frame problems, novelty, and contributions"
+  default_prompt: "Use $star-writing-frame to audit the problem, closest alternative, and strongest defensible contribution."

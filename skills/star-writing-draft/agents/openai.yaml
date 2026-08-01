@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Draft"
+  short_description: "Draft and restructure research manuscripts"
+  default_prompt: "Use $star-writing-draft to draft or restructure this manuscript section."
