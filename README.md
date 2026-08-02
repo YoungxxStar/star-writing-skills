@@ -26,7 +26,7 @@ maintenance skill.
 | `star-writing-polish` | Meaning-preserving language improvement and translation |
 | `star-writing-review` | Purpose-specific, adversarial, and consistency review |
 | `star-writing-submit` | Live requirements, rendering or forms, identity, and packaging |
-| `star-writing-evolve` | Feedback reconstruction, authorized candidate persistence, learning-scope decisions, skill evolution, and regression validation |
+| `star-writing-evolve` | Feedback reconstruction, authorized project incubation, canonical promotion decisions, skill evolution, and regression validation |
 
 Use the paper router for work spanning several paper stages. Use a focused
 paper skill when one owner clearly controls the requested deliverable. Use
@@ -57,15 +57,18 @@ drafting. Submission is a live, target-specific audit layered onto a stable
 paper and its associated artifacts.
 
 The suite is dynamic but not self-modifying by default. Praise, correction,
-friction, failure, and self-discovered methods can become evolution candidates.
-Candidates remain task-local unless the user authorizes an identified,
-public-safe record in the development repository's
-[evolution ledger](evolution/README.md). An Evolution Candidate Ledger record
-is not an active rule and is separate from every project's Writing Ledger.
-Persistent skill behavior changes only after the episode is reconstructed, the
-lesson is placed at the narrowest valid layer, conflicts are checked, and the
-user separately authorizes the identified source update. Commit, installation,
-push, marketplace update, and release remain separate actions.
+friction, failure, and self-discovered methods are possible signals, not
+automatic updates. A review may correctly produce no evolution action.
+Candidates remain task-local unless the user authorizes either a named inactive
+record in the project's `.star-writing/evolution/` workspace or a distinct,
+public-safe record in the development repository's canonical
+[promotion ledger](evolution/README.md). Neither record is an active rule or an
+authority grant, and neither belongs to the Project Writing Ledger. Persistent
+skill behavior changes only after the episode is reconstructed, the lesson is
+placed at the narrowest valid layer, matched behavior is evaluated, conflicts
+are checked, and the user separately authorizes the identified source update.
+Commit, installation, push, marketplace update, and release remain separate
+actions.
 
 Brainstorms, thought experiments, confidence labels, and rejected alternatives
 remain in the working record. Only necessary, adequately supported content is
@@ -94,9 +97,11 @@ Mode words matter:
 - edit or revise a named file authorizes changes only within the stated scope;
 - polish preserves claims, evidence, numbers, citations, notation, and
   scientific terminology;
-- evolve writes an identified candidate record or changes active
-  skill-development source only within explicitly authorized scope; candidate
-  persistence never activates behavior, and neither action implies
+- stage writes only an identified, inactive project-local evolution record
+  within explicitly authorized scope;
+- evolve writes an identified canonical promotion record or changes active
+  skill-development source only within separately authorized scope; record
+  persistence never activates behavior, and none of these actions implies
   installation, push, publication, or paper edits.
 
 ## Install
@@ -216,9 +221,15 @@ workflow should become a reusable skill rule. Do not modify source yet.
 ```
 
 ```text
+Use $star-writing-skills:star-writing-evolve in stage mode to record this one
+project-bounded observation under the resolved project root. Do not modify the
+plugin source, commit, install, or push.
+```
+
+```text
 Use $star-writing-skills:star-writing-evolve to persist this one unresolved,
-public-safe workflow candidate in the development ledger. Do not change active
-rules, commit, install, or push.
+public-safe workflow candidate in the canonical promotion ledger. Do not change
+active rules, commit, install, or push.
 ```
 
 State the manuscript snapshot, permitted scope, locked text, concurrent
@@ -231,18 +242,28 @@ From the canonical Git development checkout, run:
 ```bash
 python3 scripts/validate_plugin_suite.py
 python3 scripts/test_candidate_validator.py
+python3 scripts/test_project_evolution_validator.py
 python3 /path/to/plugin-creator/scripts/validate_plugin.py .
 ```
 
 The bundled validator checks structure, links, portability, routing targets,
-candidate-ledger schema and privacy guardrails, and the specifications in
-`evals/cases.json`. It does not execute an agent or prove behavioral quality.
+canonical promotion-ledger schema and privacy guardrails, and the
+specifications in `evals/cases.json`. It does not execute an agent or prove
+behavioral quality.
 Candidate source-identity and revision checks require the checkout's Git
 objects; use the official plugin validator alone for a generated archive or
 staging copy. The isolated candidate regression exercises positive,
 non-activation, privacy, provenance, lifecycle, and revision cases without
-modifying the development checkout. Forward-test consequential changes in a
-clean context before release.
+modifying the development checkout. The isolated project-state regression
+checks that optional `.star-writing/evolution/` records remain scoped,
+inactive, untrusted, and isolated from unrelated project files. To validate an
+actual project workspace, pass its root explicitly:
+
+```bash
+python3 scripts/validate_project_evolution.py --project-root /absolute/project/root
+```
+
+Forward-test consequential changes in a clean context before release.
 
 When an authorized candidate reaches validated but uncommitted source, obtain
 its exact maintained-source receipt with:

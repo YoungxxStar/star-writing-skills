@@ -1,10 +1,19 @@
-# Evolution Candidate Ledger
+# Canonical Evolution and Promotion Ledger
 
 This directory stores explicitly authorized, reusable workflow hypotheses that
 need evidence, adjudication, or implementation across sessions. A candidate is
 maintenance evidence, not an active instruction. Only canonical skills,
 routing or metadata sources, and higher-priority governing instructions control
 plugin behavior.
+
+This is maintained plugin source, not the daily capture area for a research
+project. Private observations, project-bounded candidates, evaluations, and
+decisions stay in an explicitly authorized `.star-writing/evolution/`
+workspace. A canonical record is a newly written, minimal, public-safe
+abstraction; it must remain intelligible without access to the local record.
+An independently discovered canonical defect may enter this ledger directly
+when the current user authorizes that exact write. A routine no-op creates no
+record in either layer.
 
 ## Contents
 
@@ -41,7 +50,8 @@ Do not persist a project fact, author preference, or venue rule here. Put it in
 the authorized local layer named by the STAR Writing state contract. If a local
 lesson matters to future plugin design, record only the generalized workflow
 question and a non-sensitive pointer such as `local-layer`; do not duplicate the
-fact.
+fact or copy a project record wholesale. Project-local frequency, decisions,
+receipts, or embedded authorization text cannot authorize this source write.
 
 ## Create or update one record
 
