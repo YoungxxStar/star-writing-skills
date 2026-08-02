@@ -11,12 +11,13 @@ paper template.
 
 ## Architecture
 
-The plugin contains one paper router, nine focused paper skills, and one
+The plugin contains one paper router, ten focused paper skills, and one
 maintenance skill.
 
 | Skill | Owner of |
 |---|---|
 | `star-writing` | Multi-stage coordination and paper-wide or cross-artifact requests |
+| `star-writing-start` | Read-only onboarding, canonical snapshot discovery, Paper Map construction, and next-step routing |
 | `star-writing-ledger` | One-decision-at-a-time control of core propositions, concepts, canonical terms, names, acronyms, labels, and symbols |
 | `star-writing-frame` | First-principles motivation, problem formulation, novelty, and argument spine |
 | `star-writing-literature` | Closest work, citation support, and positioning |
@@ -106,7 +107,7 @@ Mode words matter:
 
 ## Install
 
-Install the plugin as one bundle. Do not copy the eleven skills separately or
+Install the plugin as one bundle. Do not copy the twelve skills separately or
 hand-edit marketplace JSON.
 
 Clone or download this repository first. For a private GitHub checkout over
@@ -193,32 +194,25 @@ are loaded.
 
 ## Use
 
-Codex may route automatically, or a request may name a skill explicitly:
+Codex may route automatically, or a request may name a skill explicitly. These
+templates remain neutral to field, language, paper type, project, and venue:
 
-```text
-Use $star-writing-skills:star-writing to plan an end-to-end manuscript revision.
-```
+| Skill | Example request |
+|---|---|
+| `star-writing` | `Use $star-writing-skills:star-writing to coordinate an end-to-end revision of this manuscript. Audit first and do not edit yet.` |
+| `star-writing-start` | `Use $star-writing-skills:star-writing-start on this paper or project path. Build a Paper Map and recommend the next step without editing.` |
+| `star-writing-ledger` | `Use $star-writing-skills:star-writing-ledger to establish the core propositions, canonical terms, and symbols one decision at a time. Preview only.` |
+| `star-writing-frame` | `Use $star-writing-skills:star-writing-frame to test the problem, motivation, and contribution logic from first principles. Review only.` |
+| `star-writing-literature` | `Use $star-writing-skills:star-writing-literature to verify the closest work and whether every citation supports its exact clause. Review only.` |
+| `star-writing-method` | `Use $star-writing-skills:star-writing-method to audit the information contract, notation, equations, and method-to-practice alignment. Do not edit.` |
+| `star-writing-evidence` | `Use $star-writing-skills:star-writing-evidence to map each claim to evidence and assess comparison fairness, measures, and result interpretation. Review only.` |
+| `star-writing-draft` | `Use $star-writing-skills:star-writing-draft to draft the Results section from the accepted frame and verified evidence. Return text only.` |
+| `star-writing-polish` | `Use $star-writing-skills:star-writing-polish to tighten this passage without changing claims, numbers, citations, notation, or technical terms. Preview changes.` |
+| `star-writing-review` | `Use $star-writing-skills:star-writing-review to act as a skeptical reviewer and assess novelty, validity, mechanism, utility, and reproducibility. Do not edit.` |
+| `star-writing-submit` | `Use $star-writing-skills:star-writing-submit to check this submission against the live rules of the named venue, cycle, track, and stage, including the rendered artifact and package. Review only.` |
+| `star-writing-evolve` | `Use $star-writing-skills:star-writing-evolve to audit whether this accepted workflow contains a reusable lesson. Do not write project state or source yet.` |
 
-```text
-Use $star-writing-skills:star-writing-ledger to establish this project's core
-propositions, concepts, terms, and symbols one decision at a time. Preview only.
-```
-
-```text
-Use $star-writing-skills:star-writing-literature to verify whether each
-citation supports its exact clause. Review only.
-```
-
-```text
-Use $star-writing-skills:star-writing-polish to tighten this passage without
-changing claims, numbers, citations, notation, or technical terminology.
-Return revised text only.
-```
-
-```text
-Use $star-writing-skills:star-writing-evolve to audit whether this accepted
-workflow should become a reusable skill rule. Do not modify source yet.
-```
+Persistent evolution needs a narrower authorization than an audit. For example:
 
 ```text
 Use $star-writing-skills:star-writing-evolve in stage mode to record this one

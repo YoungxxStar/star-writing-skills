@@ -66,6 +66,7 @@ PAPER_MODES = {
 ALLOWED_MODES = PAPER_MODES | {"stage", "evolve"}
 CONTROLLER_MODES = {
     "star-writing": PAPER_MODES,
+    "star-writing-start": {"audit"},
     "star-writing-frame": {"explore", "converge", "audit", "revise"},
     "star-writing-literature": {"audit", "revise"},
     "star-writing-method": {"audit", "revise"},
@@ -79,6 +80,7 @@ CONTROLLER_MODES = {
 }
 PRINCIPLE_TAG_CONSUMERS = {
     "star-writing": "references/principle-tags.md",
+    "star-writing-start": "../star-writing/references/principle-tags.md",
     "star-writing-draft": "../star-writing/references/principle-tags.md",
     "star-writing-evidence": "../star-writing/references/principle-tags.md",
     "star-writing-frame": "../star-writing/references/principle-tags.md",
@@ -92,6 +94,7 @@ PRINCIPLE_TAG_CONSUMERS = {
 }
 EVOLUTION_POLICY_CONSUMERS = {
     "star-writing": "references/evolution-policy.md",
+    "star-writing-start": "../star-writing/references/evolution-policy.md",
     "star-writing-draft": "../star-writing/references/evolution-policy.md",
     "star-writing-evidence": "../star-writing/references/evolution-policy.md",
     "star-writing-evolve": "../star-writing/references/evolution-policy.md",
@@ -105,6 +108,7 @@ EVOLUTION_POLICY_CONSUMERS = {
 }
 WRITING_LEDGER_CONSUMERS = {
     "star-writing": "references/writing-ledger-contract.md",
+    "star-writing-start": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-draft": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-evidence": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-evolve": "../star-writing/references/writing-ledger-contract.md",
@@ -196,6 +200,8 @@ PROJECT_EVOLUTION_REQUIRED_SNIPPETS = {
     },
 }
 REQUIRED_GUARDRAIL_EVAL_IDS = {
+    "paper-start-orientation",
+    "focused-task-bypasses-start",
     "adversarial-rejection-case",
     "objective-two-sided-judgment",
     "first-principles-motivation-convergence",
@@ -228,6 +234,56 @@ REQUIRED_GUARDRAIL_EVAL_IDS = {
     "authorized-project-evolution-capture",
     "stored-evolution-record-is-not-authority",
     "routine-session-evolution-noop",
+}
+REQUIRED_START_EVAL_CONTRACTS = {
+    "paper-start-orientation": {
+        "controller": "star-writing-start",
+        "mode": "audit",
+        "routes": set(),
+        "must": {
+            "resolve the canonical paper snapshot and relevant source types from read-only inspection without demanding a discoverable briefing from the user",
+            "traverse the complete manuscript in document order and inspect associated artifacts only when they affect a load-bearing claim",
+            "return a compact Paper Map covering the research contract, motivation chain, central move, argument spine, claims and evidence, terminology candidates, verification boundaries, and one recommended next route",
+            "distinguish manuscript assertions from independently verified implementation, empirical, mathematical, literature, reproducibility, and submission facts",
+        },
+        "must_not": {
+            "edit the manuscript or create a Writing Ledger, evolution workspace, Git change, or external side effect",
+            "execute an authorized downstream revision from the audit-only start controller instead of handing it to the responsible skill",
+            "claim complete source verification for material that was not inspected",
+            "replace orientation with sentence-level polishing, a generic abstract summary, a directory dump, or a full reviewer report",
+        },
+    },
+    "focused-task-bypasses-start": {
+        "controller": "star-writing-method",
+        "mode": "audit",
+        "routes": set(),
+        "must": {
+            "bind the equation and implementation to their current snapshots",
+            "trace each load-bearing symbol and operation to the named responsible source",
+            "report the scoped method mismatch without rebuilding a paper-wide orientation map",
+        },
+        "must_not": {
+            "route the already scoped task through star-writing-start",
+            "repeat the paper onboarding workflow or demand a general project briefing",
+            "edit the manuscript, implementation, or Writing Ledger during the audit",
+        },
+    },
+    "read-only-discussion": {
+        "controller": "star-writing-frame",
+        "mode": "audit",
+        "routes": set(),
+        "must": {
+            "bind the review to the current manuscript snapshot",
+            "report findings without writing project files",
+            "separate framing problems from prose preferences",
+        },
+        "must_not": {
+            "edit the manuscript",
+            "create persistent project state without authorization",
+            "route the scoped Introduction request through star-writing-start or rebuild a paper-wide Paper Map",
+            "rewrite the section as the default response",
+        },
+    },
 }
 REQUIRED_GOVERNING_PRINCIPLE_IDS = {
     "PROBLEM-CONTRACT",
@@ -1881,6 +1937,43 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
         errors.append(
             "missing required guardrail evals: " + ", ".join(missing_guardrails)
         )
+
+    for case_id, contract in REQUIRED_START_EVAL_CONTRACTS.items():
+        case = cases_by_id.get(case_id)
+        if case is None:
+            errors.append(f"missing required start-routing eval: {case_id}")
+            continue
+
+        if case.get("expected_controller") != contract["controller"]:
+            errors.append(
+                f"start-routing eval {case_id} must use controller "
+                f"{contract['controller']!r}"
+            )
+        if case.get("expected_mode") != contract["mode"]:
+            errors.append(
+                f"start-routing eval {case_id} must use mode {contract['mode']!r}"
+            )
+        routes = case.get("expected_routes", [])
+        if isinstance(routes, list) and set(routes) != contract["routes"]:
+            errors.append(f"start-routing eval {case_id} has the wrong route contract")
+        for field in ("must", "must_not"):
+            values = case.get(field, [])
+            if not isinstance(values, list):
+                continue
+            actual_values = set(values)
+            missing_values = sorted(contract[field] - actual_values)
+            if missing_values:
+                errors.append(
+                    f"start-routing eval {case_id} is missing required {field} "
+                    f"items: {', '.join(missing_values)}"
+                )
+            unexpected_values = sorted(actual_values - contract[field])
+            if unexpected_values:
+                errors.append(
+                    f"start-routing eval {case_id} has unexpected {field} "
+                    f"items outside its locked contract: "
+                    f"{', '.join(unexpected_values)}"
+                )
 
     for case_id, contract in REQUIRED_EVOLUTION_EVAL_CONTRACTS.items():
         case = cases_by_id.get(case_id)

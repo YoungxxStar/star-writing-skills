@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Start"
+  short_description: "Orient to a paper before deeper writing work"
+  default_prompt: "Use $star-writing-start to orient to this paper, identify its canonical snapshot and evidence boundary, and recommend the next writing step without editing."

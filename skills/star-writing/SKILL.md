@@ -1,6 +1,6 @@
 ---
 name: star-writing
-description: Route and coordinate multi-stage research-paper work across project writing-ledger decisions, framing, literature, technical methods, evidence, drafting, polishing, review, and submission. Use for end-to-end journal, conference, or workshop workflows; paper-wide planning or revision; claim-evidence alignment; or associated artifacts spanning stages. Remain language-, field-, project-, and venue-neutral. Prefer focused star-writing-* skills for narrow tasks.
+description: Route and coordinate multi-stage research-paper work across initial paper orientation, project writing-ledger decisions, framing, literature, technical methods, evidence, drafting, polishing, review, and submission. Use for end-to-end journal, conference, or workshop workflows; paper-wide planning or revision; claim-evidence alignment; or associated artifacts spanning stages. Remain language-, field-, project-, and venue-neutral. Prefer focused star-writing-* skills for narrow tasks.
 ---
 
 # STAR Writing
@@ -98,6 +98,9 @@ named-file edit does not by itself authorize ledger creation or maintenance.
 
 ## Route to the focused skill
 
+- Use `star-writing-start` to orient to a newly received or unfamiliar paper,
+  identify its canonical snapshot and relevant sources, build a compact Paper
+  Map, and recommend the next workflow without editing.
 - Use `star-writing-ledger` to establish, reconcile, or persist core
   propositions, concept boundaries, canonical names, acronyms, labels, and
   symbols one decision at a time.
@@ -145,6 +148,7 @@ Routing is not complete until the selected skill body is read. Choose one
 controller for the current stage, then load its sibling `SKILL.md` explicitly:
 
 - [frame](../star-writing-frame/SKILL.md);
+- [start](../star-writing-start/SKILL.md);
 - [ledger](../star-writing-ledger/SKILL.md);
 - [literature](../star-writing-literature/SKILL.md);
 - [method](../star-writing-method/SKILL.md);

@@ -1,5 +1,41 @@
 [
   {
+    "id": "paper-start-orientation",
+    "prompt": "Use STAR Writing Start on this unfamiliar research-paper project. I have supplied the project path but no long briefing. Find the current manuscript, understand the paper, and tell me how to proceed. Read only; do not create files or modify anything.",
+    "expected_controller": "star-writing-start",
+    "expected_mode": "audit",
+    "expected_routes": [],
+    "must": [
+      "resolve the canonical paper snapshot and relevant source types from read-only inspection without demanding a discoverable briefing from the user",
+      "traverse the complete manuscript in document order and inspect associated artifacts only when they affect a load-bearing claim",
+      "return a compact Paper Map covering the research contract, motivation chain, central move, argument spine, claims and evidence, terminology candidates, verification boundaries, and one recommended next route",
+      "distinguish manuscript assertions from independently verified implementation, empirical, mathematical, literature, reproducibility, and submission facts"
+    ],
+    "must_not": [
+      "edit the manuscript or create a Writing Ledger, evolution workspace, Git change, or external side effect",
+      "execute an authorized downstream revision from the audit-only start controller instead of handing it to the responsible skill",
+      "claim complete source verification for material that was not inspected",
+      "replace orientation with sentence-level polishing, a generic abstract summary, a directory dump, or a full reviewer report"
+    ]
+  },
+  {
+    "id": "focused-task-bypasses-start",
+    "prompt": "The paper and its accepted Writing Ledger are already understood. Audit only this one displayed Method equation against the named implementation file and report any information-boundary or notation mismatch. Do not re-onboard the project or edit files.",
+    "expected_controller": "star-writing-method",
+    "expected_mode": "audit",
+    "expected_routes": [],
+    "must": [
+      "bind the equation and implementation to their current snapshots",
+      "trace each load-bearing symbol and operation to the named responsible source",
+      "report the scoped method mismatch without rebuilding a paper-wide orientation map"
+    ],
+    "must_not": [
+      "route the already scoped task through star-writing-start",
+      "repeat the paper onboarding workflow or demand a general project briefing",
+      "edit the manuscript, implementation, or Writing Ledger during the audit"
+    ]
+  },
+  {
     "id": "read-only-discussion",
     "prompt": "Read the current Introduction and discuss its argument. Do not modify any file.",
     "expected_controller": "star-writing-frame",
@@ -12,6 +48,7 @@
     "must_not": [
       "edit the manuscript",
       "create persistent project state without authorization",
+      "route the scoped Introduction request through star-writing-start or rebuild a paper-wide Paper Map",
       "rewrite the section as the default response"
     ]
   },
