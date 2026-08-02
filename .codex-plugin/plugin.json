@@ -1,21 +1,21 @@
 {
   "name": "star-writing-skills",
-  "version": "0.5.0",
-  "description": "A general research-writing toolkit for framing, literature, technical methods, evidence, drafting, revision, review, and submission.",
+  "version": "0.7.0",
+  "description": "A general research-paper toolkit for framing, literature, methods, evidence, drafting, revision, review, and submission.",
   "author": {
     "name": "STAR"
   },
   "keywords": [
-    "research-writing",
-    "scientific-writing",
+    "research-paper-writing",
+    "scientific-paper",
     "manuscript-review",
-    "academic-writing"
+    "paper-submission"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "STAR Writing Skills",
     "shortDescription": "Build defensible research papers from idea to submission.",
-    "longDescription": "A modular, cross-disciplinary writing system for research framing, literature positioning, technical method audits, evidence design, manuscript drafting, prose polishing, skeptical review, and venue-aware submission checks.",
+    "longDescription": "A modular, cross-disciplinary research-paper system for framing, literature positioning, technical method audits, evidence design, drafting, prose polishing, purpose-specific review, and live submission checks.",
     "developerName": "STAR",
     "category": "Productivity",
     "capabilities": [

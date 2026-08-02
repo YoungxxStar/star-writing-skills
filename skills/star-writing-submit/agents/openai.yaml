@@ -1,4 +1,4 @@
 interface:
   display_name: "STAR Writing Submit"
-  short_description: "Prepare venue-compliant submission artifacts"
-  default_prompt: "Use $star-writing-submit to audit this manuscript and its submission package."
+  short_description: "Audit live research-paper submission requirements"
+  default_prompt: "Use $star-writing-submit to audit this research-paper submission against its current target-specific requirements."

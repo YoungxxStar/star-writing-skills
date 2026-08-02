@@ -20,6 +20,7 @@ several collaborators.
   account survives.
 - **Audit:** inspect and report without editing.
 - **Plan:** produce contracts, claim maps, outlines, or revision proposals.
+- **Preview:** present numbered proposed changes for approval without editing.
 - **Draft:** compose new authorized manuscript content from a stable research
   frame and evidence base.
 - **Revise:** change authorized content while preserving the scientific
@@ -30,7 +31,8 @@ several collaborators.
   inspect the package.
 
 If the user asks to “look,” “review,” “compare,” or “discuss,” default to audit.
-If a request mixes modes, state the boundary and order them deliberately.
+If the user requests approval before editing, use preview before revise, polish,
+or edit. If a request mixes modes, state the boundary and order them deliberately.
 
 ## Choose the sequence
 
@@ -73,25 +75,45 @@ Exit when the exact task snapshot and mutation boundary are known.
 State the scientific, evidential, and reader contracts. Record canonical terms
 and the closest alternative.
 
-Exit when the core claim can be stated with its scope and qualifier.
+Exit when a provisional problem, scope, and candidate claim or unresolved
+question are explicit enough to determine what should be grounded. Do not
+freeze the paper's final thesis before exploration.
 
 ### 3. Ground
 
 Resolve each important statement against its responsible source. Mark claims as
-established, supported but bounded, exploratory, provisional, or unsupported.
+`established`, `bounded`, `exploratory`, `unsupported`, `contradicted`, or
+`unresolved` using the constitution's claim-status vocabulary.
 
-Exit when all headline claims, numbers, and citations are traceable.
+Exit when the current evidence base, responsible sources, and consequential
+unknowns are explicit enough to guide exploration. Do not require an early idea
+to have final headline claims.
 
-### 4. Converge
+### 4. Explore
+
+Before convergence, use first-principles reasoning and grounded thought
+experiments when the idea space is unsettled. Generate alternatives from the
+current literature, data, and records; label speculation and investigate only
+the uncertainties that affect selection.
+
+Exit when the candidate accounts, assumptions, and discriminating questions
+are explicit. Return to Ground for only the searches, analyses, derivations, or
+implementation checks that could change their ranking.
+
+### 5. Converge
 
 Test candidate formulations, explanations, and contribution types against the
-closest alternatives and the evidence. Update the decision log with the
-previous understanding, new evidence, revised understanding, and affected
-artifacts.
+closest alternatives and the evidence. Record the previous understanding, new
+evidence, revised understanding, and affected artifacts in the current task.
+Update a persistent decision log only when the state policy and user
+authorization permit it.
 
 Exit when one bounded account survives and rejected alternatives are recorded.
+If several accounts remain live, report the discriminator instead of forcing a
+false resolution. Require every load-bearing claim selected for drafting to be
+traceable or explicitly unresolved before Structure.
 
-### 5. Structure
+### 6. Structure
 
 Build the claim–evidence map and reader sequence. Assign each section,
 paragraph, and visual an inferential role.
@@ -99,14 +121,14 @@ paragraph, and visual an inferential role.
 Exit when every major artifact advances a necessary claim and no major claim is
 orphaned.
 
-### 6. Write
+### 7. Write
 
 Draft or revise according to section contracts. Preserve distinctions among
 fact, measurement, inference, mechanism, and implication.
 
 Exit when the requested scope is scientifically complete before surface polish.
 
-### 7. Audit
+### 8. Audit
 
 Match QA to scope:
 
@@ -115,18 +137,19 @@ Match QA to scope:
   transitions;
 - story revision: add cross-section propagation and abstract–conclusion
   consistency;
-- finalization: add data, code, formula, citation, visual, and supplement
-  consistency;
-- submission: add current venue, rendering, anonymity, and package checks.
+- finalization: add data, code, formula, citation, visual, and permitted
+  supporting-artifact consistency;
+- submission: add current target rules and only the applicable rendering,
+  identity, form, and package checks.
 
-### 8. Handoff
+### 9. Handoff
 
 Report:
 
 - what was verified;
 - what changed;
 - what was intentionally preserved;
-- what remains unsupported or provisional;
+- what remains exploratory, unsupported, contradicted, or unresolved;
 - what validation was run.
 
 ## Transactional collaboration
@@ -160,7 +183,7 @@ when:
 - the design does not isolate the claimed mechanism;
 - sources conflict on a material fact;
 - a terminology change alters the scientific contract;
-- a venue rule is recalled only from memory or an old cycle;
+- a submission rule is recalled only from memory or an old cycle;
 - a concurrent edit prevents safe modification.
 
 An explicit request for an exploratory draft permits visible placeholders and

@@ -1,8 +1,19 @@
 # Content and Completion Gates
 
-Use these gates for high-stakes drafting, revision, review, or finalization.
-They apply to any research artifact, including manuscripts, appendices,
-supplementary material, figures, tables, reports, and submission packages.
+Use these gates for high-stakes drafting, revision, review, or finalization of
+papers and their appendices, supplements, figures, tables, rebuttals, review
+reports, or release packages.
+
+## Contents
+
+- [Content inclusion gate](#content-inclusion-gate)
+- [Confidence gate](#confidence-gate)
+- [Manuscript promotion gate](#manuscript-promotion-gate)
+- [Sequential completion ledger](#sequential-completion-ledger)
+- [Reader-facing boundary](#reader-facing-boundary)
+- [Numbers and notation](#numbers-and-notation)
+- [Final-artifact validity](#final-artifact-validity)
+- [Learn from corrections](#learn-from-corrections-without-overgeneralizing)
 
 ## Content inclusion gate
 
@@ -18,9 +29,8 @@ For each unit, identify at least one necessary role:
 - enable reproduction at the promised level;
 - satisfy an explicit artifact or venue obligation.
 
-If no role survives, remove the unit. If the role can be served with less
-cognitive load, simplify it without losing the scientific contract. Do not
-retain detail merely because it is correct, available, or expensive to produce.
+If no role survives, remove the unit. Otherwise minimize cognitive load without
+losing the contract. Correctness, availability, or effort alone earns no place.
 
 ## Confidence gate
 
@@ -32,8 +42,32 @@ For every factual or technical detail:
 4. omit it when it is both unverified and nonessential;
 5. expose the unresolved dependency when the central argument requires it.
 
-Do not compensate for low confidence with extra explanation. Prefer a short,
-verified operational description to a detailed but fragile reconstruction.
+Do not compensate for low confidence with extra explanation. Prefer a short, verified operational description to a detailed but fragile reconstruction.
+
+Apply the gate at sentence and paragraph level. Split clauses with different
+support. Classify each claim-bearing sentence with the constitution's claim
+status: `established`, `bounded`, `exploratory`, `unsupported`, `contradicted`,
+or `unresolved`. Assess a paragraph by its weakest load-bearing sentence. Omit
+nonessential exploratory or unsupported detail and stop on a central unresolved
+or contradicted dependency. Keep labels in the audit unless readers need the
+epistemic boundary; do not invent numerical confidence scores.
+
+## Manuscript promotion gate
+
+Keep exploratory reasoning in the working record until it passes both necessity
+and confidence checks:
+
+| Reader necessity | Confidence | Action |
+|---|---|---|
+| Necessary | Established or bounded | Retain with the required qualifier |
+| Necessary | Exploratory, unsupported, contradicted, or unresolved | Investigate, narrow, expose as unresolved, or stop |
+| Nonessential | Established or bounded | Compress or omit |
+| Nonessential | Exploratory, unsupported, contradicted, or unresolved | Omit |
+
+Do not promote raw brainstorming, thought experiments, adversarial objections,
+confidence labels, or discarded alternatives merely because they were useful
+during reasoning. Include them only when they become supported content with a
+necessary reader-facing role.
 
 ## Sequential completion ledger
 
@@ -42,10 +76,15 @@ general reread. Traverse the applicable units in document order:
 
 `section -> paragraph -> sentence -> equation -> table -> figure -> caption -> reference`
 
-Record each unit as `verified`, `revised`, `retained with reason`, `unverified`,
+Record each unit as `checked`, `revised`, `retained with reason`, `unverified`,
 or `not applicable`. Search, linting, and global consistency scans complement
 this traversal; they do not replace it. After edits, revisit every changed unit
 and its dependent uses.
+
+For a long artifact, keep a compact section-level completion summary while
+recording exceptions and changed units individually. Do not flood the author
+with a sentence-by-sentence ledger unless they request it; retain enough detail
+to substantiate the claimed traversal.
 
 ## Reader-facing boundary
 

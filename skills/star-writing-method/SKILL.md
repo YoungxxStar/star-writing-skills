@@ -1,6 +1,6 @@
 ---
 name: star-writing-method
-description: Audit or revise technical method exposition in research and scholarly manuscripts by aligning problem setup, information availability, notation, equations, procedures, diagrams, and executed or documented implementation. Use when Codex needs to verify that every symbol and operation is defined; distinguish development, selection, use, and evaluation information; map formulas or pseudocode to implementation behavior; diagnose leakage or unavailable information; simplify an overcomplicated Method section without changing the mechanism; or decide what technical detail belongs in the main paper versus supplementary material. Default to read-only audit unless the user explicitly requests edits.
+description: Audit or revise technical or methodological exposition in research papers by aligning problem setup, information availability, notation, equations, procedures, diagrams, and executed or documented practice. Use to verify symbols and operations, distinguish information by stage, map formal descriptions to implementation, diagnose unavailable information, simplify without changing the method, or allocate detail across main and permitted supporting artifacts. Default to read-only audit unless edits are requested.
 ---
 
 # STAR Writing: Technical Method
@@ -70,8 +70,13 @@ condition, descriptor, or prior.
 
 ## Audit notation and equations
 
-Build a notation ledger with symbol, meaning, type, shape, domain, unit,
-availability, and first definition.
+Build or load the project terminology and symbol ledger with symbol, meaning,
+type, shape, domain, unit, availability, responsible source, first definition,
+and dependent uses. Treat it as the canonical record for subsequent manuscript
+work. Use the
+[ledger template](../star-writing/references/terminology-and-symbols.md) and
+follow the state and authorization rules in
+[the controller policy](../star-writing/references/state-and-paths.md).
 
 Apply a value gate before a definition gate. First ask whether the equation,
 operator, auxiliary quantity, or symbol is needed to understand, evaluate, or
@@ -99,6 +104,11 @@ precise value appears.
 
 Use the simplest formalism that preserves the mechanism. Do not simplify away
 an input, constraint, qualifier, or operation required to reproduce the method.
+
+When discussing formulas interactively, follow
+[the TUI output rules](../star-writing/references/interactive-revision.md): keep
+important equations on separate lines, wrap them at logical operators, and
+define symbols close to their first displayed use.
 
 ## Audit procedures, algorithms, and implementation
 
@@ -146,9 +156,9 @@ Route result attribution, statistical identification, or metric validity to
 `star-writing-literature`. Route authorized manuscript revision to
 `star-writing-draft` after the technical contract is stable.
 
-## Allocate main and supplementary detail
+## Allocate technical detail across permitted artifacts
 
-Keep in the main paper:
+Keep in the paper:
 
 - problem and information contract;
 - core objects and notation;
@@ -156,7 +166,7 @@ Keep in the main paper:
 - assumptions needed to interpret claims;
 - enough mechanism to understand the contribution.
 
-Move to supplementary material:
+When the target permits supporting material, use it for:
 
 - exhaustive hyperparameters;
 - routine derivations;
@@ -164,8 +174,9 @@ Move to supplementary material:
 - full pseudocode and implementation tables;
 - secondary diagnostics and edge-case handling.
 
-Do not move a definition, unavailable-information disclosure, or operation
-needed to trust the central method out of the main paper.
+Do not invent supporting material or move a definition,
+unavailable-information disclosure, or operation needed to trust the central
+method out of the paper.
 
 ## Deliver the result
 
@@ -181,9 +192,13 @@ For an **audit**, return:
 For a **revision**, perform the compact audit first, then provide:
 
 1. the revised technical passage, equation, algorithm, or structure;
-2. the scientific meaning and interfaces preserved;
-3. definitions or inconsistencies corrected;
-4. unresolved code, proof, data, or evidence dependencies.
+2. one
+   [highlighted governing principle](../star-writing/references/principle-tags.md)
+   for each substantive change or coherent group, followed by its concrete
+   implementation, proof, data, or reader-facing reason;
+3. the scientific meaning and interfaces preserved;
+4. definitions or inconsistencies corrected;
+5. unresolved code, proof, data, or evidence dependencies.
 
 Do not claim that a method is understood merely because its prose compiles, its
 protocol is documented, or its implementation executes.

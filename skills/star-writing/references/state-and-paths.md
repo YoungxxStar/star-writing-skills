@@ -21,30 +21,40 @@ directory or state file.
 Use this order:
 
 1. Use the root explicitly named by the user or task.
-2. Otherwise, start from the canonical manuscript or artifact and use the
-   innermost version-control root that owns it when that root matches the
-   authorized scope.
-3. If the artifact is not version controlled, use its nearest ancestor that
-   already contains `.star-writing/`.
-4. If ownership remains ambiguous, keep state in the current task context. Ask
+2. Otherwise, use the manuscript directory when it contains the canonical
+   entrypoint and its paper-specific sources or artifacts.
+3. Otherwise, use the nearest ancestor that already contains `.star-writing/`.
+4. Otherwise, use the innermost version-control root that owns the canonical
+   artifact and matches the authorized scope.
+5. If ownership remains ambiguous, keep state in the current task context. Ask
    for a root only when persistence is materially useful.
 
 Do not infer the project root solely from the agent's launch directory. In a
-nested repository, submodule, or worktree, bind state to the innermost
-repository that owns the canonical artifact unless the user explicitly selects
-an outer project.
+nested repository, submodule, or worktree, bind manuscript-specific state to
+the paper source directory when it is a coherent unit; otherwise use the
+innermost repository that owns the canonical artifact. An explicit user choice
+overrides both.
 
 Project-local state paths are:
 
 ```text
 .star-writing/paper-contract.md
+.star-writing/terminology-and-symbols.md
 .star-writing/decision-log.md
 .star-writing/author-style-profile.md
-.star-writing/venue-overlays/<venue>-<year>-<track>.md
+.star-writing/submission-overlays/<target>-<cycle>-<category>-<stage>.md
 ```
 
-Interpret these paths relative to the resolved project root. Do not create or
-modify them without authorization.
+An existing overlay without a stage suffix may be read as a legacy source, but
+must not be reused or overwritten until its publication stage and current rules
+have been verified.
+
+Interpret these paths relative to the resolved project root. A read-only task
+never authorizes state changes. An authorized full-manuscript or multi-section
+drafting or revision task permits creation or refresh of the terminology and
+symbol ledger when it is needed to keep the requested work consistent and the
+root is unambiguous; announce that action. Require explicit authorization for
+other persistent state changes.
 
 ## Discover a cross-project author profile
 

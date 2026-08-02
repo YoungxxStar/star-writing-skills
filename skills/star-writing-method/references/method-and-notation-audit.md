@@ -47,7 +47,12 @@ Assign one or more roles:
 For every derived quantity, state its dependencies. A quantity is not available
 merely because its name sounds like metadata or context.
 
-## Object and Notation Ledger
+## Object and Notation Audit View
+
+Use this table as a task-local projection of the canonical project terminology
+and symbol ledger. Do not persist it as a competing source of truth. With
+authorization, feed accepted corrections back into the canonical ledger and
+propagate them within the permitted scope.
 
 | Symbol | Object | Type and shape | Domain or index set | Unit | Availability | First definition | Used in |
 |---|---|---|---|---|---|---|---|
@@ -117,12 +122,12 @@ Require evidence at each transition. Do not describe a possible interface,
 disabled option, unused code path, or unevaluated objective as a demonstrated
 capability.
 
-## Mechanism Status
+## Mechanism Evidence Stage
 
-| Proposed mechanism | Implemented operation | Direct identifying evidence | Status | Allowed wording |
+| Proposed mechanism | Implemented operation | Direct identifying evidence | Evidence stage | Allowed wording |
 |---|---|---|---|---|
 
-Use statuses:
+Use stage labels distinct from the canonical claim-status vocabulary:
 
 - implemented;
 - directly isolated;

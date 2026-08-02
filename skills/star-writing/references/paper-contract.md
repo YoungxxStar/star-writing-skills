@@ -10,7 +10,7 @@ as evidence unless they point to the responsible source.
 
 - [Snapshot and intent](#snapshot-and-intent)
 - [Typed source map](#typed-source-map)
-- [Scientific contract](#scientific-contract)
+- [Substantive contract](#substantive-contract)
 - [Information availability](#information-availability)
 - [Central intellectual move](#central-intellectual-move)
 - [Evidential contract](#evidential-contract)
@@ -24,6 +24,10 @@ as evidence unless they point to the responsible source.
 
 - Canonical manuscript and version:
 - Research stage:
+- Target language:
+- Paper type and intended audience:
+- Journal, conference, workshop, publisher, repository, or platform:
+- Rule-set cycle or version, paper category, and publication stage:
 - Dominant contribution type:
 - Current task mode:
 - Authorized edit scope:
@@ -41,9 +45,13 @@ as evidence unless they point to the responsible source.
 | Mathematical or theoretical statement |  |  |  |
 | Literature positioning |  |  |  |
 | Reproducibility |  |  |  |
-| Venue requirement |  |  |  |
+| Submission requirement |  |  |  |
 
-## Scientific contract
+## Substantive contract
+
+Use the field-appropriate entries below and mark an inapplicable item `not
+applicable`; do not invent an intervention, estimand, population, or failure
+mode for a paper whose research contract does not use one.
 
 - Scenario:
 - Stakeholder or scientific audience:
@@ -67,12 +75,18 @@ as evidence unless they point to the responsible source.
 
 ## Central intellectual move
 
+- What is the exact unresolved object or capability?
+- Why does resolving it matter, and what obstacle keeps it unresolved?
+- Why does this design principle answer that obstacle relative to simpler or
+  established alternatives?
 - Non-obvious obstacle:
 - Diagnosed reason:
 - Design principle or insight:
 - Why now, if material:
 - One-sentence bounded thesis:
 - Why the work matters:
+- Existing literature, data, and research records consulted:
+- Evidence that would change the current framing:
 
 ## Evidential contract
 
@@ -80,9 +94,9 @@ For each major claim, record:
 
 | Claim | Direct evidence | Warrant | Alternative explanations | Qualifier | Status |
 |---|---|---|---|---|---|
-|  |  |  |  |  | established / bounded / exploratory / provisional / unsupported |
+|  |  |  |  |  | established / bounded / exploratory / unsupported / contradicted / unresolved |
 
-Also record:
+Also record the following empirical or sampling fields when applicable:
 
 - Independent unit:
 - Split or sampling unit:
@@ -97,20 +111,25 @@ Also record:
 - First point at which each core concept is defined:
 - Argument spine:
 - Role of each major section:
-- Claims that must remain in the main paper:
-- Details delegated to supplementary material:
+- Primary deliverable and its required claims, decisions, or explanations:
+- Permitted supporting artifacts and details delegated to each:
 
 ## Terminology and notation
 
-| Referent | Canonical term or symbol | Distinguish from | First definition |
-|---|---|---|---|
-|  |  |  |  |
+- Canonical working ledger: `.star-writing/terminology-and-symbols.md`
+- Locked or externally prescribed terms:
+- Unresolved naming or notation decisions:
+
+Do not maintain a competing terminology table here. Record canonical terms,
+definitions, sources, aliases, symbols, and propagation status in the working
+ledger.
 
 ## Propagation ledger
 
 For every changed definition, result, term, or scope, check the affected title,
-abstract, introduction, methods, results, visuals, captions, conclusion,
-supplement, metadata, and release artifacts.
+abstract, introduction, methods, results, visuals, captions, and conclusion,
+plus any present or permitted supplement, rebuttal, metadata, or release
+artifact.
 
 ## Revision checksum
 

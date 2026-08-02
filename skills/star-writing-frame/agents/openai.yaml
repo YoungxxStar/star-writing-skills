@@ -1,4 +1,4 @@
 interface:
   display_name: "STAR Writing Frame"
-  short_description: "Frame problems, novelty, and contributions"
-  default_prompt: "Use $star-writing-frame to audit the problem, closest alternative, and strongest defensible contribution."
+  short_description: "Frame research papers from first principles"
+  default_prompt: "Use $star-writing-frame to establish this paper's strongest defensible problem, motivation, and contribution logic."

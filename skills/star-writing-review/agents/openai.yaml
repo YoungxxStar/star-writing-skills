@@ -1,4 +1,4 @@
 interface:
   display_name: "STAR Writing Review"
-  short_description: "Audit papers as a skeptical expert reviewer"
-  default_prompt: "Use $star-writing-review to identify the strongest claims, gaps, and rejection risks."
+  short_description: "Run purpose-specific, evidence-grounded paper reviews"
+  default_prompt: "Use $star-writing-review to perform the requested evidence-grounded paper, supplement, or rebuttal review."

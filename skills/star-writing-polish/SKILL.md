@@ -1,6 +1,6 @@
 ---
 name: star-writing-polish
-description: Detect and correct artificial, generic, overproduced, or machine-like patterns in scientific and scholarly prose while preserving the author's voice and every scientific invariant. Use when asked to polish, humanize, translate, remove AI-like writing, tighten language, improve flow, or edit manuscript prose in place. Support detect-only, rewritten-output, and in-place edit modes. Do not use for scientific review unless the user explicitly requests prose polishing.
+description: Detect and correct artificial, generic, overproduced, or machine-like patterns in research-paper prose and associated publication text while preserving authorial voice and every substantive invariant. Use to polish, humanize, translate, tighten, improve flow, preview wording changes, or edit authorized text in place across languages, fields, projects, paper types, and associated artifact types. Support detect, preview, rewrite, and edit modes. Do not use for substantive review unless explicitly requested.
 ---
 
 # STAR Writing: Polish
@@ -10,15 +10,32 @@ Improve the prose without changing the science. Treat artificial-writing signals
 ## Select the mode
 
 - **Detect:** Identify issues and explain their effect. Do not rewrite.
+- **Preview:** Show proposed changes for approval without modifying the source.
 - **Rewrite:** Return a minimally revised version of the supplied passage.
 - **Edit:** Modify the named file in place with targeted changes.
 
 Use detect mode when the user asks to review, scan, diagnose, or flag only. Use edit mode only when the user asks to change a file. Otherwise use rewrite mode.
 
+Use preview mode when the user requests interactive approval before editing.
+Read
+[the shared preview workflow](../star-writing/references/interactive-revision.md),
+mark retained context as `KEEP` and intended edits as `CHANGE`, and wait for
+approval before modifying a file.
+Use
+[the controlled highlighted principle tags](../star-writing/references/principle-tags.md)
+to explain substantive proposals and applied edits in preview, rewrite, and
+edit modes. Use one governing tag for each coherent substantive change group;
+reserve untagged summaries for purely mechanical corrections. Tags are
+author-facing rationale, not target-artifact content or evidence.
+
 A review request does not authorize polishing. Keep scientific review, structural revision, and prose polishing distinct.
 
 For translation, use rewrite or edit mode and preserve the same invariants.
 Translate the scientific relation, not the source language's surface syntax.
+Follow the target language's scholarly conventions and the target artifact's
+reader contract. Do not project English syntax, phrase-level AI diagnostics, or
+conference-paper rhetoric onto another language, paper type, or associated
+publication artifact.
 
 ## Freeze scientific invariants
 
@@ -31,6 +48,10 @@ Before changing prose, identify and preserve:
 - canonical terms, acronyms, labels, and notation;
 - comparisons, baselines, conditions, and scope;
 - paragraph function and author-approved emphasis.
+
+Load the project terminology and symbol ledger when it exists. Treat its
+canonical entries as frozen unless the user authorizes a scientific naming or
+notation change.
 
 Do not silently correct a scientific inconsistency through wording. Flag it for evidence or review work. Do not add facts, examples, citations, mechanisms, or stronger implications.
 
@@ -118,23 +139,31 @@ or reviewer-addressing prose.
 Do not make prose more persuasive by increasing claim strength. Do not trade a necessary qualifier for brevity.
 Do not launder an unsupported promotional claim into more fluent prose.
 
-## Apply exact local compression
+## Apply scoped compression
 
-When the user requests a fixed word reduction or a local shortening:
+When the user requests a fixed reduction:
 
 1. record the exact authorized span and locked neighboring text;
-2. count words using one consistent rule before editing;
-3. remove empty transitions, repeated subjects, redundant modifiers, and
+2. preserve the user's stated counting unit; otherwise choose and disclose a
+   target-language-appropriate unit such as words, characters, grapheme
+   clusters, or another established convention;
+3. count that unit consistently before editing;
+4. remove empty transitions, repeated subjects, redundant modifiers, and
    already-established context before scientific content;
-4. preserve definitions, qualifiers, comparison variables, denominators,
+5. preserve definitions, qualifiers, comparison variables, denominators,
    citation scope, antecedents, and logical bridges;
-5. recount and report the exact reduction;
-6. inspect the local diff and reject incidental changes;
-7. compile or render when the edit may change pagination, equations, references,
+6. recount and report the exact reduction in the same unit;
+7. inspect the local diff and reject incidental changes;
+8. compile or render when the edit may change pagination, equations, references,
    or layout.
 
-Do not treat a request to remove one or several words as authorization to
-rewrite the paragraph.
+Do not treat a request to remove a small number of units as authorization to
+rewrite the passage.
+
+For a qualitative request such as `shorten`, `tighten`, or `make this concise`,
+apply the same scope and semantic safeguards but do not invent an exact-count
+target. Report the counting unit only when the user or submission requirement
+makes it consequential.
 
 ## Verify the revision
 
@@ -161,12 +190,22 @@ Return:
 
 Separate clear problems from judgment calls.
 
+### Preview
+
+Return numbered `KEEP`, `CHANGE`, and, when necessary, `DECIDE` items with the
+current span, proposed replacement, highlighted governing principle, concrete
+reason and source, and preserved scientific invariants. Do not edit the source
+until the user approves the item numbers.
+
 ### Rewrite
 
-Return the revised passage. Add only a compact change summary and any unresolved
-claim-bearing phrase that prevented the requested tone. Label any
-meaning-changing alternative explicitly.
+Return the revised passage. Add only a compact change summary with the governing
+principle for each substantive change group and any unresolved claim-bearing
+phrase that prevented the requested tone. Label any meaning-changing
+alternative explicitly, and keep every tag outside the revised passage.
 
 ### Edit
 
-Apply targeted changes, reread the edited context, inspect the diff, and report the touched locations and preserved boundaries. Do not paste the full file unless requested.
+Apply targeted changes, reread the edited context, inspect the diff, and report
+the touched locations, highlighted governing principles, and preserved
+boundaries. Do not paste the full file unless requested.

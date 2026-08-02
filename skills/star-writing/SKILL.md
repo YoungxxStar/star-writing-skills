@@ -1,20 +1,24 @@
 ---
 name: star-writing
-description: Route and coordinate multi-stage research-writing work across framing, literature, technical methods, evidence, drafting, polishing, review, and submission. Use for end-to-end paper workflows, paper-wide planning or revision, claim-evidence alignment across sections, or ambiguous manuscript requests that span more than one writing stage. Prefer the focused star-writing-* skills for narrow single-stage tasks.
+description: Route and coordinate multi-stage research-paper work across framing, literature, technical methods, evidence, drafting, polishing, review, and submission. Use for end-to-end journal, conference, or workshop paper workflows; paper-wide planning or revision; claim-evidence alignment; or associated supplements, rebuttals, and release artifacts spanning stages. Remain language-, field-, project-, and venue-neutral. Prefer focused star-writing-* skills for narrow tasks.
 ---
 
 # STAR Writing
 
-Build a research paper as a bounded, auditable argument. Coordinate the focused
-skills without turning the workflow into a fixed prose template.
+Build a research paper and its associated publication artifacts as a bounded,
+auditable argument. Coordinate the focused skills without turning the workflow
+into a fixed prose template.
 
 ## Start with the task contract
 
-Before reading or editing, establish:
+Before substantive analysis or any edit, establish through supplied context and
+read-only inspection:
 
-- the requested mode: explore, converge, audit, plan, draft, revise, polish, or
-  submit;
+- the requested mode: explore, converge, audit, plan, preview, draft, revise,
+  polish, or submit;
 - the current manuscript or artifact snapshot;
+- the paper or associated artifact type, audience, language, discipline, and venue
+  constraints that materially affect form;
 - the permitted scope and whether edits are authorized;
 - locked content and concurrent writers;
 - the research stage and whether evidence is provisional or final.
@@ -26,6 +30,10 @@ For paper-wide or high-stakes work, read
 [constitution.md](references/constitution.md). Create or refresh the working
 record from [paper-contract.md](references/paper-contract.md) when facts,
 terminology, evidence, or multiple collaborators can drift.
+Use
+[terminology-and-symbols.md](references/terminology-and-symbols.md) as the
+working ledger template when names or notation span several sections,
+artifacts, or collaborators.
 Use [decision-log.md](references/decision-log.md) when new evidence changes a
 material interpretation, term, claim, comparison, or artifact.
 For full-artifact revision, exhaustive review, or finalization, read
@@ -47,8 +55,11 @@ authorization, copy working state to paths relative to the resolved project
 root:
 
 - `.star-writing/paper-contract.md` for project facts and locks;
+- `.star-writing/terminology-and-symbols.md` for canonical names, definitions,
+  acronyms, and notation;
 - `.star-writing/decision-log.md` for changed interpretations;
-- `.star-writing/venue-overlays/<venue>-<year>-<track>.md` for expiring rules;
+- `.star-writing/submission-overlays/<target>-<cycle>-<category>-<stage>.md` for
+  expiring submission rules;
 - `.star-writing/author-style-profile.md` for project-specific writing
   preferences.
 
@@ -60,6 +71,12 @@ agent's launch directory as the project root merely because it is convenient.
 Without authorization to create state files, maintain the same information in
 the current task context.
 
+For an authorized full-manuscript or multi-section drafting or revision task,
+create or refresh the terminology and symbol ledger when the project root is
+unambiguous, and tell the user that this support artifact is being used. For a
+local edit, use an existing ledger or keep new entries in the task context. A
+named-file edit does not by itself authorize creation of another support file.
+
 ## Route to the focused skill
 
 - Use `star-writing-frame` for the research problem, central insight, novelty,
@@ -70,14 +87,14 @@ the current task context.
   notation, equations, algorithms, implementation alignment, or technical
   method exposition.
 - Use `star-writing-evidence` for experiments, metrics, statistics, results,
-  figures, tables, or main–supplement evidence design.
+  figures, tables, or primary/supporting evidence design.
 - Use `star-writing-draft` to compose or restructure sections and complete
   manuscripts.
 - Use `star-writing-polish` for precise, concise, natural wording or
   translation without scientific change.
 - Use `star-writing-review` for skeptical pre-submission review, consistency
   audit, or rejection-risk analysis.
-- Use `star-writing-submit` for current venue rules, formatting, anonymization,
+- Use `star-writing-submit` for current target rules, formatting, identity,
   artifacts, reproducibility, or package checks.
 
 When a request asks whether a section or paper is defensible overall, let
@@ -90,6 +107,15 @@ strengthen the story.
 Read [workflow-and-routing.md](references/workflow-and-routing.md) when the
 request spans skills, the proper order is unclear, or collaborators are editing
 in parallel.
+
+Read [interactive-revision.md](references/interactive-revision.md) when the
+user wants a TUI-style change preview, approval before file edits, or legible
+interactive presentation of technical formulas.
+
+Read [principle-tags.md](references/principle-tags.md) whenever proposing or
+reporting substantive target-artifact changes. Highlight the governing
+principle in the author-facing rationale while keeping the tag outside the
+target artifact and separate from the evidence for the change.
 
 ### Load the selected workflow
 
@@ -113,36 +139,47 @@ owns the current judgment and deliverable.
 ## Run the research-to-paper gates
 
 Skip gates already satisfied and revisit any gate invalidated by new evidence.
+Treat Ground, Explore, and Converge as a loop rather than a waterfall. A new
+hypothesis or rival explanation should name the uncertainty that matters, then
+trigger only the literature, data, derivation, implementation, or experiment
+check needed to resolve it.
 
 1. **Orient.** Bind the task to the current files, evidence, mode, and edit
    boundary.
 2. **Contract.** State the research object, available information, assumptions,
-   output, scope, closest alternative, and central claim.
+   output, scope, closest alternative, and current candidate claim or unresolved
+   question.
 3. **Ground.** Trace implementation facts, empirical results, mathematics,
    literature claims, and submission rules to the source responsible for each.
-4. **Converge.** Compare candidate formulations, explanations, and contribution
+4. **Explore.** Use first-principles reasoning, grounded brainstorming, and
+   thought experiments to generate alternatives without presenting them as
+   established facts.
+5. **Converge.** Compare candidate formulations, explanations, and contribution
    types against the closest work and available evidence. Record why rejected
    alternatives were rejected.
-5. **Structure.** Build the claim–evidence map and reader-facing argument before
+6. **Structure.** Build the claim–evidence map and reader-facing argument before
    optimizing sentences.
-6. **Write.** Draft each unit for a defined inferential role; preserve
+7. **Write.** Draft each unit for a defined inferential role; preserve
    uncertainty and boundaries.
-7. **Audit.** Apply QA proportional to the edit: local, section, story,
+8. **Audit.** Apply QA proportional to the edit: local, section, story,
    finalization, or submission. For a claimed full audit, traverse every
    applicable content unit in document order and record completion.
-8. **Handoff.** Report what was confirmed, what changed, what remains
+9. **Handoff.** Report what was confirmed, what changed, what remains
    unestablished, and what was verified.
 
 ## Enforce cross-stage constraints
 
 - Do not write a stronger story than the evidence identifies.
+- Apply the same evidential standard to supporting and adverse findings. Do not
+  act as the paper's advocate or as a performatively hostile reviewer.
 - Do not treat a metric name as proof of the construct it is meant to measure.
 - Do not present novelty, validity, mechanism, and utility as interchangeable.
 - Name every claimed axis of generality and every relevant boundary.
 - Treat visuals derived from the same underlying results as complementary views,
   not independent confirmations.
-- Keep the main paper scientifically complete; use supplementary material for
-  depth, reproducibility, and secondary evidence.
+- When the target defines primary and supporting artifacts, keep the primary
+  artifact complete for its required central argument and use supporting
+  artifacts only for permitted depth, reproduction, or secondary evidence.
 - Make every retained content unit serve a necessary reader, evidence,
   technical, reproduction, or artifact role. Correctness alone does not earn
   inclusion.
@@ -150,10 +187,20 @@ Skip gates already satisfied and revisit any gate invalidated by new evidence.
   content into apparent authority.
 - Keep internal audit caveats separate from reader-facing prose unless they
   prevent a material misinterpretation.
+- Do not paste brainstorming, thought experiments, confidence labels, rejected
+  alternatives, or reviewer dialogue into the target artifact. Promote only
+  content that passes the evidence, necessity, and reader-role gates.
+- Adapt organization and prose to the target language, discipline, audience,
+  paper type, and venue. Do not impose English-language habits, one field's
+  section sequence, or a main/supplement split when the target does not use them.
 - Propagate changes to core definitions, terminology, numbers, and claims across
   all dependent sections and artifacts.
 - Bind final readiness to the exact artifact hash. Regeneration invalidates
   binary-dependent checks.
+- Explain substantive proposed or applied changes with the controlled,
+  highlighted principle tags. Use one governing principle per item and at most
+  one secondary governing principle or reasoning lens. Never let a tag replace
+  source-grounded reasoning.
 
 Stop prose work and investigate, narrow the claim, or request a decision when
 the current snapshot is unknown, a headline result is untraceable, a citation

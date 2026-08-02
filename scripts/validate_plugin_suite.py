@@ -48,12 +48,96 @@ ALLOWED_MODES = {
     "audit",
     "detect",
     "plan",
+    "preview",
     "draft",
     "revise",
     "polish",
     "rewrite",
     "edit",
     "submit",
+}
+CONTROLLER_MODES = {
+    "star-writing": ALLOWED_MODES,
+    "star-writing-frame": {"explore", "converge", "audit", "revise"},
+    "star-writing-literature": {"audit", "revise"},
+    "star-writing-method": {"audit", "revise"},
+    "star-writing-evidence": {"audit", "plan"},
+    "star-writing-draft": {"plan", "draft", "revise"},
+    "star-writing-polish": {"detect", "preview", "rewrite", "edit"},
+    "star-writing-review": {"audit"},
+    "star-writing-submit": {"submit"},
+}
+PRINCIPLE_TAG_CONSUMERS = {
+    "star-writing": "references/principle-tags.md",
+    "star-writing-draft": "../star-writing/references/principle-tags.md",
+    "star-writing-evidence": "../star-writing/references/principle-tags.md",
+    "star-writing-frame": "../star-writing/references/principle-tags.md",
+    "star-writing-literature": "../star-writing/references/principle-tags.md",
+    "star-writing-method": "../star-writing/references/principle-tags.md",
+    "star-writing-polish": "../star-writing/references/principle-tags.md",
+    "star-writing-review": "../star-writing/references/principle-tags.md",
+    "star-writing-submit": "../star-writing/references/principle-tags.md",
+}
+REQUIRED_GUARDRAIL_EVAL_IDS = {
+    "adversarial-rejection-case",
+    "objective-two-sided-judgment",
+    "first-principles-motivation-convergence",
+    "research-grounded-terminology-ledger",
+    "approval-gated-tui-revision",
+    "sentence-paragraph-confidence-gate",
+    "exploration-to-manuscript-promotion",
+    "highlighted-principle-rationale",
+    "non-english-polish-no-translation",
+    "paper-no-forced-supporting-artifact",
+    "rebuttal-review-no-rejection-template",
+    "paper-submission-applicability-gate",
+    "qualitative-non-english-shortening",
+}
+REQUIRED_GOVERNING_PRINCIPLE_IDS = {
+    "PROBLEM-CONTRACT",
+    "CONTRACT-ALIGNMENT",
+    "RESPONSIBLE-SOURCE",
+    "PROPOSITION-SUPPORT",
+    "RELATIONAL-NOVELTY",
+    "SYMMETRIC-JUDGMENT",
+    "CONTEXT-LAYERS",
+    "WORKFLOW-DEPENDENCY",
+    "INFORMATION-BOUNDARY",
+    "RECONSTRUCTABLE-METHOD",
+    "CAPABILITY-STAGE",
+    "INFERENCE-LAYER",
+    "IDENTIFICATION-CEILING",
+    "COMPARISON-PARITY",
+    "STATISTICAL-CONTRACT",
+    "OPERATIONAL-SEMANTICS",
+    "GENERALITY-AXES",
+    "DECISION-TIMING",
+    "REPRODUCTION-LEVEL",
+    "SUPPORT-GATE",
+    "CONTENT-NECESSITY",
+    "INFERENTIAL-ORDER",
+    "CORE-COMPLETENESS",
+    "TERM-STABILITY",
+    "RECOVERABLE-COMPRESSION",
+    "SEMANTIC-PRESERVATION",
+    "ARTIFACT-FIT",
+    "ACCESSIBLE-ENCODING",
+    "AUTHORIZED-SCOPE",
+    "CURRENT-INTENT",
+    "DEPENDENCY-PROPAGATION",
+    "ARTIFACT-IDENTITY",
+    "AUDIT-COVERAGE",
+    "LIVE-REQUIREMENTS",
+}
+REQUIRED_REASONING_LENS_IDS = {
+    "CURRENT-EVIDENCE-FIRST",
+    "FIRST-PRINCIPLES",
+    "MOTIVATION-AS-STORY",
+    "DIVERGENT-THINKING",
+    "SELF-CORRECTION",
+    "ADVERSARIAL-REVIEW",
+    "CONFIDENCE-GATE",
+    "LESS-BUT-CORRECT",
 }
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 PORTABLE_TEXT_SUFFIXES = {".json", ".md", ".py", ".txt", ".yaml", ".yml"}
@@ -199,6 +283,29 @@ def validate_skills(errors: list[str]) -> set[str]:
     return names
 
 
+def validate_cross_skill_contracts(errors: list[str]) -> None:
+    for skill_name, expected_link in PRINCIPLE_TAG_CONSUMERS.items():
+        skill_file = SKILLS_DIR / skill_name / "SKILL.md"
+        if not skill_file.is_file():
+            continue
+        if expected_link not in skill_file.read_text(encoding="utf-8"):
+            errors.append(
+                f"{skill_name} does not consume the shared principle-tag contract"
+            )
+
+    registry = SKILLS_DIR / "star-writing" / "references" / "principle-tags.md"
+    if not registry.is_file():
+        errors.append("missing shared principle registry")
+        return
+
+    registry_text = registry.read_text(encoding="utf-8")
+    for identifier in sorted(
+        REQUIRED_GOVERNING_PRINCIPLE_IDS | REQUIRED_REASONING_LENS_IDS
+    ):
+        if f"`{identifier}`" not in registry_text:
+            errors.append(f"principle registry is missing `{identifier}`")
+
+
 def validate_reference_structure(errors: list[str]) -> None:
     for path in sorted(SKILLS_DIR.glob("*/references/**/*")):
         if not path.is_file():
@@ -300,6 +407,11 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
         mode = case.get("expected_mode")
         if mode not in ALLOWED_MODES:
             errors.append(f"{label} has unsupported mode: {mode!r}")
+        elif controller in CONTROLLER_MODES and mode not in CONTROLLER_MODES[controller]:
+            errors.append(
+                f"{label} uses mode {mode!r}, which controller {controller!r} "
+                "does not support"
+            )
 
         routes = case.get("expected_routes", [])
         if not isinstance(routes, list):
@@ -330,6 +442,12 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
                     f"{', '.join(overlap)}"
                 )
 
+    missing_guardrails = sorted(REQUIRED_GUARDRAIL_EVAL_IDS - seen_ids)
+    if missing_guardrails:
+        errors.append(
+            "missing required guardrail evals: " + ", ".join(missing_guardrails)
+        )
+
     return len(cases)
 
 
@@ -337,6 +455,7 @@ def main() -> int:
     errors: list[str] = []
     validate_manifest(errors)
     skill_names = validate_skills(errors)
+    validate_cross_skill_contracts(errors)
     validate_reference_structure(errors)
     validate_markdown_links(errors)
     validate_path_portability(errors)

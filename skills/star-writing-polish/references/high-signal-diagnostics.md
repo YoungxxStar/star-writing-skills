@@ -1,6 +1,10 @@
 # High-signal prose diagnostics
 
-Use these patterns as prompts for judgment. Diagnose their function in context before changing them.
+Use these patterns as prompts for judgment. Diagnose their function in context
+before changing them. Quoted English forms are examples only; for another
+language, inspect the same discourse function under that language's scholarly
+conventions rather than translating the text and applying an English phrase
+list.
 
 ## Contents
 

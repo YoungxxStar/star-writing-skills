@@ -1,6 +1,23 @@
 # Skeptical scientific review rubric
 
-Use only the sections relevant to the manuscript.
+Use only the sections relevant to the paper and review purpose. Mark an
+inapplicable dimension `not applicable`; do not create a criticism merely to
+fill the rubric.
+
+## Contents
+
+- [External feedback triage](#external-feedback-triage)
+- [Central argument](#central-argument)
+- [Adversarial rejection case](#adversarial-rejection-case)
+- [Novelty](#novelty)
+- [Validity](#validity)
+- [Mechanism](#mechanism)
+- [Utility and significance](#utility-and-significance)
+- [Figures and tables](#figures-and-tables)
+- [Paper and supporting material](#paper-and-supporting-material)
+- [Rebuttal or revision response](#rebuttal-or-revision-response)
+- [Global propagation](#global-propagation)
+- [Wording-only versus evidence-required](#wording-only-versus-evidence-required)
 
 ## External feedback triage
 
@@ -20,6 +37,18 @@ an incorrect reason, or identify a real risk while proposing the wrong remedy.
 - Does the proposed contribution answer the stated obstacle?
 - Does each contribution have distinct evidence?
 - Does the conclusion close the same argument opened in the introduction?
+
+## Adversarial rejection case
+
+- What is the strongest version of the paper that the evidence supports?
+- How does the contribution read when method names and promotional language are
+  removed?
+- What is the strongest one-sentence rejection rationale with a verifiable
+  factual premise?
+- What simpler explanation could produce the same observation?
+- What existing design feature or result most strongly answers that objection?
+- Does the surviving issue invalidate, narrow, or merely obscure the claim?
+- Is the repair new evidence, bounded wording, clearer reporting, or no action?
 
 ## Novelty
 
@@ -63,12 +92,24 @@ an incorrect reason, or identify a real risk while proposing the wrong remedy.
 - Does the caption state conditions without making claims beyond the visual?
 - Is essential information accessible without color?
 
-## Main and supplementary material
+## Paper and supporting material
 
 - Can a reader assess every central claim from the main manuscript?
-- Does supplementary material provide depth rather than duplication?
-- Are complete derivations, protocols, extended diagnostics, and reproduction details discoverable?
-- Do main and supplementary documents use the same definitions, symbols, and result versions?
+- When supporting material is permitted, does it provide depth rather than
+  carrying a hidden premise or merely duplicating the paper?
+- When the paper promises them, are complete derivations, protocols, extended
+  diagnostics, and reproduction details discoverable in a permitted location?
+- When both exist, do the paper and supporting material use the same
+  definitions, symbols, and result versions?
+
+## Rebuttal or revision response
+
+- Is every material comment mapped to a response and, where claimed, a current
+  manuscript change?
+- Does each response address the verified premise rather than a weaker version
+  of the comment?
+- Are evidence, clarification, new analysis, and disagreement distinguished?
+- Are unresolved points stated instead of hidden by confident prose?
 
 ## Global propagation
 

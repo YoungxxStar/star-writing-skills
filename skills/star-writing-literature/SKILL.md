@@ -1,6 +1,6 @@
 ---
 name: star-writing-literature
-description: Audit or revise literature positioning, Related Work, novelty claims, and citation support for research and scholarly manuscripts. Use when Codex needs to identify or compare closest work, verify whether citations support exact clauses, distinguish papers by problem, information, assumptions, outputs, mechanisms, and evidence, organize a literature synthesis, or test a contribution adversarially against prior art. Default to analysis without editing unless the user explicitly requests revision.
+description: Audit or revise literature positioning, Related Work, novelty claims, and citation support in research papers across fields. Use to identify or compare closest work, verify whether citations support exact propositions, distinguish sources by problem, information, assumptions, outputs, mechanisms, and evidence, organize a synthesis, or test a contribution against prior art. Default to analysis unless revision is explicitly requested.
 ---
 
 # STAR Writing: Literature Positioning and Citation Audit
@@ -69,6 +69,22 @@ State the exact surviving difference. Distinguish novelty of problem, mechanism,
 
 Learn conceptual and rhetorical moves from sources, not distinctive wording.
 
+## Verify terminology
+
+When a term determines the problem, novelty, method, or claimed scope, verify
+its established meaning rather than choosing it for rhetorical force. Prefer
+field standards, authoritative definitions, canonical literature, and primary
+sources. For a new, ambiguous, or cross-field term, also check an applicable
+and sufficiently mature Wikipedia page, when useful, for common usage, aliases,
+neighboring terms, and source trails; follow the responsible references for
+consequential technical claims. Record
+the accepted term, definition, source, distinctions, and deprecated aliases in
+the current task. Update the
+[project terminology ledger](../star-writing/references/terminology-and-symbols.md)
+only when the state policy and user authorization permit it.
+Do not coin a new label when an established term already matches the same
+object and contract.
+
 ## Synthesize Rather Than List
 
 Organize Related Work around questions needed to locate the contribution:
@@ -91,7 +107,10 @@ For a **revision**, perform the audit first, then provide:
 
 1. revised literature or positioning text;
 2. clause-level citation placement;
-3. a short account of corrected comparisons and narrowed or strengthened claims;
+3. a short account of corrected comparisons and narrowed or strengthened
+   claims, each substantive change labeled with
+   [a highlighted governing principle](../star-writing/references/principle-tags.md)
+   and supported by a separately stated source or reason;
 4. unresolved source or bibliography issues.
 
 Never invent citation keys, bibliographic facts, paper contents, or claims of priority.

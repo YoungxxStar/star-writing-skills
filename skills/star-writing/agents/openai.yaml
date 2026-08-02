@@ -1,4 +1,4 @@
 interface:
   display_name: "STAR Writing"
-  short_description: "Route complete research writing workflows"
-  default_prompt: "Use $star-writing to diagnose and route this research-writing task, then produce the requested audit, plan, or revision."
+  short_description: "Route end-to-end research-paper workflows"
+  default_prompt: "Use $star-writing to coordinate this research-paper task across the required stages."

@@ -1,11 +1,21 @@
 ---
 name: star-writing-evidence
-description: Design, audit, and align evidence for research and scholarly manuscripts by tracing claims to claim-specific sources, testing identification strength, checking statistical units and independence, validating metrics and constructs, challenging alternative explanations, and aligning experiments, results, figures, tables, and supplementary material. Use for claim-evidence mapping, study or experiment design, result interpretation, study-to-prose alignment, quantitative or qualitative evidence review, fairness checks, or deciding what a manuscript can defensibly claim.
+description: Design, audit, and align evidence for research papers by tracing claims to claim-specific sources, testing identification strength, checking units and dependence, validating measures and constructs, challenging alternatives, and aligning studies, analyses, results, and visuals. Use for claim-evidence mapping, study design, result interpretation, quantitative or qualitative review, comparison fairness, or deciding what a paper can defensibly establish across fields and projects.
 ---
 
 # STAR Writing: Evidence
 
 Treat a manuscript as a bounded, auditable argument. Determine what each source can establish before improving the prose.
+
+## Set the mode
+
+- Use **audit** by default to inspect evidence, results, metrics, statistics,
+  visuals, or claim support without modifying source artifacts.
+- Use **plan** to design an experiment, analysis, metric, evidence package, or
+  visual contract. Mark planned evidence as unevaluated until it is executed and
+  verified.
+- Evidence work may recommend defensible wording, but manuscript drafting or
+  file revision remains with `star-writing-draft` unless separately authorized.
 
 ## Set the audit boundary
 
@@ -29,7 +39,7 @@ Assign every material claim a type and inspect the source appropriate to that ty
 
 Do not impose a universal source hierarchy. A source is authoritative only for the kind of fact it records.
 
-Create a ledger with:
+Create a task-local claim-evidence ledger with:
 
 | Field | Required content |
 |---|---|
@@ -38,7 +48,17 @@ Create a ledger with:
 | Evidence | File, result, derivation, source, or artifact |
 | Inference | Why the evidence supports the claim |
 | Scope | Population, conditions, assumptions, and exclusions |
-| Status | Supported, qualified, provisional, unsupported, or contradicted |
+| Claim status | Established, bounded, exploratory, unsupported, contradicted, or unresolved |
+
+Keep this ledger in the current task unless the user authorizes a persistent
+artifact and its location. It is not a second source of truth; its entries point
+to the responsible evidence.
+
+Load the
+[project terminology and symbol ledger](../star-writing/references/terminology-and-symbols.md)
+when it exists. Use its canonical metric, condition, population, baseline, and
+result labels across analyses, tables, figures, captions, and prose; do not
+create stylistic aliases.
 
 Read [claim-evidence-matrix.md](references/claim-evidence-matrix.md) when auditing major claims or designing missing evidence.
 
@@ -76,7 +96,7 @@ For capability claims, audit the complete status chain:
 `design permits -> configuration enables -> procedure executes -> evaluation tests -> result establishes`
 
 Evidence for an earlier status does not establish a later one. Report the
-furthest verified status and word the claim at that level.
+furthest established stage and word the claim at that level.
 
 ## Match claim strength to identification
 
@@ -91,6 +111,12 @@ Ask what competing explanation could also produce the result. Check, as applicab
 - unmeasured confounding or uncontrolled environmental differences.
 
 If the design does not distinguish the intended explanation, request a relevant control or narrow the wording. Do not attribute a whole-system comparison to an individual component without component-identifying evidence.
+
+Apply this standard symmetrically. Search for disconfirming evidence and rival
+explanations, but do not treat every conceivable rival as equally plausible.
+When the design excludes a rival, say so and retain the strongest supported
+conclusion. Missing evidence leaves an issue unresolved; it does not by itself
+make the claim false.
 
 ## Audit statistical units and independence
 
@@ -188,11 +214,15 @@ Read
 before designing a central visual, combining panels, selecting representative
 examples, or changing an established figure's comparison.
 
-## Divide main and supplementary evidence
+## Allocate evidence when supporting material exists
 
-Keep the central definitions and evidence needed to believe the main claims in the main manuscript. Use supplementary material for full derivations, implementation and protocol detail, extended diagnostics, additional cases, and secondary robustness evidence.
+Keep the central definitions and evidence needed to assess the main claims in
+the paper. When the target permits supporting material, use it for full
+derivations, implementation and protocol detail, extended diagnostics,
+additional cases, and secondary robustness evidence.
 
-Do not use supplementary material as an archive, duplicate the same evidential role, or hide a central weakness outside the main argument.
+Do not invent supporting material, use it as an archive, duplicate the same
+evidential role, or hide a central weakness outside the paper's argument.
 
 ## Deliver the audit
 
@@ -205,3 +235,8 @@ Return:
 5. missing evidence ranked by its effect on the central argument;
 6. defensible wording when new evidence is unavailable;
 7. items not verified and why.
+
+Label each substantive wording recommendation with
+[one highlighted governing principle](../star-writing/references/principle-tags.md),
+then state its evidence and boundary separately. Keep tags outside the target
+artifact and do not use them as support for a claim.

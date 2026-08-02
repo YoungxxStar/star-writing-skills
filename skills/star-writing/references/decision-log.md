@@ -17,6 +17,7 @@ New evidence or constraint:
 Alternatives considered:
 Revised understanding:
 Reason for the decision:
+Governing principle tag(s):
 
 Claims affected:
 Terms or symbols affected:

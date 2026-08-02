@@ -1,19 +1,38 @@
 ---
 name: star-writing-draft
-description: Draft or rebuild research and scholarly manuscript sections, full papers, and main-to-supplement evidence structures from an established research frame and evidence base. Use when asked to write, rewrite, restructure, outline, or extend manuscript prose; convert claims and evidence into a section; adapt an argument to a paper type; or decide what belongs in the main text versus supplementary material. Do not use for prose-only polishing or review without drafting.
+description: Draft or rebuild research papers and associated publication artifacts from an established frame and evidence base. Use for journal, conference, or workshop papers and sections; outlines; structural rewrites; supplements or appendices; rebuttals; and evidence allocation across primary and supporting artifacts. Remain language-, field-, project-, and venue-neutral. Do not use for prose-only polishing or review without drafting.
 ---
 
 # STAR Writing: Draft
 
 Draft from the research argument, not from a preferred rhetorical template. Make the requested section change what the reader knows, understands, or accepts.
 
+## Set the mode
+
+- Use **plan** for an outline, section contract, argument spine, or
+  primary/supporting-material allocation without manuscript prose or file edits.
+- Use **draft** to compose a new authorized section or artifact when no current
+  source passage is being modified.
+- Use **revise** to restructure or rewrite existing authorized manuscript
+  content.
+- A request to review, assess, or discuss remains read-only and should route to
+  the appropriate audit skill rather than silently becoming a draft.
+
 ## Establish the drafting boundary
 
 1. Read the current manuscript, paper contract, evidence map, author instructions, and relevant neighboring sections.
-2. Confirm the requested operation: outline, new draft, local rewrite, section rebuild, full-paper restructuring, or main/supplement planning.
+2. Confirm the requested operation: outline, new draft, local rewrite, section
+   rebuild, full-paper restructuring, or primary/supporting-artifact planning.
 3. Preserve locked content, verified terminology, mathematical meaning, numbers, citations, and author edits.
 4. Treat unresolved facts as blockers or visible placeholders. Do not invent evidence, citations, results, or method details.
 5. Treat review as review. Do not rewrite when the user asks only for assessment.
+
+Load the existing `.star-writing/terminology-and-symbols.md` before drafting.
+For authorized full-manuscript or multi-section work, create or refresh it when
+needed from the
+[ledger template](../star-writing/references/terminology-and-symbols.md) under
+the [shared state policy](../star-writing/references/state-and-paths.md). Use its
+canonical terms and symbols throughout the draft.
 
 ## Define the section contract
 
@@ -31,12 +50,23 @@ Read [references/section-contracts.md](references/section-contracts.md) when dra
 
 ## Build the argument spine
 
+Draft from the converged claim and evidence record, not directly from raw
+brainstorms, thought experiments, reviewer dialogue, or internal confidence
+labels. Promote an exploratory proposition only after its support, boundary,
+and reader-facing role are established.
+
 1. Write the section's governing question.
 2. List the propositions needed to answer it.
 3. Order propositions by dependency, not by chronology of the research or convenience of available prose.
 4. Attach evidence or reasoning to each proposition.
 5. Remove any proposition that does not advance the section contract.
 6. Mark every unsupported bridge, alternative explanation, and scope boundary.
+
+Let motivation determine the story: establish what matters, why the current
+state cannot resolve it, what property is therefore required, why the selected
+principle supplies that property, and which evidence closes the claim. Do not
+substitute chronology, method inventory, or rhetorical suspense for this
+reasoning.
 
 Before drafting or retaining a unit, apply a content inclusion gate. Keep a
 section, paragraph, sentence, equation, visual, or attachment only when it
@@ -61,18 +91,25 @@ For each paragraph, specify:
 
 Make dependencies visible. If paragraphs can be rearranged without changing the argument, either use an explicit list or strengthen the progression.
 
-## Allocate evidence across main and supplementary material
+## Allocate evidence across primary and supporting artifacts
 
-1. Keep the main text self-contained for the central argument.
-2. Place the minimum decisive evidence for every headline claim in the main text.
-3. Use supplementary material for extended derivations, full protocols, additional controls, exhaustive results, sensitivity analyses, and reproduction detail.
-4. Keep evidence needed to interpret a main result near that result.
-5. Avoid moving a definition, assumption, denominator, comparison rule, or critical limitation out of the main text when its absence changes the claim.
-6. Avoid duplicating the same proof object without a distinct purpose.
-7. Connect every supplementary item to a main-text claim, method, or reproducibility need.
+1. Identify the target's primary deliverable and any permitted supporting
+   artifacts; do not invent a split the publication or task does not use.
+2. Keep the primary deliverable complete for its required central argument,
+   decision, request, or explanation.
+3. Place the minimum decisive support for every headline claim or requested
+   decision in the primary deliverable.
+4. Use permitted supporting artifacts for extended derivations, protocols,
+   controls, exhaustive results, sensitivity analyses, or reproduction detail.
+5. Keep evidence needed to interpret a central claim near that claim.
+6. Avoid delegating a definition, assumption, denominator, comparison rule, or
+   critical limitation when its absence changes the primary claim or request.
+7. Avoid duplicating the same proof object without a distinct purpose.
+8. Connect every supporting item to a claim, method, decision, or reproduction
+   need in the primary deliverable.
 
-Apply the same rule to any supporting artifact. Do not make an appendix,
-supplement, technical note, or attachment imitate a second complete paper.
+Do not make an appendix, supplement, technical note, annex, or attachment
+imitate a second complete primary artifact.
 Retain only material that fulfills a distinct evidence, interpretation,
 derivation, reproduction, or submission role.
 
@@ -95,16 +132,31 @@ Verify before handoff:
 - **Reader gate:** Define each required concept before relying on it.
 - **Argument gate:** Support each logical step or mark it unresolved.
 - **Evidence gate:** Trace every scientific claim, number, and citation to supplied evidence.
+- **Confidence gate:** Assess every claim-bearing sentence and each paragraph at
+  its weakest load-bearing statement; omit nonessential low-confidence detail.
 - **Boundary gate:** Keep interpretation, causality, generality, and limitation language calibrated.
-- **Integration gate:** Align the draft with neighboring sections and the main/supplement architecture.
+- **Integration gate:** Align the draft with neighboring sections and the
+  target's actual primary/supporting architecture, when one exists.
 
-When editing a file, inspect the diff and reread the rendered or surrounding text. Report what changed, what remained fixed, and what still lacks evidence.
+When editing a file, inspect the diff and reread the rendered or surrounding
+text. Report what changed, what remained fixed, and what still lacks evidence.
+Whether planning, drafting, or applying a revision, explain each substantive
+proposed or applied change group with
+[a highlighted governing principle tag](../star-writing/references/principle-tags.md)
+and give the concrete evidence or reason separately. Add at most one secondary
+governing principle or reasoning lens, and keep every tag outside the draft
+itself.
+
+When the user requests approval before editing, use
+[the interactive revision workflow](../star-writing/references/interactive-revision.md)
+and apply only approved items.
 
 ## Return the requested artifact
 
 - For an outline, return the section contract, argument spine, and paragraph roles.
 - For a draft, return the finished prose and only the brief notes needed to expose assumptions or unresolved evidence.
 - For a restructure, return the revised architecture before or with the prose.
-- For main/supplement planning, return a claim-to-evidence allocation with the reason for each placement.
+- For primary/supporting-artifact planning, return a claim-to-evidence
+  allocation with the reason for each placement.
 
 Avoid adding process commentary that the user did not request.

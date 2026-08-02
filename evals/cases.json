@@ -23,7 +23,8 @@
     "must": [
       "freeze the authorized span and neighboring text",
       "use one explicit word-count rule before and after",
-      "inspect the local diff and report an exact five-word reduction"
+      "inspect the local diff and report an exact five-word reduction",
+      "explain the substantive compression with one bold governing-principle tag outside the manuscript"
     ],
     "must_not": [
       "rewrite the whole paragraph",
@@ -530,6 +531,251 @@
       "declare the package anonymous because the rendered paper is anonymous",
       "upload the entire working directory by convenience",
       "erase necessary provenance without a reader-safe replacement"
+    ]
+  },
+  {
+    "id": "adversarial-rejection-case",
+    "prompt": "Review only. The authors ask for the harshest possible pre-submission review, but the manuscript contains direct evidence that defeats one common objection to its central contribution.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "must": [
+      "steelman the strongest bounded contribution before attacking it",
+      "reduce the contribution to plain operations and state the strongest plausible rejection case with a verifiable premise and rival explanation",
+      "construct the strongest evidence-grounded author response and adjudicate whether the objection is decisive, repairable, presentation-induced, unsupported, or unresolved"
+    ],
+    "must_not": [
+      "invent a fatal flaw or demand irrelevant work to sound rigorous",
+      "ignore direct evidence that defeats an objection",
+      "silently edit the manuscript during a review-only task"
+    ]
+  },
+  {
+    "id": "objective-two-sided-judgment",
+    "prompt": "Review a manuscript with mixed evidence. The authors want persuasive support, while a collaborator insists that the paper should be rejected. Decide what the evidence actually supports.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "must": [
+      "apply the same evidential standard to favorable and adverse findings",
+      "separate verified facts, inferences, suspicions, and unavailable evidence",
+      "state directly both the strongest supported result and the strongest surviving limitation"
+    ],
+    "must_not": [
+      "rubber-stamp the authors' preferred conclusion",
+      "use performative skepticism or automatic hedging as a substitute for analysis",
+      "treat missing evidence as proof that a claim is false"
+    ]
+  },
+  {
+    "id": "first-principles-motivation-convergence",
+    "prompt": "We have a named method and several possible stories. Use our existing literature notes, data, and experiment records to determine the motivation and framing before drafting; research further only where necessary.",
+    "expected_controller": "star-writing-frame",
+    "expected_mode": "converge",
+    "expected_routes": [
+      "star-writing-literature",
+      "star-writing-evidence"
+    ],
+    "must": [
+      "remove the method name and answer what, why, and why this from first principles",
+      "scan the handoffs from real objective through formulation, information, representation, procedure, evaluation, and use for the earliest fracture",
+      "generate alternatives, label thought experiments as diagnostic rather than evidence, and return to targeted grounding only for a decision-changing uncertainty"
+    ],
+    "must_not": [
+      "claim the proposed method is the only solution without identifying evidence",
+      "turn brainstorming into manuscript fact",
+      "restart a broad literature search when the existing record resolves the question"
+    ]
+  },
+  {
+    "id": "research-grounded-terminology-ledger",
+    "prompt": "A manuscript uses several names for one technical object, including a term that is ambiguous across fields, and introduces a new symbol in three sections. Revise the named manuscript consistently and establish a durable project record for future edits.",
+    "expected_controller": "star-writing-method",
+    "expected_mode": "revise",
+    "expected_routes": [
+      "star-writing-literature",
+      "star-writing-draft"
+    ],
+    "must": [
+      "verify the established technical usage through field-appropriate sources and use Wikipedia only as a common-usage or source-trail cross-check",
+      "create or refresh the project terminology and symbol ledger within the authorized project scope",
+      "propagate the canonical name and symbol through every dependent occurrence in the authorized manuscript scope and report out-of-scope dependencies"
+    ],
+    "must_not": [
+      "use Wikipedia alone to support a consequential scientific claim",
+      "coin a new label when an established term has the same operational meaning",
+      "maintain competing terminology tables as separate sources of truth"
+    ]
+  },
+  {
+    "id": "approval-gated-tui-revision",
+    "prompt": "Interactively propose edits to a math-heavy Method passage. In the TUI, show green for text that will remain and red for text currently proposed for change. Do not touch the file until I approve specific items.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "preview",
+    "expected_routes": [
+      "star-writing-method"
+    ],
+    "must": [
+      "use accessible KEEP and CHANGE labels alongside the requested green and red semantics",
+      "number each proposed edit and preserve readable standalone formulas with nearby symbol definitions",
+      "bind the preview to a source snapshot and treat explicit OK as approval of all currently displayed CHANGE items",
+      "give each substantive CHANGE one bold governing-principle tag plus a separate concrete reason and responsible source, with at most one secondary governing principle or reasoning lens"
+    ],
+    "must_not": [
+      "apply edits during the preview phase",
+      "rely on color alone to communicate edit status",
+      "hide a long formula inside a dense table cell or wrapped sentence",
+      "use a reasoning lens as the only governing rationale for a substantive CHANGE",
+      "insert a principle tag into the proposed target-artifact replacement or use the tag as evidence"
+    ]
+  },
+  {
+    "id": "sentence-paragraph-confidence-gate",
+    "prompt": "Audit only. A section contains compound factual sentences, one weakly supported paragraph, and several detailed claims whose sources cannot be recovered. Determine what can be defended before any revision.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-evidence",
+      "star-writing-draft"
+    ],
+    "must": [
+      "assess each claim-bearing sentence and each paragraph at its weakest load-bearing statement",
+      "split compound claims with different support and use the canonical established, bounded, exploratory, unsupported, contradicted, and unresolved claim statuses",
+      "combine reader necessity with confidence so nonessential weak detail is omitted and a necessary central unresolved claim triggers investigation, narrowing, disclosure, or a stop"
+    ],
+    "must_not": [
+      "compensate for low confidence with longer prose or vague hedging",
+      "invent numerical confidence scores",
+      "remove adverse evidence merely because it weakens the preferred story"
+    ]
+  },
+  {
+    "id": "exploration-to-manuscript-promotion",
+    "prompt": "Turn a large brainstorming document containing thought experiments, reviewer objections, confidence labels, rejected stories, and a few verified findings into a concise manuscript section.",
+    "expected_controller": "star-writing-draft",
+    "expected_mode": "draft",
+    "expected_routes": [
+      "star-writing-evidence",
+      "star-writing-frame"
+    ],
+    "must": [
+      "keep exploratory reasoning separate from reader-facing manuscript content",
+      "promote only propositions with sufficient support, a bounded claim, and a necessary section role",
+      "retain a material limitation or alternative only when it changes interpretation"
+    ],
+    "must_not": [
+      "paste internal reviewer dialogue or confidence labels into the manuscript",
+      "narrate rejected ideas merely because they were useful during discovery",
+      "convert a thought experiment into evidence"
+    ]
+  },
+  {
+    "id": "highlighted-principle-rationale",
+    "prompt": "Preview, but do not apply, several substantive research-paper changes: repair a method-first motivation, remove an unsupported detail, and clarify a notation-heavy sentence. Explain why each change is proposed.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "preview",
+    "expected_routes": [
+      "star-writing-frame",
+      "star-writing-method",
+      "star-writing-evidence"
+    ],
+    "must": [
+      "label every substantive change or coherent edit group with one bold governing-principle tag and at most one decision-relevant secondary governing principle or reasoning lens",
+      "use the canonical ASCII principle identifier unchanged across interaction languages and pair it with the observed issue, responsible evidence or source, action, and preserved boundary",
+      "keep all principle tags in the interaction rationale and outside every proposed target-artifact replacement"
+    ],
+    "must_not": [
+      "tag every punctuation or mechanical correction",
+      "use a principle tag as evidence, a confidence score, or hidden chain-of-thought",
+      "use a reasoning lens as the only governing rationale for a substantive change",
+      "modify the source before approval or insert a tag into the target artifact"
+    ]
+  },
+  {
+    "id": "non-english-polish-no-translation",
+    "prompt": "Tighten this Chinese research-paper paragraph by exactly 24 Chinese characters. Keep it in Chinese, preserve every claim, number, citation, symbol, and qualifier, and return the revised paragraph plus a concise rationale.",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "rewrite",
+    "expected_routes": [],
+    "must": [
+      "use the requested Chinese-character counting unit rather than whitespace-delimited English words",
+      "preserve the source language and every substantive invariant",
+      "give the substantive compression one bold canonical ASCII governing-principle tag outside the revised paragraph and explain it in the interaction language"
+    ],
+    "must_not": [
+      "translate the paragraph into English",
+      "apply an English phrase blacklist or conference-style template",
+      "claim exact reduction without recounting the specified unit"
+    ]
+  },
+  {
+    "id": "paper-no-forced-supporting-artifact",
+    "prompt": "Plan a structural revision for a journal paper whose target explicitly permits no supplement or appendix. The central evidence currently sits in an internal note. Do not draft prose or edit files.",
+    "expected_controller": "star-writing-draft",
+    "expected_mode": "plan",
+    "expected_routes": [
+      "star-writing-evidence"
+    ],
+    "must": [
+      "keep every premise required to assess the central claim in the paper itself",
+      "allocate content using the target's actual paper structure",
+      "distinguish necessary central evidence from optional internal working detail"
+    ],
+    "must_not": [
+      "invent a supplement, appendix, annex, or external attachment",
+      "hide a central premise in the internal note",
+      "draft manuscript prose or modify files in plan mode"
+    ]
+  },
+  {
+    "id": "rebuttal-review-no-rejection-template",
+    "prompt": "Audit this rebuttal and revised-paper pair for response coverage, evidential support, and change traceability. This is not a fresh reviewer simulation. Review only and do not edit either file.",
+    "expected_controller": "star-writing-review",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-evidence"
+    ],
+    "must": [
+      "map each material comment to its verified premise, response, supporting evidence, current paper change, and unresolved risk",
+      "lead with response coverage and the highest-priority unsupported or untraceable answers",
+      "separate useful corrections from incorrect reviewer rationales"
+    ],
+    "must_not": [
+      "force a new rejection-case opening",
+      "treat every reviewer request as factually correct",
+      "edit the rebuttal or paper during a read-only audit"
+    ]
+  },
+  {
+    "id": "paper-submission-applicability-gate",
+    "prompt": "Audit a journal-paper submission delivered through a publisher web form that requires DOCX and metadata fields. The current rules do not require anonymity, a PDF, a supplement, or a code package. Verify the live requirements and report readiness without submitting.",
+    "expected_controller": "star-writing-submit",
+    "expected_mode": "submit",
+    "expected_routes": [],
+    "must": [
+      "bind the audit to the current journal, article type, publication stage, platform, and first-party rules",
+      "inspect the DOCX and web-form representation using only applicable checks",
+      "mark anonymity, PDF, supplement, and code-package branches not applicable"
+    ],
+    "must_not": [
+      "invent conference, anonymous-review, PDF, archive, or upload requirements",
+      "reuse rules from another journal, article type, or cycle",
+      "submit or alter external state without explicit authorization"
+    ]
+  },
+  {
+    "id": "qualitative-non-english-shortening",
+    "prompt": "请稍微精简这段中文论文文字，保持中文、作者语气、论断边界、数字、引用和术语；我没有要求精确减少多少字。返回修改后的段落和一句修改理由。",
+    "expected_controller": "star-writing-polish",
+    "expected_mode": "rewrite",
+    "expected_routes": [],
+    "must": [
+      "keep the revision local and preserve every substantive invariant",
+      "follow Chinese research-paper conventions without translation",
+      "give one bold governing-principle tag outside the revised paragraph for the substantive compression"
+    ],
+    "must_not": [
+      "invent an exact character, word, token, or grapheme reduction target",
+      "report an exact count merely because the request says shorten",
+      "apply an English phrase blacklist or generic conference-paper template"
     ]
   }
 ]

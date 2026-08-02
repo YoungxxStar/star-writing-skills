@@ -1,13 +1,25 @@
-# Live submission audit
+# Live Requirements Audit
 
-Use this worksheet for a specific venue, track, year, and stage. Populate every policy value from current official sources.
+Use this worksheet for a specific journal, conference, workshop, publisher,
+repository, or submission platform; rule-set cycle or version; paper category;
+and publication stage. Populate applicable policy values from current official
+sources and mark the rest `not applicable`.
+
+## Contents
+
+- [Official-source register](#official-source-register)
+- [Requirements overlay](#requirements-overlay)
+- [Artifact availability register](#artifact-availability-register)
+- [Render inspection when applicable](#render-inspection-when-applicable)
+- [Package inspection when applicable](#package-inspection-when-applicable)
+- [Final freeze record](#final-freeze-record)
 
 ## Official-source register
 
 | Source | URL | Version or date | Accessed | Scope | Notes or conflicts |
 |---|---|---|---|---|---|
-| Submission instructions | | | | | |
-| Author kit or template | | | | | |
+| Call for papers, author guidelines, or submission instructions | | | | | |
+| Template, style guide, or form specification | | | | | |
 | Policy or ethics page | | | | | |
 | Supplement or artifact policy | | | | | |
 | Submission platform instructions | | | | | |
@@ -45,7 +57,7 @@ acceptance`, `release after publication`, or `unavailable`. Check that every
 checklist response, Data Availability statement, archive README, and metadata
 entry describes the same state. A future release event is not present access.
 
-## Render inspection
+## Render inspection when applicable
 
 Check the final artifact, not only source declarations:
 
@@ -62,7 +74,7 @@ Check the final artifact, not only source declarations:
 - [ ] Metadata and links satisfy anonymity rules
 - [ ] File size and format comply
 
-## Package inspection
+## Package inspection when applicable
 
 - [ ] Archive type and size match the live policy
 - [ ] Archive extracts without errors
@@ -81,20 +93,22 @@ Check the final artifact, not only source declarations:
 Record:
 
 ```text
-venue:
-track:
+governing authority or destination:
+rule-set cycle or version:
+paper category or track:
 stage:
-deadline and time zone:
-manuscript source revision:
-rendered manuscript hash:
-supplement hash:
-code/data archive hash:
+submission channel or delivery mechanism:
+deadline and time zone, if applicable:
+primary source or form revision:
+primary delivered artifact hash or identifier:
+supporting artifact hashes or identifiers:
 last operation affecting each artifact:
 audit completed:
 unresolved blockers:
 ```
 
-Never reuse this completed worksheet for a later year or different track without re-verifying every rule.
+Never reuse this completed worksheet for another cycle, category, stage, or
+governing authority without re-verifying every rule.
 Any regeneration, recompilation, export, compression, archive rebuild, or
 metadata change invalidates the checks attached to the previous hash. Freeze
 and re-audit the exact upload artifact.
