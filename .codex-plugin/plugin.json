@@ -1,7 +1,7 @@
 {
   "name": "star-writing-skills",
-  "version": "0.12.1",
-  "description": "A general research-paper toolkit with stable writing contracts, optional project-local learning records, and evidence-gated workflow evolution.",
+  "version": "0.12.2",
+  "description": "A controlled research-writing workflow that maps papers before editing, preserves accepted project decisions, and gates evolution on evidence and user authorization.",
   "author": {
     "name": "STAR"
   },
@@ -14,8 +14,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "STAR Writing Skills",
-    "shortDescription": "Build defensible research papers from idea to submission.",
-    "longDescription": "A modular, cross-disciplinary research-paper system for paper onboarding, interactive proposition and terminology control, framing, literature positioning, technical method audits, evidence design, drafting, prose polishing, purpose-specific review, live submission checks, optional project-local learning records, and evidence-gated promotion into reusable workflow rules.",
+    "shortDescription": "Understand first. Decide together. Evolve through evidence.",
+    "longDescription": "A modular research-writing system for read-only paper onboarding, interactive proposition and terminology control, framing, literature positioning, method and evidence audits, drafting, approval-gated revision, purpose-specific review, live submission checks, project Writing Ledgers, and user-authorized workflow evolution.",
     "developerName": "STAR",
     "category": "Productivity",
     "capabilities": [
@@ -24,9 +24,9 @@
       "Review"
     ],
     "defaultPrompt": [
-      "Orient to this paper and recommend the next defensible writing step.",
-      "Draft or revise a manuscript section from verified claims and evidence.",
-      "Audit this manuscript's method, claims, evidence, and consistency."
+      "Start read-only, map this paper and its evidence, and recommend the next defensible step.",
+      "Help me converge on the story and establish load-bearing writing decisions before drafting.",
+      "Preview evidence-grounded revisions and apply only the items I approve."
     ]
   }
 }

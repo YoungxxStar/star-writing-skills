@@ -6,6 +6,7 @@ versioned source evidence.
 
 | Version | Milestone | Development note |
 |---|---|---|
+| `0.12.2` | **[GUIDED FIRST RUN]** | Rebuilt the public reader journey around the controlled-learning vision, an end-to-end paper scenario, approval-gated revision, exact-revision agent-guided installation, and an MIT-licensed contribution path. |
 | `0.12.1` | **[DOCUMENTATION]** | Credits contributors and introduces this milestone log. |
 | `0.12.0` | **[PAPER ONBOARDING]** | Added the read-only `star-writing-start` controller for canonical snapshot discovery, Paper Maps, evidence boundaries, and next-step routing. |
 | `0.11.0` | **[EVIDENCE-GATED EVOLUTION]** | Added isolated project-local evolution records, validation, and a strict separation between observations, promotion candidates, active rules, and adoption. |
