@@ -44,6 +44,10 @@ Use the minimum sequence that resolves the request:
   converge before drafting.
 - Technical method, notation, or code–paper mismatch: method first, then
   evidence for claim impact and draft for authorized prose changes.
+- Conflicting core proposition, concept identity, canonical name, acronym, or
+  symbol across locations: use ledger as the interaction controller, obtain the
+  responsible frame, literature, method, or evidence judgment, then return to
+  one-entry convergence before writing.
 - Claim scope exceeds its proof or study design: evidence first, then frame or
   draft.
 - Novelty depends on unidentified or abstract-only sources: literature before a
@@ -77,8 +81,9 @@ Exit when the exact task snapshot and mutation boundary are known.
 
 ### 2. Contract
 
-State the scientific, evidential, and reader contracts. Record canonical terms
-and the closest alternative.
+State the scientific, evidential, and reader contracts. Discover the Project
+Writing Ledger and load its task-relevant accepted projection. Record unresolved
+semantic choices rather than silently selecting a new term or symbol.
 
 Exit when a provisional problem, scope, and candidate claim or unresolved
 question are explicit enough to determine what should be grounded. Do not
@@ -117,6 +122,10 @@ Exit when one bounded account survives and rejected alternatives are recorded.
 If several accounts remain live, report the discriminator instead of forcing a
 false resolution. Require every load-bearing claim selected for drafting to be
 traceable or explicitly unresolved before Structure.
+
+When convergence changes a core proposition, concept, name, or symbol, route
+the single accepted entry to `star-writing-ledger` before dependent writing.
+The project-state update and manuscript propagation remain separate actions.
 
 ### 6. Structure
 
@@ -169,10 +178,13 @@ changes only with explicit authorization.
 2. Record a reusable lesson as a task-local candidate rather than a rule.
 3. Route an explicit learning request to `star-writing-evolve` for audit or
    planning.
-4. Enter evolve mode only after the user authorizes the identified development
-   source and change scope.
-5. Treat validation, commit, installation, push, and release as distinct states
-   and permissions.
+4. Persist an identified candidate only after the user separately authorizes
+   that ledger write; persistence does not activate it.
+5. Enter evolve mode for an active-rule change only after the user authorizes
+   the identified development source and change scope.
+6. Include local read-only structural checks in the authorized write, while
+   treating stateful or external validation, versioning, commit, installation,
+   push, and release as distinct states and permissions.
 
 Read the
 [evolution policy](evolution-policy.md) for signal interpretation, scope
@@ -193,6 +205,8 @@ When multiple writers or agents share files:
    work.
 8. Keep canonical terminology, frozen decisions, and removed content in a
    shared working contract.
+9. Let `star-writing-ledger` own entry-level reconciliation. Other skills may
+   propose a task-local candidate but must not silently rewrite project state.
 
 Treat bundled references as immutable templates. Resolve optional project and
 user state through the controller's state-and-path policy. Do not create or

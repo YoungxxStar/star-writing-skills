@@ -79,6 +79,13 @@ Learn conceptual and rhetorical moves from sources, not distinctive wording.
 
 ## Verify terminology
 
+Before substantive work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Load only the relevant accepted concept and terminology entries. Literature
+work verifies established usage and may propose a task-local concept or term
+candidate with a temporary referent key; `star-writing-ledger` owns any
+persistent project decision and stable-ID assignment.
+
 When a term determines the problem, novelty, method, or claimed scope, verify
 its established meaning rather than choosing it for rhetorical force. Prefer
 field standards, authoritative definitions, canonical literature, and primary
@@ -89,7 +96,8 @@ consequential technical claims. Record
 the accepted term, definition, source, distinctions, and deprecated aliases in
 the current task. Update the
 [project terminology ledger](../star-writing/references/terminology-and-symbols.md)
-only when the state policy and user authorization permit it.
+only through `star-writing-ledger` under an explicit project-state write
+authorization.
 Do not coin a new label when an established term already matches the same
 object and contract.
 

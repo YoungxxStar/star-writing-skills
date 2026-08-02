@@ -13,6 +13,7 @@ as evidence unless they point to the responsible source.
 - [Substantive contract](#substantive-contract)
 - [Information availability](#information-availability)
 - [Central intellectual move](#central-intellectual-move)
+- [Canonical core propositions](#canonical-core-propositions)
 - [Evidential contract](#evidential-contract)
 - [Reader contract](#reader-contract)
 - [Terminology and notation](#terminology-and-notation)
@@ -83,18 +84,36 @@ mode for a paper whose research contract does not use one.
 - Diagnosed reason:
 - Design principle or insight:
 - Why now, if material:
-- One-sentence bounded thesis:
+- Bounded-thesis proposition ID:
 - Why the work matters:
 - Existing literature, data, and research records consulted:
 - Evidence that would change the current framing:
+
+## Canonical core propositions
+
+This is the core-proposition component of the logical Project Writing Ledger.
+Record only load-bearing current propositions and explicit nonclaims. Detailed
+evidence remains in the evidential contract and responsible sources. Treat
+earlier framing fields as diagnostic inputs; once a proposition is accepted,
+reference its ID instead of copying a second canonical wording.
+
+| ID | Role | Canonical proposition | Scope or boundary | Decision status | Epistemic status | Responsible source | First use | Lock state and authority |
+|---|---|---|---|---|---|---|---|---|
+
+Use stable IDs `P-###`. Current decision status is `accepted`, `provisional`,
+or `unresolved`; retain supersession history in `decision-log.md`. Epistemic status is `established`, `bounded`,
+`exploratory`, `unsupported`, `contradicted`, or `unresolved`. Author approval
+of wording changes decision status, not evidential strength.
+Use lock state `unlocked` or `author-locked`, and record the applicable scope
+owner in the same field. Use a decision-log entry only when a lock materially
+changes prior accepted state.
 
 ## Evidential contract
 
 For each major claim, record:
 
-| Claim | Direct evidence | Warrant | Alternative explanations | Qualifier | Status |
-|---|---|---|---|---|---|
-|  |  |  |  |  | established / bounded / exploratory / unsupported / contradicted / unresolved |
+| `P-###` ID | Direct evidence | Warrant | Alternative explanations | Evidence note |
+|---|---|---|---|---|
 
 Also record the following empirical or sampling fields when applicable:
 
@@ -116,13 +135,15 @@ Also record the following empirical or sampling fields when applicable:
 
 ## Terminology and notation
 
-- Canonical working ledger: `.star-writing/terminology-and-symbols.md`
+- Canonical concept, terminology, and symbol component:
+  `.star-writing/terminology-and-symbols.md`
 - Locked or externally prescribed terms:
 - Unresolved naming or notation decisions:
 
 Do not maintain a competing terminology table here. Record canonical terms,
-definitions, sources, aliases, symbols, and propagation status in the working
-ledger.
+definitions, sources, aliases, and symbols in the terminology component. Record
+the reason for a material supersession in `decision-log.md` and current
+dependency status below.
 
 ## Propagation ledger
 
@@ -130,6 +151,13 @@ For every changed definition, result, term, or scope, check the affected title,
 abstract, introduction, methods, results, visuals, captions, and conclusion,
 plus any present or permitted supplement, rebuttal, metadata, or release
 artifact.
+
+| Entry ID | Dependency class | Required locations | Verified locations and snapshot | Pending locations | Status |
+|---|---|---|---|---|---|
+
+Use propagation status `pending`, `partial`, `checked`, or `out-of-scope`.
+`checked` applies only to the recorded locations and snapshot, not to the whole
+project by implication.
 
 ## Revision checksum
 

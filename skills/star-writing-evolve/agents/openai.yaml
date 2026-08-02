@@ -1,4 +1,4 @@
 interface:
   display_name: "STAR Writing Evolve"
-  short_description: "Evolve STAR workflows from verified use"
-  default_prompt: "Use $star-writing-evolve to audit this writing-workflow feedback and propose a validated plugin update."
+  short_description: "Audit feedback and steward workflow evolution"
+  default_prompt: "Use $star-writing-evolve to audit this workflow feedback; persist a candidate or change active rules only within my explicit authorization."

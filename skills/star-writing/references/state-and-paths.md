@@ -45,16 +45,25 @@ Project-local state paths are:
 .star-writing/submission-overlays/<target>-<cycle>-<category>-<stage>.md
 ```
 
+The first three files form one logical Project Writing Ledger without creating
+another aggregate file. `paper-contract.md` owns current core propositions,
+`terminology-and-symbols.md` owns concepts and expression choices, and
+`decision-log.md` owns material supersession history. Use
+`star-writing-ledger` as the controller for interactive entry decisions and
+persistent ledger updates.
+
 An existing overlay without a stage suffix may be read as a legacy source, but
 must not be reused or overwritten until its publication stage and current rules
 have been verified.
 
 Interpret these paths relative to the resolved project root. A read-only task
 never authorizes state changes. An authorized full-manuscript or multi-section
-drafting or revision task permits creation or refresh of the terminology and
-symbol ledger when it is needed to keep the requested work consistent and the
-root is unambiguous; announce that action. Require explicit authorization for
-other persistent state changes.
+drafting or revision task may include ledger maintenance only when that
+project-state write is inside the stated scope. Route the entry decision through
+`star-writing-ledger` and announce the file being used. A ledger update does not
+authorize propagation to the manuscript, and a manuscript edit does not
+authorize ledger maintenance. Require explicit authorization for other
+persistent state changes.
 
 ## Discover a cross-project author profile
 
@@ -86,3 +95,5 @@ template.
 - Do not store credentials, tokens, personal identifiers, or submission secrets
   in writing-state files.
 - Before writing state, reread the existing file and respect concurrent edits.
+- Merge concurrent ledger work by stable entry ID and meaning; never select a
+  winner by modification time or overwrite a changed entry silently.

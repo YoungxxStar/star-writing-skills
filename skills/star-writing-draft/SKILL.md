@@ -35,12 +35,14 @@ change.
 4. Treat unresolved facts as blockers or visible placeholders. Do not invent evidence, citations, results, or method details.
 5. Treat review as review. Do not rewrite when the user asks only for assessment.
 
-Load the existing `.star-writing/terminology-and-symbols.md` before drafting.
-For authorized full-manuscript or multi-section work, create or refresh it when
-needed from the
-[ledger template](../star-writing/references/terminology-and-symbols.md) under
-the [shared state policy](../star-writing/references/state-and-paths.md). Use its
-canonical terms and symbols throughout the draft.
+Before substantive work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Load only the relevant accepted propositions, concepts, terms, names, acronyms,
+labels, and symbols, and use them throughout the draft. If a load-bearing,
+reused, or meaning-changing entry is missing or conflicts with a responsible
+source or the author's latest edit, keep the candidate task-local and route the
+decision to `star-writing-ledger`. Handle ordinary local wording from context.
+Do not create or refresh canonical project state as a side effect of drafting.
 
 ## Define the section contract
 

@@ -166,11 +166,14 @@ When verification is incomplete, mark the citation as unverified rather than dec
 
 ## Audit definitions and global consistency
 
-Load the
-[project terminology and symbol ledger](../star-writing/references/terminology-and-symbols.md)
-when it exists; otherwise build a short list of canonical objects, terms,
-symbols, metrics, populations, and result values. Check them across the units
-that actually exist:
+Follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Use relevant accepted entries as the consistency baseline, while verifying
+claim-bearing content against its responsible source. If no ledger exists,
+build a task-local list of canonical objects, terms, symbols, metrics,
+populations, and result values without creating project state. Route material
+conflicts to `star-writing-ledger`. Check the resulting projection across the
+units that actually exist:
 
 - title and abstract;
 - introduction and contributions;

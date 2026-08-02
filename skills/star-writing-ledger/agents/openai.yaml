@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Ledger"
+  short_description: "Build a project's canonical Writing Ledger"
+  default_prompt: "Use $star-writing-ledger to establish this project's Writing Ledger one decision at a time; preview unless I explicitly authorize project-state writes."

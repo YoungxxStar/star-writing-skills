@@ -11,6 +11,7 @@ argument, terminology, or artifacts.
 Date:
 Decision owner:
 Affected scope:
+Writing Ledger entry ID(s):
 
 Previous understanding:
 New evidence or constraint:
@@ -26,10 +27,12 @@ Figures or tables affected:
 Sections or supplementary material affected:
 Release or submission artifacts affected:
 
-Status: provisional / accepted / superseded
+Status: accepted / superseded
 Verification required:
 ```
 
 Do not erase a superseded decision. Mark it superseded and link to the entry
 that replaces it. A decision log explains why the paper changed; it does not
-serve as scientific evidence.
+serve as current ledger state or scientific evidence. Record a ledger decision
+only when accepted state materially changes; do not log every first-time entry
+or discussion turn.

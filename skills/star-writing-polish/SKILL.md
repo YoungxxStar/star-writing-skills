@@ -57,9 +57,12 @@ Before changing prose, identify and preserve:
 - comparisons, baselines, conditions, and scope;
 - paragraph function and author-approved emphasis.
 
-Load the project terminology and symbol ledger when it exists. Treat its
-canonical entries as frozen unless the user authorizes a scientific naming or
-notation change.
+Before substantive work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Load only the relevant accepted entries and treat them as frozen within their
+scope. If one conflicts with a responsible source or the author's latest
+deliberate edit, preserve the requested edit boundary and route reconciliation
+to `star-writing-ledger`; do not silently restore either wording.
 
 Do not silently correct a scientific inconsistency through wording. Flag it for evidence or review work. Do not add facts, examples, citations, mechanisms, or stronger implications.
 

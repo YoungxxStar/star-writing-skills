@@ -1,6 +1,6 @@
 ---
 name: star-writing
-description: Route and coordinate multi-stage research-paper work across framing, literature, technical methods, evidence, drafting, polishing, review, and submission. Use for end-to-end journal, conference, or workshop paper workflows; paper-wide planning or revision; claim-evidence alignment; or associated supplements, rebuttals, and release artifacts spanning stages. Remain language-, field-, project-, and venue-neutral. Prefer focused star-writing-* skills for narrow tasks.
+description: Route and coordinate multi-stage research-paper work across project writing-ledger decisions, framing, literature, technical methods, evidence, drafting, polishing, review, and submission. Use for end-to-end journal, conference, or workshop workflows; paper-wide planning or revision; claim-evidence alignment; or associated artifacts spanning stages. Remain language-, field-, project-, and venue-neutral. Prefer focused star-writing-* skills for narrow tasks.
 ---
 
 # STAR Writing
@@ -27,15 +27,17 @@ Treat “review,” “inspect,” and “discuss” as read-only unless the use
 for changes. Do not silently broaden a local edit into a scientific rewrite.
 
 For paper-wide or high-stakes work, read
-[constitution.md](references/constitution.md). Create or refresh the working
-record from [paper-contract.md](references/paper-contract.md) when facts,
-terminology, evidence, or multiple collaborators can drift.
-Use
-[terminology-and-symbols.md](references/terminology-and-symbols.md) as the
-working ledger template when names or notation span several sections,
-artifacts, or collaborators.
-Use [decision-log.md](references/decision-log.md) when new evidence changes a
-material interpretation, term, claim, comparison, or artifact.
+[constitution.md](references/constitution.md). Discover existing project state
+and load only the task-relevant accepted projection. When no project ledger
+exists, use [paper-contract.md](references/paper-contract.md) and
+[terminology-and-symbols.md](references/terminology-and-symbols.md) as immutable
+templates for a task-local record; do not create project state automatically.
+Follow the
+[Writing Ledger consumer contract](references/writing-ledger-contract.md) to
+combine core propositions, concepts, terms, and symbols without creating a
+competing aggregate file.
+Use [decision-log.md](references/decision-log.md) only for an authorized record
+of a material accepted supersession, not as the current state or evidence.
 For full-artifact revision, exhaustive review, or finalization, read
 [content-and-completion-gates.md](references/content-and-completion-gates.md).
 
@@ -43,7 +45,7 @@ Keep four layers separate:
 
 - stable research-writing principles in the constitution;
 - recurring author preferences in the polish skill's author style profile;
-- current project facts and decisions in the paper contract;
+- current project facts and semantic decisions in the Project Writing Ledger;
 - expiring venue rules in a live submission overlay.
 
 Do not promote a personal style preference, project fact, or remembered venue
@@ -51,7 +53,8 @@ rule into a universal writing principle.
 
 Skill evolution is a separate lifecycle. Feedback may adapt the current task or
 create a task-local candidate, but it does not authorize persistent source
-changes. Keep the paper controller responsible for the paper. Read the
+changes or candidate-ledger writes. Keep the paper controller responsible for
+the paper. Read the
 [evidence-driven evolution policy](references/evolution-policy.md) and route to
 `star-writing-evolve` only when the user explicitly asks the plugin to learn or
 when a material, plausibly reusable success, correction, or gap is being
@@ -65,7 +68,7 @@ project root:
 - `.star-writing/paper-contract.md` for project facts and locks;
 - `.star-writing/terminology-and-symbols.md` for canonical names, definitions,
   acronyms, and notation;
-- `.star-writing/decision-log.md` for changed interpretations;
+- `.star-writing/decision-log.md` for material accepted supersessions;
 - `.star-writing/submission-overlays/<target>-<cycle>-<category>-<stage>.md` for
   expiring submission rules;
 - `.star-writing/author-style-profile.md` for project-specific writing
@@ -79,14 +82,16 @@ agent's launch directory as the project root merely because it is convenient.
 Without authorization to create state files, maintain the same information in
 the current task context.
 
-For an authorized full-manuscript or multi-section drafting or revision task,
-create or refresh the terminology and symbol ledger when the project root is
-unambiguous, and tell the user that this support artifact is being used. For a
-local edit, use an existing ledger or keep new entries in the task context. A
-named-file edit does not by itself authorize creation of another support file.
+For an authorized full-manuscript or multi-section task, route material semantic
+decisions to `star-writing-ledger`. Use an existing ledger or keep proposed
+entries task-local until the user accepts the relevant project-state write. A
+named-file edit does not by itself authorize ledger creation or maintenance.
 
 ## Route to the focused skill
 
+- Use `star-writing-ledger` to establish, reconcile, or persist core
+  propositions, concept boundaries, canonical names, acronyms, labels, and
+  symbols one decision at a time.
 - Use `star-writing-frame` for the research problem, central insight, novelty,
   contribution, or story.
 - Use `star-writing-literature` for field structure, closest-work comparison,
@@ -131,6 +136,7 @@ Routing is not complete until the selected skill body is read. Choose one
 controller for the current stage, then load its sibling `SKILL.md` explicitly:
 
 - [frame](../star-writing-frame/SKILL.md);
+- [ledger](../star-writing-ledger/SKILL.md);
 - [literature](../star-writing-literature/SKILL.md);
 - [method](../star-writing-method/SKILL.md);
 - [evidence](../star-writing-evidence/SKILL.md);
@@ -156,7 +162,8 @@ check needed to resolve it.
    boundary.
 2. **Contract.** State the research object, available information, assumptions,
    output, scope, closest alternative, and current candidate claim or unresolved
-   question.
+   question. Reconcile any load-bearing conflict with accepted Writing Ledger
+   entries before dependent writing.
 3. **Ground.** Trace implementation facts, empirical results, mathematics,
    literature claims, and submission rules to the source responsible for each.
 4. **Explore.** Use first-principles reasoning, grounded brainstorming, and

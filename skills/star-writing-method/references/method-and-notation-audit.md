@@ -50,9 +50,9 @@ merely because its name sounds like metadata or context.
 ## Object and Notation Audit View
 
 Use this table as a task-local projection of the canonical project terminology
-and symbol ledger. Do not persist it as a competing source of truth. With
-authorization, feed accepted corrections back into the canonical ledger and
-propagate them within the permitted scope.
+and symbol ledger. Do not persist it as a competing source of truth. Route an
+accepted correction to `star-writing-ledger`; ledger persistence and manuscript
+propagation each require their own named authorization.
 
 | Symbol | Object | Type and shape | Domain or index set | Unit | Availability | First definition | Used in |
 |---|---|---|---|---|---|---|---|

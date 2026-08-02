@@ -78,13 +78,14 @@ condition, descriptor, or prior.
 
 ## Audit notation and equations
 
-Build or load the project terminology and symbol ledger with symbol, meaning,
-type, shape, domain, unit, availability, responsible source, first definition,
-and dependent uses. Treat it as the canonical record for subsequent manuscript
-work. Use the
-[ledger template](../star-writing/references/terminology-and-symbols.md) and
-follow the state and authorization rules in
-[the controller policy](../star-writing/references/state-and-paths.md).
+Before substantive work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Load only the relevant accepted concepts, terms, and symbols, including type,
+shape, domain, unit, availability, responsible source, and first definition.
+Build a task-local projection when no ledger exists. Method work verifies or
+proposes concept, term, or symbol candidates with temporary referent keys;
+`star-writing-ledger` owns persistent project decisions and stable-ID
+assignment.
 
 Apply a value gate before a definition gate. First ask whether the equation,
 operator, auxiliary quantity, or symbol is needed to understand, evaluate, or

@@ -60,13 +60,15 @@ Create a task-local claim-evidence ledger with:
 
 Keep this ledger in the current task unless the user authorizes a persistent
 artifact and its location. It is not a second source of truth; its entries point
-to the responsible evidence.
+to the responsible evidence. This claim-evidence ledger is an analysis view,
+not the Project Writing Ledger, and it does not own canonical semantic entries.
 
-Load the
-[project terminology and symbol ledger](../star-writing/references/terminology-and-symbols.md)
-when it exists. Use its canonical metric, condition, population, baseline, and
-result labels across analyses, tables, figures, captions, and prose; do not
-create stylistic aliases.
+Before substantive work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Load only the relevant accepted metric, condition, population, baseline,
+result, concept, and symbol entries; do not create stylistic aliases. Evidence
+work determines support and claim status and may report an entry task-locally
+as stale, but `star-writing-ledger` owns persistent semantic decisions.
 
 Read [claim-evidence-matrix.md](references/claim-evidence-matrix.md) when auditing major claims or designing missing evidence.
 

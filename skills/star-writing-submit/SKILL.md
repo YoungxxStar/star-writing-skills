@@ -16,6 +16,13 @@ this skill responsible for the paper, retain only a task-local candidate, and ro
 maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
 change.
 
+Before substantive artifact work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Check that delivered manuscript, supporting, metadata, and release artifacts
+use the relevant accepted terms, names, acronyms, labels, and symbols. A live
+venue requirement may constrain presentation, but it cannot silently redefine
+a scientific object; route such a conflict to `star-writing-ledger`.
+
 ## Identify the submission target
 
 Record:

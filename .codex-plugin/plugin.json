@@ -1,7 +1,7 @@
 {
   "name": "star-writing-skills",
-  "version": "0.8.0",
-  "description": "A general research-paper toolkit for framing, literature, methods, evidence, drafting, revision, review, submission, and evidence-driven workflow evolution.",
+  "version": "0.10.0",
+  "description": "A general research-paper toolkit with a project Writing Ledger for stable framing, terminology, notation, evidence, drafting, review, submission, and controlled workflow evolution.",
   "author": {
     "name": "STAR"
   },
@@ -15,7 +15,7 @@
   "interface": {
     "displayName": "STAR Writing Skills",
     "shortDescription": "Build defensible research papers from idea to submission.",
-    "longDescription": "A modular, cross-disciplinary research-paper system for framing, literature positioning, technical method audits, evidence design, drafting, prose polishing, purpose-specific review, live submission checks, and user-authorized evolution from verified use.",
+    "longDescription": "A modular, cross-disciplinary research-paper system for interactive proposition and terminology control, framing, literature positioning, technical method audits, evidence design, drafting, prose polishing, purpose-specific review, live submission checks, authorized candidate recording, and evidence-gated evolution from verified use.",
     "developerName": "STAR",
     "category": "Productivity",
     "capabilities": [

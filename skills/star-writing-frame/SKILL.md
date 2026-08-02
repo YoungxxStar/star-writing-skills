@@ -30,10 +30,13 @@ Classify the request before acting.
 
 Treat the structures below as diagnostic lenses, not mandatory prose templates.
 
-Load the existing
-[project terminology and symbol ledger](../star-writing/references/terminology-and-symbols.md)
-before renaming a research object, problem, capability, or contribution. Treat
-a proposed naming change as a scientific decision, not a synonym swap.
+Before substantive work, follow
+[the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).
+Load only the relevant accepted propositions, concepts, terms, and symbols.
+Verify or propose a task-local proposition candidate for a changed question,
+bounded thesis, contribution, or nonclaim, but route persistent ledger
+decisions and stable-ID assignment to `star-writing-ledger`. Treat a naming
+conflict as a semantic decision, not a synonym swap.
 
 For an early idea, several possible stories, or an unclear motivation, read
 [references/first-principles-ideation.md](references/first-principles-ideation.md).
