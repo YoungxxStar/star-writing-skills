@@ -5,9 +5,8 @@ building defensible research papers and their associated supplements,
 rebuttals, and release artifacts. It coordinates framing, literature, methods,
 evidence, drafting, polishing, review, live submission checks, and
 an interactive project Writing Ledger, together with evidence-driven workflow
-evolution, without
-binding the workflow to a research field, project, language, venue, or fixed
-paper template.
+evolution, without binding the workflow to a research field, project, language,
+venue, or fixed paper template.
 
 ## Architecture
 
@@ -267,3 +266,9 @@ python3 scripts/validate_plugin_suite.py --print-source-snapshot
 ```
 
 Candidate records do not enter this digest and never become active source.
+
+## Contributors and history
+
+- Maintainer: [YoungxxStar](https://github.com/YoungxxStar)
+- Contributor: `kingstar`
+- Development milestones: [CHANGELOG.md](CHANGELOG.md)

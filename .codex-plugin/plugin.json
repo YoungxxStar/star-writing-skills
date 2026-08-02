@@ -1,6 +1,6 @@
 {
   "name": "star-writing-skills",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "A general research-paper toolkit with stable writing contracts, optional project-local learning records, and evidence-gated workflow evolution.",
   "author": {
     "name": "STAR"
