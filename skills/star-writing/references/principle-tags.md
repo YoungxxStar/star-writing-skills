@@ -1,9 +1,9 @@
 # Highlighted Principles and Reasoning Lenses
 
-Use this vocabulary to make the basis of a substantive research-paper
-recommendation visible. A governing principle states why the action is needed.
-A reasoning lens states how the issue was discovered. Neither replaces evidence
-or a concrete explanation.
+Use this vocabulary to make the basis of a substantive research-paper or
+writing-workflow recommendation visible. A governing principle states why the
+action is needed. A reasoning lens states how the issue was discovered. Neither
+replaces evidence or a concrete explanation.
 
 ## Contents
 

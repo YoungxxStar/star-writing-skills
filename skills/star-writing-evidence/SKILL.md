@@ -7,6 +7,14 @@ description: Design, audit, and align evidence for research papers by tracing cl
 
 Treat a manuscript as a bounded, auditable argument. Determine what each source can establish before improving the prose.
 
+Do not load the
+[shared evolution policy](../star-writing/references/evolution-policy.md) for
+ordinary paper work. If the user explicitly asks the plugin to learn, or this
+task exposes a material, plausibly reusable success, correction, or gap, keep
+this skill responsible for the paper, retain only a task-local candidate, and route plugin
+maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
+change.
+
 ## Set the mode
 
 - Use **audit** by default to inspect evidence, results, metrics, statistics,

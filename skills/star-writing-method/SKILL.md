@@ -9,6 +9,14 @@ Treat the Method section as a reconstructable technical contract. A polished
 formula does not validate an implementation, and implementation behavior does
 not by itself justify the paper's abstraction or claim.
 
+Do not load the
+[shared evolution policy](../star-writing/references/evolution-policy.md) for
+ordinary paper work. If the user explicitly asks the plugin to learn, or this
+task exposes a material, plausibly reusable success, correction, or gap, keep
+this skill responsible for the paper, retain only a task-local candidate, and route plugin
+maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
+change.
+
 ## Set the mode and source boundary
 
 - Use **audit** by default. Inspect and report without modifying manuscript,

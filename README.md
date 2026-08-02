@@ -3,13 +3,15 @@
 STAR Writing Skills is a cross-disciplinary, cross-language Codex plugin for
 building defensible research papers and their associated supplements,
 rebuttals, and release artifacts. It coordinates framing, literature, methods,
-evidence, drafting, polishing, review, and live submission checks without
+evidence, drafting, polishing, review, live submission checks, and
+evidence-driven workflow evolution without
 binding the workflow to a research field, project, language, venue, or fixed
 paper template.
 
 ## Architecture
 
-The plugin contains one router and eight focused skills.
+The plugin contains one paper router, eight focused paper skills, and one
+maintenance skill.
 
 | Skill | Owner of |
 |---|---|
@@ -22,9 +24,12 @@ The plugin contains one router and eight focused skills.
 | `star-writing-polish` | Meaning-preserving language improvement and translation |
 | `star-writing-review` | Purpose-specific, adversarial, and consistency review |
 | `star-writing-submit` | Live requirements, rendering or forms, identity, and packaging |
+| `star-writing-evolve` | Feedback reconstruction, learning-scope decisions, authorized skill evolution, and regression validation |
 
-Use the router for work spanning several stages. Use a focused skill when one
-owner clearly controls the requested deliverable.
+Use the paper router for work spanning several paper stages. Use a focused
+paper skill when one owner clearly controls the requested deliverable. Use
+`star-writing-evolve` only for explicit maintenance of this plugin's reusable
+behavior; it is not another manuscript stage.
 
 ## Working model
 
@@ -37,6 +42,13 @@ each consequential uncertainty returns to targeted grounding. Convergence tests
 the surviving accounts against the closest work and available evidence before
 drafting. Submission is a live, target-specific audit layered onto a stable
 paper and its associated artifacts.
+
+The suite is dynamic but not self-modifying by default. Praise, correction,
+friction, failure, and self-discovered methods can become evolution candidates.
+Persistent skill behavior changes only after the episode is reconstructed, the
+lesson is placed at the narrowest valid layer, conflicts are checked, and the
+user explicitly authorizes the identified source update. Commit, installation,
+push, marketplace update, and release remain separate actions.
 
 Brainstorms, thought experiments, confidence labels, and rejected alternatives
 remain in the working record. Only necessary, adequately supported content is
@@ -64,41 +76,93 @@ Mode words matter:
 - rewrite returns revised text but does not modify a file;
 - edit or revise a named file authorizes changes only within the stated scope;
 - polish preserves claims, evidence, numbers, citations, notation, and
-  scientific terminology.
+  scientific terminology;
+- evolve changes an identified skill-development source only within explicitly
+  authorized scope and never implies installation, push, publication, or paper
+  edits.
 
 ## Install
 
-Install the plugin as one bundle. Do not copy the nine skills separately or
+Install the plugin as one bundle. Do not copy the ten skills separately or
 hand-edit marketplace JSON.
 
 Clone or download this repository first. For a private GitHub checkout over
 SSH, for example:
 
 ```bash
-git clone git@github.com:<owner>/star-writing-skills.git
+git clone git@github.com:YOUR_GITHUB_OWNER/star-writing-skills.git
 ```
 
-For a first personal installation, run these commands from Codex's bundled
-`plugin-creator` skill root:
+For a first personal installation, create the default marketplace entry and
+staging path from Codex's bundled `plugin-creator` skill root:
 
 ```bash
 python3 scripts/create_basic_plugin.py star-writing-skills --with-marketplace
-cp -a /absolute/path/to/star-writing-skills/. ~/plugins/star-writing-skills/
-python3 scripts/validate_plugin.py ~/plugins/star-writing-skills
-codex plugin add star-writing-skills@personal
 ```
 
-The scaffold command creates the default personal marketplace entry and the
-expected `~/plugins/star-writing-skills` location. The copy then replaces the
-temporary scaffold with this plugin.
-
-For an existing personal installation, copy the updated source, then use the
-official cachebuster and reinstall flow from the same `plugin-creator` root:
+For either a first installation or an update, stage an exact validated commit.
+The archive excludes `.git`; the synchronized staging path also removes files
+retired by that commit. Set `star_commit` to the validated commit hash, not an
+uncommitted working tree:
 
 ```bash
-cp -a /absolute/path/to/star-writing-skills/. ~/plugins/star-writing-skills/
-python3 scripts/update_plugin_cachebuster.py ~/plugins/star-writing-skills
-codex plugin add star-writing-skills@personal
+set -euo pipefail
+star_source="/absolute/path/to/star-writing-skills"
+star_commit="VALIDATED_COMMIT_HASH"
+star_stage_dir="$(mktemp -d)"
+star_plugin_root="$(python3 - <<'PY'
+from pathlib import Path
+print((Path.home() / "plugins" / "star-writing-skills").resolve())
+PY
+)"
+test "$star_commit" != "VALIDATED_COMMIT_HASH"
+git -C "$star_source" archive --format=tar "$star_commit" | tar -xf - -C "$star_stage_dir"
+python3 scripts/validate_plugin.py "$star_stage_dir"
+python3 - "$star_source" "$star_stage_dir" "$star_plugin_root" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+source = Path(sys.argv[1]).resolve(strict=True)
+stage = Path(sys.argv[2]).resolve(strict=True)
+target = Path(sys.argv[3]).resolve(strict=True)
+expected = (Path.home() / "plugins" / "star-writing-skills").resolve()
+if target != expected or target.name != "star-writing-skills":
+    raise SystemExit(f"refusing unexpected staging target: {target}")
+if source == target or source in target.parents or target in source.parents:
+    raise SystemExit("development source and plugin staging must be separate")
+if ".codex/plugins/cache" in target.as_posix():
+    raise SystemExit("refusing to synchronize into a generated cache")
+for label, root in (("archive", stage), ("current target", target)):
+    manifest = root / ".codex-plugin" / "plugin.json"
+    payload = json.loads(manifest.read_text(encoding="utf-8"))
+    if payload.get("name") != "star-writing-skills":
+        raise SystemExit(f"{label} has the wrong plugin identity")
+PY
+rsync --archive --delete "$star_stage_dir/" "$star_plugin_root/"
+python3 scripts/validate_plugin.py "$star_plugin_root"
+```
+
+The guarded block stops if archive creation, validation, identity checks, or
+path checks fail. The `--delete` scope is the resolved personal-plugin staging
+directory only; it cannot target the development checkout, marketplace root, or
+generated cache. Inspect or remove the temporary directory after use.
+
+Then apply the official cachebuster and reinstall flow from the same
+`plugin-creator` root. Read the actual personal-marketplace name rather than
+assuming it:
+
+```bash
+set -euo pipefail
+star_plugin_root="$(python3 - <<'PY'
+from pathlib import Path
+print((Path.home() / "plugins" / "star-writing-skills").resolve())
+PY
+)"
+python3 scripts/update_plugin_cachebuster.py "$star_plugin_root"
+python3 scripts/validate_plugin.py "$star_plugin_root"
+star_marketplace="$(python3 scripts/read_marketplace_name.py)"
+codex plugin add "star-writing-skills@$star_marketplace"
 ```
 
 Start a new Codex thread after installation or reinstall so the updated skills
@@ -121,6 +185,11 @@ citation supports its exact clause. Review only.
 Use $star-writing-skills:star-writing-polish to tighten this passage without
 changing claims, numbers, citations, notation, or technical terminology.
 Return revised text only.
+```
+
+```text
+Use $star-writing-skills:star-writing-evolve to audit whether this accepted
+workflow should become a reusable skill rule. Do not modify source yet.
 ```
 
 State the manuscript snapshot, permitted scope, locked text, concurrent

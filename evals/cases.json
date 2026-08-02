@@ -777,5 +777,85 @@
       "report an exact count merely because the request says shorten",
       "apply an English phrase blacklist or generic conference-paper template"
     ]
+  },
+  {
+    "id": "evolution-feedback-scope-triage",
+    "prompt": "Audit what STAR Writing should learn from this session without changing any file. The user praised one result, disliked another, requested no semicolons in one paragraph, supplied a project-specific split, and recalled a page limit from a venue, year, and track that may be stale.",
+    "expected_controller": "star-writing-evolve",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-submit"
+    ],
+    "must": [
+      "reconstruct and classify the positive feedback, dissatisfaction, one-time preference, project fact, and venue claim separately",
+      "treat feedback as local outcome evidence while testing its operational cause and justified scope",
+      "place a verified project fact only in authorized project state and a current venue rule only in an exact target-specific overlay after official verification",
+      "return a candidate decision for every signal without changing persistent source or state"
+    ],
+    "must_not": [
+      "infer a universal rule or causal mechanism from praise, silence, one complaint, or one successful output",
+      "treat a remembered venue rule as current or store a local signal as a shared skill rule",
+      "modify a skill, author profile, project ledger, or submission overlay during audit"
+    ]
+  },
+  {
+    "id": "active-task-evolution-handoff",
+    "prompt": "During a read-only evidence audit, the documented procedure fails on one representative artifact and you discover a faster method that succeeds on that example. Complete the reliable part of the paper audit, then decide whether the workflow lesson deserves investigation. Do not edit the paper, project state, or plugin.",
+    "expected_controller": "star-writing-evidence",
+    "expected_mode": "audit",
+    "expected_routes": [
+      "star-writing-evolve"
+    ],
+    "must": [
+      "keep the active evidence controller responsible for the paper deliverable and hand off only a task-local evolution candidate",
+      "distinguish a rule defect from execution, information, authority, tool, environment, and project-scope failures using observable evidence",
+      "compare the current and candidate procedures on the originating case, nearest valid negative case, preserved invariants, and every claimed generality axis",
+      "stop or qualify the paper audit if the failure makes its result unreliable"
+    ],
+    "must_not": [
+      "silently switch the paper task into evolve mode or modify skill source during the read-only audit",
+      "promote a self-discovered method from one successful example",
+      "weaken evidence, safety, platform, or authorization constraints to make the candidate pass"
+    ]
+  },
+  {
+    "id": "evolution-conflict-authorization-plan",
+    "prompt": "Plan only. A proposed shared STAR Writing rule conflicts with the current task instruction, an older author preference, a project convention, an exact venue rule, and a non-overridable platform guardrail. Determine what could change and how it would be tested, but do not modify or commit anything.",
+    "expected_controller": "star-writing-evolve",
+    "expected_mode": "plan",
+    "expected_routes": [
+      "star-writing-submit"
+    ],
+    "must": [
+      "resolve authority, factual responsibility, applicability, and scope as separate questions",
+      "let verified local layers specialize general defaults only inside their scope while preserving non-overridable constraints",
+      "mark unresolved same-scope conflicts for evidence or user adjudication instead of preserving incompatible rules",
+      "name the canonical owner, dependent files, positive and negative regressions, version impact, and separate action permissions"
+    ],
+    "must_not": [
+      "let authorization turn an unverified scientific or venue claim into fact",
+      "promote a local convention globally or let a preference override a responsible fact",
+      "edit, commit, install, push, or release in plan mode"
+    ]
+  },
+  {
+    "id": "authorized-evolution-release-boundary",
+    "prompt": "Evolve the STAR Writing development repository. The user explicitly approved the numbered source changes, validation, a compatibility-based version update, and one isolated commit. The worktree contains unrelated changes. They did not authorize manuscript edits, plugin installation, cache or marketplace updates, push, tag, publication, or release.",
+    "expected_controller": "star-writing-evolve",
+    "expected_mode": "evolve",
+    "expected_routes": [],
+    "must": [
+      "bind the approved change to the current canonical source, revision, dirty state, installed-version distinction, and file snapshots",
+      "recheck each affected file snapshot immediately before writing and stop on overlapping ownership or semantically rebase only after ownership is resolved",
+      "update the canonical owner and only required dependents while preserving unrelated work",
+      "run structural validators and clean-context positive, negative, no-authorization, and regression tests on the exact final source snapshot",
+      "derive semantic version impact from compatibility, inspect the staged diff, create only the authorized commit, and report every adoption state separately"
+    ],
+    "must_not": [
+      "absorb unrelated changes or treat an installed cache as development source",
+      "overwrite, stage, or commit another writer's changes",
+      "claim improvement while required validation or negative controls fail",
+      "install, update a cache or marketplace, push, tag, publish, or release without separate explicit authorization"
+    ]
   }
 ]

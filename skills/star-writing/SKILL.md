@@ -49,10 +49,18 @@ Keep four layers separate:
 Do not promote a personal style preference, project fact, or remembered venue
 rule into a universal writing principle.
 
-Bundled files under `references/` are immutable templates. Do not write
-project facts or author preferences into the installed skill. With explicit
-authorization, copy working state to paths relative to the resolved project
-root:
+Skill evolution is a separate lifecycle. Feedback may adapt the current task or
+create a task-local candidate, but it does not authorize persistent source
+changes. Keep the paper controller responsible for the paper. Read the
+[evidence-driven evolution policy](references/evolution-policy.md) and route to
+`star-writing-evolve` only when the user explicitly asks the plugin to learn or
+when a material, plausibly reusable success, correction, or gap is being
+investigated.
+
+During paper tasks, bundled files under `references/` are immutable templates.
+Do not write project facts or author preferences into the installed skill. With
+explicit authorization, copy working state to paths relative to the resolved
+project root:
 
 - `.star-writing/paper-contract.md` for project facts and locks;
 - `.star-writing/terminology-and-symbols.md` for canonical names, definitions,

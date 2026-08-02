@@ -7,6 +7,14 @@ description: Perform a purpose-specific, evidence-grounded review of research pa
 
 Review the strongest defensible version of the paper, then stress-test it. Do not reward ambitious wording that the evidence cannot support, and do not demand work unrelated to the paper's actual claim.
 
+Do not load the
+[shared evolution policy](../star-writing/references/evolution-policy.md) for
+ordinary paper work. If the user explicitly asks the plugin to learn, or this
+task exposes a material, plausibly reusable success, correction, or gap, keep
+this skill responsible for the paper, retain only a task-local candidate, and route plugin
+maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
+change.
+
 ## Set the mode
 
 - Use **audit** for reviewer simulation, whole-manuscript judgment, consistency

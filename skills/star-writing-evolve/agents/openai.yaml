@@ -1,0 +1,4 @@
+interface:
+  display_name: "STAR Writing Evolve"
+  short_description: "Evolve STAR workflows from verified use"
+  default_prompt: "Use $star-writing-evolve to audit this writing-workflow feedback and propose a validated plugin update."

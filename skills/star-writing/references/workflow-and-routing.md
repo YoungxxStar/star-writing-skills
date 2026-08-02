@@ -8,6 +8,7 @@ several collaborators.
 - [Select the work mode](#select-the-work-mode)
 - [Choose the sequence](#choose-the-sequence)
 - [State-machine gates](#state-machine-gates)
+- [Use the evolution side path](#use-the-evolution-side-path)
 - [Transactional collaboration](#transactional-collaboration)
 - [Stop conditions](#stop-conditions)
 
@@ -57,6 +58,10 @@ Use the minimum sequence that resolves the request:
 - Metrics, statistics, experiments, Results, or visuals without a whole-paper
   decision: evidence controls.
 - Final package: review unresolved scientific risks before submit.
+- Reusable workflow success, correction, failure, or better method: keep the
+  active paper controller in place, then route the learning question to
+  `star-writing-evolve`. Do not mix a paper edit and a skill-source mutation
+  under one implicit authorization.
 
 Do not polish unstable science. Do not redesign experiments merely because a
 sentence is difficult to defend.
@@ -151,6 +156,28 @@ Report:
 - what was intentionally preserved;
 - what remains exploratory, unsupported, contradicted, or unresolved;
 - what validation was run.
+
+## Use the evolution side path
+
+Evolution is not a paper-writing mode or gate. It runs beside the active task
+and must not silently change its controller or artifact scope. Use
+`star-writing-evolve` to reconstruct feedback, test whether it exposes an
+execution lapse or reusable rule gap, and implement persistent skill-source
+changes only with explicit authorization.
+
+1. Adapt the current task to explicit feedback when safe.
+2. Record a reusable lesson as a task-local candidate rather than a rule.
+3. Route an explicit learning request to `star-writing-evolve` for audit or
+   planning.
+4. Enter evolve mode only after the user authorizes the identified development
+   source and change scope.
+5. Treat validation, commit, installation, push, and release as distinct states
+   and permissions.
+
+Read the
+[evolution policy](evolution-policy.md) for signal interpretation, scope
+placement, authorization, conflict resolution, regression testing, and
+concurrent evolution.
 
 ## Transactional collaboration
 

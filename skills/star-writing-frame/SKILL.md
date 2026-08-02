@@ -5,6 +5,14 @@ description: Audit or revise a research paper's first-principles motivation, pro
 
 # STAR Writing: Research Framing
 
+Do not load the
+[shared evolution policy](../star-writing/references/evolution-policy.md) for
+ordinary paper work. If the user explicitly asks the plugin to learn, or this
+task exposes a material, plausibly reusable success, correction, or gap, keep
+this skill responsible for the paper, retain only a task-local candidate, and route plugin
+maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
+change.
+
 ## Set the Mode
 
 Classify the request before acting.

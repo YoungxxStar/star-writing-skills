@@ -8,6 +8,14 @@ description: Prepare and audit research-paper submissions and associated artifac
 Treat submission requirements as a live, target-specific overlay on a
 substantively stable artifact. Never encode remembered limits as current policy.
 
+Do not load the
+[shared evolution policy](../star-writing/references/evolution-policy.md) for
+ordinary paper work. If the user explicitly asks the plugin to learn, or this
+task exposes a material, plausibly reusable success, correction, or gap, keep
+this skill responsible for the paper, retain only a task-local candidate, and route plugin
+maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
+change.
+
 ## Identify the submission target
 
 Record:
