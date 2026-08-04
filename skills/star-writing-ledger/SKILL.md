@@ -40,10 +40,10 @@ Use the claim statuses defined in
 proposition carries an epistemic judgment.
 
 Do not load the
-[shared evolution policy](../star-writing/references/evolution-policy.md) for
-ordinary ledger work. If the user explicitly asks the plugin to learn from the
-workflow, keep this skill responsible for the project ledger and route only the
-reusable skill-maintenance question to `star-writing-evolve`.
+[evolution handoff overlay](../star-writing/references/evolution-policy.md) for
+ordinary ledger work. If the user explicitly asks the system to learn from the
+workflow, keep this skill responsible for the project ledger and route only a
+public-safe skill-maintenance handoff to STAR HotSkills.
 
 ## Bind the logical ledger
 

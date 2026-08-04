@@ -1,4 +1,0 @@
-interface:
-  display_name: "STAR Writing Evolve"
-  short_description: "Audit feedback and steward workflow evolution"
-  default_prompt: "Use $star-writing-evolve to audit this workflow feedback; stage project evidence or evolve canonical source only within my explicit authorization."

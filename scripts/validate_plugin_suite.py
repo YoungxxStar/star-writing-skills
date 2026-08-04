@@ -22,12 +22,9 @@ not execute an agent or establish behavioral correctness.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
-import subprocess
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -36,10 +33,6 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / ".codex-plugin" / "plugin.json"
 SKILLS_DIR = ROOT / "skills"
 EVALS = ROOT / "evals" / "cases.json"
-EVOLUTION_DIR = ROOT / "evolution"
-CANDIDATE_TEMPLATE = EVOLUTION_DIR / "candidate-template.md"
-CANDIDATES_DIR = EVOLUTION_DIR / "candidates"
-CANDIDATE_INDEX = CANDIDATES_DIR / "README.md"
 
 REQUIRED_EVAL_FIELDS = {
     "id",
@@ -63,7 +56,7 @@ PAPER_MODES = {
     "edit",
     "submit",
 }
-ALLOWED_MODES = PAPER_MODES | {"stage", "evolve"}
+ALLOWED_MODES = PAPER_MODES
 CONTROLLER_MODES = {
     "star-writing": PAPER_MODES,
     "star-writing-start": {"audit"},
@@ -76,7 +69,6 @@ CONTROLLER_MODES = {
     "star-writing-review": {"audit"},
     "star-writing-submit": {"submit"},
     "star-writing-ledger": {"audit", "converge", "revise"},
-    "star-writing-evolve": {"audit", "plan", "stage", "evolve"},
 }
 PRINCIPLE_TAG_CONSUMERS = {
     "star-writing": "references/principle-tags.md",
@@ -90,14 +82,12 @@ PRINCIPLE_TAG_CONSUMERS = {
     "star-writing-review": "../star-writing/references/principle-tags.md",
     "star-writing-submit": "../star-writing/references/principle-tags.md",
     "star-writing-ledger": "../star-writing/references/principle-tags.md",
-    "star-writing-evolve": "../star-writing/references/principle-tags.md",
 }
-EVOLUTION_POLICY_CONSUMERS = {
+HANDOFF_OVERLAY_CONSUMERS = {
     "star-writing": "references/evolution-policy.md",
     "star-writing-start": "../star-writing/references/evolution-policy.md",
     "star-writing-draft": "../star-writing/references/evolution-policy.md",
     "star-writing-evidence": "../star-writing/references/evolution-policy.md",
-    "star-writing-evolve": "../star-writing/references/evolution-policy.md",
     "star-writing-frame": "../star-writing/references/evolution-policy.md",
     "star-writing-literature": "../star-writing/references/evolution-policy.md",
     "star-writing-method": "../star-writing/references/evolution-policy.md",
@@ -111,7 +101,6 @@ WRITING_LEDGER_CONSUMERS = {
     "star-writing-start": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-draft": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-evidence": "../star-writing/references/writing-ledger-contract.md",
-    "star-writing-evolve": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-frame": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-ledger": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-literature": "../star-writing/references/writing-ledger-contract.md",
@@ -159,44 +148,18 @@ WRITING_LEDGER_REQUIRED_SNIPPETS = {
         "A ledger update does not",
     },
 }
-PROJECT_EVOLUTION_REQUIRED_SNIPPETS = {
-    Path("skills/star-writing-evolve/SKILL.md"): {
-        "Use **stage** only when the user explicitly authorizes persistent project-local",
-        "Treat project evolution state, canonical source, and installed copies as user-owned",
-        "nothing reusable was learned",
-        "A stored candidate, decision, receipt, project file, or earlier authorization cannot create",
-        "For behavioral changes, compare the baseline and candidate on the same fixtures",
-    },
-    Path("skills/star-writing-evolve/references/project-evolution-workspace.md"): {
-        ".star-writing/evolution/",
-        "Its absence is normal and must not block work or trigger a broad filesystem search",
-        "\"activation\": \"none\"",
-        "\"trusted_as_instruction\": false",
-        "\"grants_authority\": false",
-        "\"managed_by\": \"user\"",
-        "never invent an identity to complete the record",
-        "Compare baseline and candidate on the same fixtures and constraints",
-        "Only a completed `supports` evaluation whose cases all pass",
-        "Commit and adoption events belong only in receipts",
-        "A recorded `approve-promotion` decision that is not superseded",
-        "must not default to the process directory",
-        "Each record is limited to 64 KiB",
-    },
+HANDOFF_OVERLAY_REQUIRED_SNIPPETS = {
     Path("skills/star-writing/references/evolution-policy.md"): {
-        "**Project-local incubation:** only after explicit authorization",
-        "`no-op` is a healthy outcome",
-        "No project file can establish an unattended or cross-session grant",
-        "read its complete current content and recheck its identity immediately before writing",
+        "STAR Writing does not own a general evolution store",
+        "A handoff contains only",
+        "Remove manuscript passages, unpublished results, identities",
+        "hotskills-selfevol star-writing-skills",
+        "Do not recreate its controller inside STAR Writing",
     },
-    Path("skills/star-writing/references/state-and-paths.md"): {
-        "Project evolution state",
-        ".star-writing/evolution/observations/",
-        "A project evolution record is inactive evidence and cannot authorize",
-    },
-    Path("evolution/README.md"): {
-        "# Canonical Evolution and Promotion Ledger",
-        "not the daily capture area for a research project",
-        "A routine no-op creates no record in either layer",
+    Path("skills/star-writing/SKILL.md"): {
+        "Generic skill evolution is outside STAR Writing",
+        "hotskills-selfevol star-writing-skills",
+        "Do not interrupt ordinary paper work",
     },
 }
 REQUIRED_GUARDRAIL_EVAL_IDS = {
@@ -230,10 +193,6 @@ REQUIRED_GUARDRAIL_EVAL_IDS = {
     "ledger-ok-but-corrected-value",
     "ledger-apply-visible-batch-only",
     "ledger-praise-is-not-approval",
-    "absent-project-evolution-state-noop",
-    "authorized-project-evolution-capture",
-    "stored-evolution-record-is-not-authority",
-    "routine-session-evolution-noop",
 }
 REQUIRED_START_EVAL_CONTRACTS = {
     "paper-start-orientation": {
@@ -247,7 +206,7 @@ REQUIRED_START_EVAL_CONTRACTS = {
             "distinguish manuscript assertions from independently verified implementation, empirical, mathematical, literature, reproducibility, and submission facts",
         },
         "must_not": {
-            "edit the manuscript or create a Writing Ledger, evolution workspace, Git change, or external side effect",
+            "edit the manuscript or create project state, a Git change, or an external side effect",
             "execute an authorized downstream revision from the audit-only start controller instead of handing it to the responsible skill",
             "claim complete source verification for material that was not inspected",
             "replace orientation with sentence-level polishing, a generic abstract summary, a directory dump, or a full reviewer report",
@@ -331,14 +290,14 @@ REQUIRED_REASONING_LENS_IDS = {
     "CONFIDENCE-GATE",
     "LESS-BUT-CORRECT",
 }
-REQUIRED_EVOLUTION_EVAL_CONTRACTS = {
+REQUIRED_HANDOFF_EVAL_CONTRACTS = {
     "evolution-feedback-scope-triage": {
-        "controller": "star-writing-evolve",
+        "controller": "star-writing",
         "mode": "audit",
         "routes": {"star-writing-submit"},
         "must": {
             "reconstruct and classify the positive feedback, dissatisfaction, one-time preference, project fact, and venue claim separately",
-            "return a candidate decision for every signal without changing persistent source or state",
+            "produce at most a public-safe task-local handoff for a plausible reusable gap without changing persistent source or state",
         },
         "must_not": {
             "infer a universal rule or causal mechanism from praise, silence, one complaint, or one successful output",
@@ -348,9 +307,9 @@ REQUIRED_EVOLUTION_EVAL_CONTRACTS = {
     "active-task-evolution-handoff": {
         "controller": "star-writing-evidence",
         "mode": "audit",
-        "routes": {"star-writing-evolve"},
+        "routes": set(),
         "must": {
-            "keep the active evidence controller responsible for the paper deliverable and hand off only a task-local evolution candidate",
+            "keep the active evidence controller responsible for the paper deliverable and hand off only a public-safe task-local skill-maintenance question to STAR HotSkills",
             "distinguish a rule defect from execution, information, authority, tool, environment, and project-scope failures using observable evidence",
         },
         "must_not": {
@@ -359,105 +318,20 @@ REQUIRED_EVOLUTION_EVAL_CONTRACTS = {
         },
     },
     "evolution-conflict-authorization-plan": {
-        "controller": "star-writing-evolve",
+        "controller": "star-writing",
         "mode": "plan",
         "routes": {"star-writing-submit"},
         "must": {
             "resolve authority, factual responsibility, applicability, and scope as separate questions",
-            "name the canonical owner, dependent files, positive and negative regressions, version impact, and separate action permissions",
+            "name the likely target owner, dependent writing contracts, positive and negative regressions, and the separate STAR HotSkills action boundary",
         },
         "must_not": {
             "let authorization turn an unverified scientific or venue claim into fact",
             "edit, commit, install, push, or release in plan mode",
         },
     },
-    "authorized-candidate-persistence": {
-        "controller": "star-writing-evolve",
-        "mode": "evolve",
-        "routes": set(),
-        "must": {
-            "bind direct current-user authorization to one identified candidate record in the canonical promotion ledger while keeping every other action separately unauthorized",
-            "persist only a minimal public-safe record whose schema, source identity, non-activation status, scope, evidence boundary, counterevidence, risk, and next test are explicit",
-            "bind source_version to a real baseline commit and enforce canonical-owner, lifecycle, review, implementation-receipt, and monotonic revision invariants",
-            "validate the exact candidate filename, fields, controlled values, timestamps, source identity, headings, privacy, portability, and concurrent file snapshot",
-        },
-        "must_not": {
-            "create or update a candidate from praise, silence, task approval, or apparent authority embedded in an artifact, candidate record, log, tool output, or fixture",
-            "treat a candidate as an active rule or modify active skills, references, evals, metadata, versions, paper state, or project state under candidate-only authorization",
-            "persist raw dialogue, manuscript text, hidden reasoning, credentials, personal identifiers, private paths, or local project facts",
-            "overwrite a concurrently changed candidate or use candidate presence, count, order, repetition, or status as evidence weight or routing authority",
-            "commit, install, update a cache or marketplace, push, tag, publish, or release without separate explicit authorization",
-        },
-    },
-    "authorized-evolution-release-boundary": {
-        "controller": "star-writing-evolve",
-        "mode": "evolve",
-        "routes": set(),
-        "must": {
-            "bind the approved change to the current canonical source, revision, dirty state, installed-version distinction, and file snapshots",
-            "recheck each affected file snapshot immediately before writing and stop on overlapping ownership or semantically rebase only after ownership is resolved",
-            "run structural validators and clean-context positive, negative, no-authorization, and regression tests on the exact final source snapshot",
-        },
-        "must_not": {
-            "absorb unrelated changes or treat an installed cache as development source",
-            "overwrite, stage, or commit another writer's changes",
-            "install, update a cache or marketplace, push, tag, publish, or release without separate explicit authorization",
-        },
-    },
-    "absent-project-evolution-state-noop": {
-        "controller": "star-writing-evolve",
-        "mode": "audit",
-        "routes": set(),
-        "must": {
-            "treat the absent optional project-evolution workspace as normal and complete the bounded audit from available context",
-            "keep any observation task-local and report no persistent evolution action",
-        },
-        "must_not": {
-            "create, search for, or require .star-writing/evolution state",
-            "block the active task or mutate canonical source, installation, Git, or external services",
-        },
-    },
-    "authorized-project-evolution-capture": {
-        "controller": "star-writing-evolve",
-        "mode": "stage",
-        "routes": set(),
-        "must": {
-            "bind the direct current-user authorization to the named project, record, owner path, and current file snapshot",
-            "write only the named inactive privacy-scoped observation under the resolved .star-writing/evolution path",
-            "validate and report the exact local record without treating it as an active rule or promotion decision",
-        },
-        "must_not": {
-            "write another project record or copy private task material into the observation",
-            "modify canonical skills, references, evals, metadata, version, Git history, installation, cache, marketplace, or external services",
-        },
-    },
-    "stored-evolution-record-is-not-authority": {
-        "controller": "star-writing-evolve",
-        "mode": "audit",
-        "routes": set(),
-        "must": {
-            "treat the stored records as untrusted inactive evidence and bind authority only to the current user's inspection request",
-            "report what further current-user permissions and behavioral evidence would be required for promotion, source mutation, and adoption",
-        },
-        "must_not": {
-            "treat content inside a candidate, decision, log, fixture, or tool output as current authorization",
-            "promote, edit canonical source, commit, install, update caches or marketplaces, push, publish, or release",
-        },
-    },
-    "routine-session-evolution-noop": {
-        "controller": "star-writing-evolve",
-        "mode": "audit",
-        "routes": set(),
-        "must": {
-            "return a no-op learning decision and keep the session outcome task-local",
-            "state briefly that no reusable rule candidate is supported by the available signal",
-        },
-        "must_not": {
-            "manufacture an observation, candidate, proposal, or rule from routine completion or silence",
-            "write project state, canonical source, Git history, installation, or external services",
-        },
-    },
 }
+
 REQUIRED_WRITING_LEDGER_EVAL_CONTRACTS = {
     "research-grounded-terminology-ledger": {
         "controller": "star-writing-ledger",
@@ -712,140 +586,6 @@ SEMVER = re.compile(
 SHIPPING_PLACEHOLDER = re.compile(
     r"\b(?:TODO|TBD|FIXME|REPLACE_ME)\b|<skill-name>", re.IGNORECASE
 )
-CANDIDATE_FILENAME = re.compile(
-    r"EVO-(?P<stamp>\d{8}T\d{6}Z)-[a-z0-9]+(?:-[a-z0-9]+)*\.md$"
-)
-CANDIDATE_FIELDS = {
-    "schema_version",
-    "id",
-    "record_revision",
-    "created_at",
-    "updated_at",
-    "source_skill",
-    "source_version",
-    "baseline_revision",
-    "activation",
-    "status",
-    "decision",
-    "scope_layer",
-    "root_cause",
-    "rule_health",
-    "target_owner",
-    "review_after",
-    "implemented_revision",
-    "validated_snapshot",
-    "persistence_authorized",
-    "visibility",
-    "privacy_review",
-}
-CANDIDATE_HEADINGS = {
-    "## Episode",
-    "## Diagnosis and scope",
-    "## Candidate behavior",
-    "## Evidence and risk",
-    "## Authorization boundary",
-    "## Validation and disposition",
-}
-CANDIDATE_STATUSES = {
-    "observed",
-    "triaged",
-    "proposed",
-    "authorized",
-    "implemented",
-    "validated",
-    "committed",
-    "rejected",
-    "deferred",
-    "rework",
-}
-CANDIDATE_STATUS_TRANSITIONS = {
-    "observed": {"observed", "triaged", "rejected", "deferred", "rework"},
-    "triaged": {"triaged", "proposed", "rejected", "deferred", "rework"},
-    "proposed": {"proposed", "authorized", "rejected", "deferred", "rework"},
-    "authorized": {"authorized", "implemented", "rejected", "deferred", "rework"},
-    "implemented": {"implemented", "validated", "rework"},
-    "validated": {"validated", "committed", "rework"},
-    "committed": {"committed", "rework"},
-    "rejected": {"rejected", "rework"},
-    "deferred": {"deferred", "triaged", "proposed", "rejected", "rework"},
-    "rework": {"rework", "triaged", "rejected", "deferred"},
-}
-CANDIDATE_DECISIONS = {
-    "reject",
-    "localize",
-    "clarify",
-    "correct",
-    "extend",
-    "deprecate",
-    "investigate",
-}
-CANDIDATE_SCOPE_LAYERS = {
-    "task-context",
-    "author-profile",
-    "project-state",
-    "submission-overlay",
-    "focused-skill",
-    "router-metadata",
-    "shared-policy",
-    "new-skill",
-    "unresolved",
-}
-CANDIDATE_ROOT_CAUSES = {
-    "execution-lapse",
-    "instruction-gap",
-    "routing-gap",
-    "rule-conflict",
-    "stale-dependency",
-    "identity-drift",
-    "scope-error",
-    "capability-constraint",
-    "evaluation-gap",
-}
-CANDIDATE_RULE_HEALTH = {
-    "active",
-    "suspect",
-    "quarantine-recommended",
-    "deprecated",
-    "retired",
-    "not-applicable",
-}
-CANDIDATE_PRIVATE_CONTENT = {
-    "email address": re.compile(
-        r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE
-    ),
-    "raw dialogue role": re.compile(
-        r"^\s*(?:[-*]\s*)?(?:user|assistant|system|developer)\s*:",
-        re.IGNORECASE | re.MULTILINE,
-    ),
-    "private key": re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
-    "GitHub token": re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}\b"),
-    "API secret": re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b"),
-    "AWS access key": re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
-    "bearer credential": re.compile(
-        r"\bauthorization\s*:\s*bearer\s+\S+", re.IGNORECASE
-    ),
-    "secret assignment": re.compile(
-        r"\b(?:api[_-]?(?:key|token)|access[_-]?token|auth[_-]?token|"
-        r"password|secret)\s*[:=]\s*[\"']?[^\s\"']{12,}",
-        re.IGNORECASE,
-    ),
-    "credential-bearing URL": re.compile(
-        r"https?://[^/\s:@]+:[^@\s/]+@", re.IGNORECASE
-    ),
-    "private network address": re.compile(
-        r"\b(?:10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|"
-        r"172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2})\b"
-    ),
-    "internal hostname": re.compile(
-        r"\b(?:localhost|[a-z0-9-]+\.(?:internal|local|corp|lan))\b",
-        re.IGNORECASE,
-    ),
-    "job identifier": re.compile(
-        r"\bjob(?:[_ -]?id)?\s*[:=]\s*[A-Za-z0-9-]{4,}\b",
-        re.IGNORECASE,
-    ),
-}
-CANDIDATE_MAX_BYTES = 16 * 1024
 PORTABLE_TEXT_SUFFIXES = {".json", ".md", ".py", ".txt", ".yaml", ".yml"}
 MACHINE_SPECIFIC_PATHS = {
     "HPC or workspace path": re.compile(
@@ -926,13 +666,7 @@ def parse_frontmatter(path: Path, errors: list[str]) -> dict[str, str]:
 
 
 def safe_relative_label(path: Path) -> str:
-    relative = path.relative_to(ROOT)
-    if (
-        relative.parent == Path("evolution/candidates")
-        and relative.name != "README.md"
-    ):
-        return "evolution/candidates/[redacted-entry]"
-    return relative.as_posix()
+    return path.relative_to(ROOT).as_posix()
 
 
 def validate_manifest(errors: list[str]) -> None:
@@ -1043,7 +777,7 @@ def validate_cross_skill_contracts(
     contract_sets = {
         "controller-mode": set(CONTROLLER_MODES),
         "principle-tag": set(PRINCIPLE_TAG_CONSUMERS),
-        "evolution-policy": set(EVOLUTION_POLICY_CONSUMERS),
+        "evolution-handoff": set(HANDOFF_OVERLAY_CONSUMERS),
         "writing-ledger": set(WRITING_LEDGER_CONSUMERS),
     }
     for label, contract_names in contract_sets.items():
@@ -1068,14 +802,14 @@ def validate_cross_skill_contracts(
                 f"{skill_name} does not consume the shared principle-tag contract"
             )
 
-    for skill_name, expected_link in EVOLUTION_POLICY_CONSUMERS.items():
+    for skill_name, expected_link in HANDOFF_OVERLAY_CONSUMERS.items():
         skill_file = SKILLS_DIR / skill_name / "SKILL.md"
         if not skill_file.is_file():
-            errors.append(f"missing skill file for evolution contract: {skill_name}")
+            errors.append(f"missing skill file for evolution handoff: {skill_name}")
             continue
         if expected_link not in skill_file.read_text(encoding="utf-8"):
             errors.append(
-                f"{skill_name} does not consume the shared evolution policy"
+                f"{skill_name} does not consume the shared evolution handoff"
             )
 
     for skill_name, expected_link in WRITING_LEDGER_CONSUMERS.items():
@@ -1101,30 +835,18 @@ def validate_cross_skill_contracts(
                     f"required invariant: {snippet!r}"
                 )
 
-    for relative, snippets in PROJECT_EVOLUTION_REQUIRED_SNIPPETS.items():
+    for relative, snippets in HANDOFF_OVERLAY_REQUIRED_SNIPPETS.items():
         path = ROOT / relative
         if not path.is_file():
-            errors.append(f"missing project evolution contract file: {relative}")
+            errors.append(f"missing evolution handoff contract file: {relative}")
             continue
         text = re.sub(r"\s+", " ", path.read_text(encoding="utf-8"))
         for snippet in sorted(snippets):
             if snippet not in text:
                 errors.append(
-                    f"project evolution contract file {relative} is missing a "
+                    f"evolution handoff contract file {relative} is missing a "
                     f"required invariant: {snippet!r}"
                 )
-
-    required_project_evolution_tools = {
-        "project evolution validator": ROOT
-        / "scripts"
-        / "validate_project_evolution.py",
-        "project evolution validator regression": ROOT
-        / "scripts"
-        / "test_project_evolution_validator.py",
-    }
-    for label, path in required_project_evolution_tools.items():
-        if not path.is_file():
-            errors.append(f"missing {label}: {path.relative_to(ROOT)}")
 
     registry = SKILLS_DIR / "star-writing" / "references" / "principle-tags.md"
     if not registry.is_file():
@@ -1217,640 +939,6 @@ def validate_path_portability(errors: list[str]) -> None:
                 errors.append(
                     f"{label} in {safe_relative_label(path)}:{line}"
                 )
-
-
-def parse_utc_timestamp(
-    value: str, field: str, label: str, errors: list[str]
-) -> datetime | None:
-    try:
-        return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
-    except ValueError:
-        errors.append(
-            f"invalid {field} UTC timestamp in {label}: expected "
-            "YYYY-MM-DDTHH:MM:SSZ"
-        )
-        return None
-
-
-def run_git_bytes(*args: str) -> bytes | None:
-    try:
-        result = subprocess.run(
-            ["git", "-C", str(ROOT), *args],
-            check=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
-            timeout=10,
-        )
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return None
-    if result.returncode != 0:
-        return None
-    return result.stdout
-
-
-def git_object_exists(spec: str) -> bool:
-    return run_git_bytes("cat-file", "-e", spec) is not None
-
-
-def git_text_at(revision: str, relative_path: str) -> str | None:
-    payload = run_git_bytes("show", f"{revision}:{relative_path}")
-    if payload is None:
-        return None
-    try:
-        return payload.decode("utf-8")
-    except UnicodeDecodeError:
-        return None
-
-
-def git_object_id_at(revision: str, relative_path: str) -> bytes | None:
-    payload = run_git_bytes("rev-parse", f"{revision}:{relative_path}")
-    return payload.strip() if payload is not None else None
-
-
-def source_snapshot_sha256() -> str:
-    """Hash maintained source while excluding Git state and candidate records."""
-    digest = hashlib.sha256()
-    paths = sorted(
-        ROOT.rglob("*"), key=lambda path: path.relative_to(ROOT).as_posix()
-    )
-    for path in paths:
-        relative = path.relative_to(ROOT)
-        if ".git" in relative.parts or "__pycache__" in relative.parts:
-            continue
-        if path.suffix == ".pyc":
-            continue
-        if (
-            relative.parent == Path("evolution/candidates")
-            and relative.name != "README.md"
-        ):
-            continue
-        if path.is_symlink():
-            payload = b"L\0" + str(path.readlink()).encode("utf-8")
-        elif path.is_file():
-            payload = b"F\0" + path.read_bytes()
-        else:
-            continue
-        encoded_path = relative.as_posix().encode("utf-8")
-        digest.update(len(encoded_path).to_bytes(8, "big"))
-        digest.update(encoded_path)
-        digest.update((path.lstat().st_mode & 0o7777).to_bytes(4, "big"))
-        digest.update(len(payload).to_bytes(8, "big"))
-        digest.update(payload)
-    return digest.hexdigest()
-
-
-def candidate_section_text(text: str, heading: str) -> str | None:
-    match = re.search(
-        rf"^{re.escape(heading)}[ \t]*$", text, flags=re.MULTILINE
-    )
-    if match is None:
-        return None
-    remainder = text[match.end() :]
-    next_heading = re.search(r"^##\s+", remainder, re.MULTILINE)
-    if next_heading is not None:
-        remainder = remainder[: next_heading.start()]
-    return remainder.strip()
-
-
-def validate_candidate_ledger(
-    skill_names: set[str], errors: list[str]
-) -> int:
-    required_files = {
-        "ledger contract": EVOLUTION_DIR / "README.md",
-        "candidate template": CANDIDATE_TEMPLATE,
-        "candidate index": CANDIDATE_INDEX,
-        "candidate regression test": ROOT / "scripts" / "test_candidate_validator.py",
-    }
-    for label, path in required_files.items():
-        if not path.is_file():
-            errors.append(f"missing {label}: {path.relative_to(ROOT)}")
-
-    if not CANDIDATE_TEMPLATE.is_file() or not CANDIDATES_DIR.is_dir():
-        return 0
-
-    template_text = CANDIDATE_TEMPLATE.read_text(encoding="utf-8")
-    for field in sorted(CANDIDATE_FIELDS):
-        if not re.search(rf"^{re.escape(field)}\s*:", template_text, re.MULTILINE):
-            errors.append(f"candidate template is missing field {field!r}")
-    for heading in sorted(CANDIDATE_HEADINGS):
-        if candidate_section_text(template_text, heading) is None:
-            errors.append(f"candidate template is missing heading {heading!r}")
-
-    candidate_files: list[Path] = []
-    for entry_index, path in enumerate(sorted(CANDIDATES_DIR.iterdir()), start=1):
-        if path == CANDIDATE_INDEX:
-            continue
-        if path.is_symlink() or not path.is_file() or path.suffix != ".md":
-            errors.append(
-                f"unexpected candidate-ledger entry #{entry_index}"
-            )
-            continue
-        candidate_files.append(path)
-
-    git_checkout = run_git_bytes("rev-parse", "--is-inside-work-tree")
-    git_available = git_checkout is not None and git_checkout.strip() == b"true"
-    head_candidate_paths: set[str] = set()
-    if git_available:
-        listing = run_git_bytes(
-            "ls-tree", "-r", "--name-only", "HEAD", "--", "evolution/candidates"
-        )
-        if listing is not None:
-            head_candidate_paths = {
-                line
-                for line in listing.decode("utf-8").splitlines()
-                if line.endswith(".md") and not line.endswith("/README.md")
-            }
-    elif candidate_files:
-        errors.append(
-            "persistent candidate source identity requires a Git checkout"
-        )
-
-    current_candidate_paths = {
-        path.relative_to(ROOT).as_posix() for path in candidate_files
-    }
-    missing_committed = head_candidate_paths - current_candidate_paths
-    if missing_committed:
-        errors.append(
-            f"{len(missing_committed)} committed candidate record(s) are "
-            "missing from the working tree"
-        )
-
-    seen_ids: set[str] = set()
-    for candidate_index, path in enumerate(candidate_files, start=1):
-        relative = path.relative_to(ROOT)
-        relative_posix = relative.as_posix()
-        record_label = f"candidate record #{candidate_index}"
-        text = path.read_text(encoding="utf-8")
-
-        if path.stat().st_size > CANDIDATE_MAX_BYTES:
-            errors.append(
-                f"{record_label} exceeds the {CANDIDATE_MAX_BYTES}-byte limit"
-            )
-        match = CANDIDATE_FILENAME.fullmatch(path.name)
-        if match is None:
-            errors.append(
-                f"{record_label} has an invalid filename; expected "
-                "EVO-YYYYMMDDTHHMMSSZ-short-slug.md"
-            )
-
-        metadata = parse_frontmatter_text(text, record_label, errors)
-        missing = sorted(CANDIDATE_FIELDS - metadata.keys())
-        extra = sorted(metadata.keys() - CANDIDATE_FIELDS)
-        if missing:
-            errors.append(
-                f"{record_label} is missing fields: {', '.join(missing)}"
-            )
-        if extra:
-            errors.append(
-                f"{record_label} has {len(extra)} unsupported frontmatter field(s)"
-            )
-
-        candidate_id = metadata.get("id", "")
-        if candidate_id != path.stem:
-            errors.append(f"{record_label} id does not match its filename")
-        elif candidate_id in seen_ids:
-            errors.append(f"{record_label} duplicates another candidate id")
-        else:
-            seen_ids.add(candidate_id)
-
-        created = parse_utc_timestamp(
-            metadata.get("created_at", ""), "created_at", record_label, errors
-        )
-        updated = parse_utc_timestamp(
-            metadata.get("updated_at", ""), "updated_at", record_label, errors
-        )
-        if created is not None and updated is not None and updated < created:
-            errors.append(f"{record_label} updated_at precedes created_at")
-        if match is not None and created is not None:
-            expected_stamp = created.strftime("%Y%m%dT%H%M%SZ")
-            if match.group("stamp") != expected_stamp:
-                errors.append(
-                    f"{record_label} creation time does not match its filename"
-                )
-
-        source_skill = metadata.get("source_skill", "")
-        if source_skill != "suite" and not re.fullmatch(
-            r"[a-z0-9]+(?:-[a-z0-9]+)*", source_skill
-        ):
-            errors.append(f"{record_label} names an unknown source_skill")
-        source_version = metadata.get("source_version", "")
-        if not SEMVER.fullmatch(source_version):
-            errors.append(f"{record_label} has an invalid source_version")
-
-        baseline_revision = metadata.get("baseline_revision", "")
-        baseline_valid = bool(re.fullmatch(r"[0-9a-f]{40}", baseline_revision))
-        if not baseline_valid:
-            errors.append(f"{record_label} has an invalid baseline_revision")
-        elif git_available:
-            if not git_object_exists(f"{baseline_revision}^{{commit}}"):
-                errors.append(f"{record_label} baseline_revision is not a Git commit")
-            elif run_git_bytes(
-                "merge-base", "--is-ancestor", baseline_revision, "HEAD"
-            ) is None:
-                errors.append(
-                    f"{record_label} baseline_revision is outside current source history"
-                )
-            else:
-                manifest_text = git_text_at(
-                    baseline_revision, ".codex-plugin/plugin.json"
-                )
-                try:
-                    manifest_at_baseline = json.loads(
-                        manifest_text or "",
-                        object_pairs_hook=reject_duplicate_json_keys,
-                        parse_constant=reject_nonfinite_json,
-                    )
-                except (json.JSONDecodeError, ValueError):
-                    manifest_at_baseline = None
-                if not isinstance(manifest_at_baseline, dict):
-                    errors.append(
-                        f"{record_label} baseline manifest cannot be verified"
-                    )
-                elif manifest_at_baseline.get("version") != source_version:
-                    errors.append(
-                        f"{record_label} source_version does not match its baseline"
-                    )
-                if source_skill != "suite" and git_text_at(
-                    baseline_revision, f"skills/{source_skill}/SKILL.md"
-                ) is None:
-                    errors.append(
-                        f"{record_label} source_skill is absent at its baseline"
-                    )
-
-        controlled_fields = {
-            "status": CANDIDATE_STATUSES,
-            "decision": CANDIDATE_DECISIONS,
-            "scope_layer": CANDIDATE_SCOPE_LAYERS,
-            "root_cause": CANDIDATE_ROOT_CAUSES,
-            "rule_health": CANDIDATE_RULE_HEALTH,
-        }
-        for field, allowed in controlled_fields.items():
-            if metadata.get(field) not in allowed:
-                errors.append(f"{record_label} has an invalid {field}")
-
-        status = metadata.get("status", "")
-        decision = metadata.get("decision", "")
-        scope_layer = metadata.get("scope_layer", "")
-        target_owner = metadata.get("target_owner", "")
-        special_owners = {"unresolved", "local-layer"}
-        owner_is_path = target_owner not in special_owners and bool(target_owner)
-        owner_is_portable = False
-        if not target_owner:
-            errors.append(f"{record_label} has an empty target_owner")
-        elif owner_is_path:
-            target = Path(target_owner)
-            allowed_owner = (
-                target_owner
-                in {
-                    "README.md",
-                    ".codex-plugin/plugin.json",
-                    "evolution/README.md",
-                    "evolution/candidate-template.md",
-                }
-                or target_owner.startswith(("skills/", "scripts/", "evals/"))
-            )
-            owner_is_portable = (
-                target != Path(".")
-                and not target.is_absolute()
-                and ".." not in target.parts
-                and "." not in target.parts
-                and ":" not in target_owner
-                and "\\" not in target_owner
-                and bool(re.fullmatch(r"[A-Za-z0-9._/-]+", target_owner))
-                and target.suffix in PORTABLE_TEXT_SUFFIXES
-                and allowed_owner
-            )
-            if not owner_is_portable:
-                errors.append(f"{record_label} has a non-portable target_owner")
-            elif (
-                baseline_valid
-                and git_available
-                and scope_layer != "new-skill"
-                and git_text_at(baseline_revision, target_owner) is None
-            ):
-                errors.append(
-                    f"{record_label} target_owner is absent at its baseline"
-                )
-
-        if (status == "rejected") != (decision == "reject"):
-            errors.append(
-                f"{record_label} must pair rejected status with reject decision"
-            )
-        if decision == "localize" and target_owner != "local-layer":
-            errors.append(
-                f"{record_label} localize decision requires local-layer owner"
-            )
-        if target_owner == "local-layer" and decision != "localize":
-            errors.append(
-                f"{record_label} local-layer owner requires localize decision"
-            )
-        local_scopes = {
-            "task-context",
-            "author-profile",
-            "project-state",
-            "submission-overlay",
-        }
-        if scope_layer in local_scopes and (
-            target_owner != "local-layer" or decision != "localize"
-        ):
-            errors.append(
-                f"{record_label} local scope requires localize and local-layer"
-            )
-        if target_owner == "local-layer" and scope_layer not in local_scopes:
-            errors.append(
-                f"{record_label} local-layer owner requires a local scope"
-            )
-        advanced_statuses = {
-            "proposed",
-            "authorized",
-            "implemented",
-            "validated",
-            "committed",
-        }
-        if status in advanced_statuses and not (owner_is_path and owner_is_portable):
-            errors.append(
-                f"{record_label} advanced status requires a canonical owner path"
-            )
-        if status in advanced_statuses and decision not in {
-            "clarify",
-            "correct",
-            "extend",
-            "deprecate",
-        }:
-            errors.append(
-                f"{record_label} advanced status requires an actionable decision"
-            )
-
-        review_after = metadata.get("review_after", "")
-        review_date_valid = review_after == "none"
-        if not review_date_valid:
-            try:
-                datetime.strptime(review_after, "%Y-%m-%d")
-            except ValueError:
-                errors.append(f"{record_label} has an invalid review_after date")
-            else:
-                review_date_valid = True
-        if status in {"deferred", "rework"} and review_after == "none":
-            errors.append(f"{record_label} deferred or rework status needs review_after")
-
-        implemented_revision = metadata.get("implemented_revision", "")
-        implementation_commit_valid = bool(
-            re.fullmatch(r"[0-9a-f]{40}", implemented_revision)
-        )
-        if implemented_revision != "none" and not implementation_commit_valid:
-            errors.append(f"{record_label} has an invalid implemented_revision")
-        if status == "committed" and not implementation_commit_valid:
-            errors.append(
-                f"{record_label} committed status requires implemented_revision"
-            )
-        if implementation_commit_valid and git_available:
-            if not git_object_exists(f"{implemented_revision}^{{commit}}"):
-                errors.append(
-                    f"{record_label} implemented_revision is not a Git commit"
-                )
-            elif baseline_valid and (
-                implemented_revision == baseline_revision
-                or run_git_bytes(
-                    "merge-base",
-                    "--is-ancestor",
-                    baseline_revision,
-                    implemented_revision,
-                )
-                is None
-            ):
-                errors.append(
-                    f"{record_label} implementation does not descend from baseline"
-                )
-            elif status == "committed" and run_git_bytes(
-                "merge-base", "--is-ancestor", implemented_revision, "HEAD"
-            ) is None:
-                errors.append(
-                    f"{record_label} implementation is not in the current source"
-                )
-            elif owner_is_path and owner_is_portable and git_text_at(
-                implemented_revision, target_owner
-            ) is None:
-                errors.append(
-                    f"{record_label} target_owner is absent at implementation"
-                )
-            elif (
-                owner_is_path
-                and owner_is_portable
-                and baseline_valid
-                and git_object_id_at(baseline_revision, target_owner)
-                == git_object_id_at(implemented_revision, target_owner)
-            ):
-                errors.append(
-                    f"{record_label} implementation leaves target_owner unchanged"
-                )
-        if status == "implemented" and implemented_revision == "none":
-            current_owner = ROOT / target_owner if owner_is_path else None
-            baseline_owner = (
-                run_git_bytes("show", f"{baseline_revision}:{target_owner}")
-                if baseline_valid and owner_is_path
-                else None
-            )
-            if (
-                current_owner is None
-                or not owner_is_portable
-                or not current_owner.is_file()
-            ):
-                errors.append(
-                    f"{record_label} uncommitted implementation lacks target_owner"
-                )
-            elif baseline_owner == current_owner.read_bytes():
-                errors.append(
-                    f"{record_label} uncommitted implementation leaves "
-                    "target_owner unchanged"
-                )
-
-        validated_snapshot = metadata.get("validated_snapshot", "")
-        snapshot_sha = re.fullmatch(r"sha256:([0-9a-f]{64})", validated_snapshot)
-        snapshot_commit = re.fullmatch(
-            r"commit:([0-9a-f]{40})", validated_snapshot
-        )
-        snapshot_valid = (
-            validated_snapshot == "none"
-            or snapshot_sha is not None
-            or snapshot_commit is not None
-        )
-        if not snapshot_valid:
-            errors.append(f"{record_label} has an invalid validated_snapshot")
-        if status in {"validated", "committed"} and validated_snapshot == "none":
-            errors.append(
-                f"{record_label} validated or committed status requires an exact "
-                "snapshot receipt"
-            )
-        if snapshot_commit is not None and git_available:
-            validated_commit = snapshot_commit.group(1)
-            if not git_object_exists(f"{validated_commit}^{{commit}}"):
-                errors.append(
-                    f"{record_label} validated_snapshot is not a Git commit"
-                )
-            elif baseline_valid and run_git_bytes(
-                "merge-base", "--is-ancestor", baseline_revision, validated_commit
-            ) is None:
-                errors.append(
-                    f"{record_label} validated snapshot does not descend from baseline"
-                )
-            elif owner_is_path and owner_is_portable and git_text_at(
-                validated_commit, target_owner
-            ) is None:
-                errors.append(
-                    f"{record_label} target_owner is absent from validated snapshot"
-                )
-            elif (
-                owner_is_path
-                and owner_is_portable
-                and baseline_valid
-                and git_object_id_at(baseline_revision, target_owner)
-                == git_object_id_at(validated_commit, target_owner)
-            ):
-                errors.append(
-                    f"{record_label} validated snapshot leaves target_owner unchanged"
-                )
-            if status in {"validated", "committed"} and not implementation_commit_valid:
-                errors.append(
-                    f"{record_label} commit validation requires implemented_revision"
-                )
-            elif implementation_commit_valid and run_git_bytes(
-                "merge-base", "--is-ancestor", implemented_revision, validated_commit
-            ) is None:
-                errors.append(
-                    f"{record_label} validated commit does not descend from "
-                    "implemented_revision"
-                )
-        if snapshot_sha is not None:
-            expected_digest = source_snapshot_sha256()
-            if snapshot_sha.group(1) != expected_digest:
-                errors.append(
-                    f"{record_label} SHA-256 receipt does not match current source "
-                    "snapshot"
-                )
-            if owner_is_path and owner_is_portable:
-                current_owner = ROOT / target_owner
-                baseline_owner = (
-                    run_git_bytes("show", f"{baseline_revision}:{target_owner}")
-                    if baseline_valid
-                    else None
-                )
-                if not current_owner.is_file():
-                    errors.append(
-                        f"{record_label} target_owner is absent from current snapshot"
-                    )
-                elif baseline_owner == current_owner.read_bytes():
-                    errors.append(
-                        f"{record_label} current snapshot leaves target_owner unchanged"
-                    )
-            if implementation_commit_valid and run_git_bytes(
-                "merge-base", "--is-ancestor", implemented_revision, "HEAD"
-            ) is None:
-                errors.append(
-                    f"{record_label} working snapshot does not descend from "
-                    "implemented_revision"
-                )
-        if status == "committed" and implementation_commit_valid:
-            expected_snapshot = f"commit:{implemented_revision}"
-            if validated_snapshot != expected_snapshot:
-                errors.append(
-                    f"{record_label} committed status must validate its exact "
-                    "implemented_revision"
-                )
-
-        exact_fields = {
-            "schema_version": "1",
-            "activation": "none",
-            "persistence_authorized": "true",
-            "visibility": "public-safe",
-            "privacy_review": "passed",
-        }
-        for field, expected in exact_fields.items():
-            if metadata.get(field) != expected:
-                errors.append(f"{record_label} has an invalid required {field}")
-
-        record_revision = metadata.get("record_revision", "")
-        revision_valid = record_revision.isdigit() and int(record_revision) >= 1
-        if not revision_valid:
-            errors.append(f"{record_label} has an invalid record_revision")
-
-        head_text = git_text_at("HEAD", relative_posix) if git_available else None
-        if head_text is None:
-            if revision_valid and int(record_revision) != 1:
-                errors.append(f"{record_label} new records must use revision 1")
-        else:
-            previous_errors: list[str] = []
-            previous = parse_frontmatter_text(
-                head_text, f"committed form of {record_label}", previous_errors
-            )
-            if previous_errors:
-                errors.append(
-                    f"{record_label} committed predecessor has invalid frontmatter"
-                )
-            immutable_fields = {
-                "id",
-                "created_at",
-                "source_skill",
-                "source_version",
-                "baseline_revision",
-            }
-            if any(metadata.get(field) != previous.get(field) for field in immutable_fields):
-                errors.append(f"{record_label} changes immutable source identity")
-            previous_revision = previous.get("record_revision", "")
-            previous_revision_valid = previous_revision.isdigit()
-            if revision_valid and previous_revision_valid:
-                expected_revision = int(previous_revision)
-                if text != head_text:
-                    expected_revision += 1
-                if int(record_revision) != expected_revision:
-                    errors.append(
-                        f"{record_label} must advance record_revision exactly once"
-                    )
-            if text != head_text:
-                previous_updated_errors: list[str] = []
-                previous_updated = parse_utc_timestamp(
-                    previous.get("updated_at", ""),
-                    "updated_at",
-                    f"committed form of {record_label}",
-                    previous_updated_errors,
-                )
-                if previous_updated_errors:
-                    errors.append(
-                        f"{record_label} committed predecessor has invalid updated_at"
-                    )
-                elif updated is not None and previous_updated is not None:
-                    if updated <= previous_updated:
-                        errors.append(
-                            f"{record_label} must advance updated_at when changed"
-                        )
-
-                previous_status = previous.get("status", "")
-                allowed_transitions = CANDIDATE_STATUS_TRANSITIONS.get(
-                    previous_status
-                )
-                if allowed_transitions is None:
-                    errors.append(
-                        f"{record_label} committed predecessor has invalid status"
-                    )
-                elif status not in allowed_transitions:
-                    errors.append(
-                        f"{record_label} uses an invalid lifecycle transition"
-                    )
-
-        if SHIPPING_PLACEHOLDER.search(text):
-            errors.append(f"{record_label} contains an unresolved placeholder")
-        for heading in sorted(CANDIDATE_HEADINGS):
-            section = candidate_section_text(text, heading)
-            if section is None:
-                errors.append(f"{record_label} is missing heading {heading!r}")
-                continue
-            section = re.sub(r"<!--.*?-->", "", section, flags=re.DOTALL)
-            if sum(character.isalnum() for character in section) < 20:
-                errors.append(f"{record_label} has an empty or trivial {heading!r}")
-        for label, pattern in CANDIDATE_PRIVATE_CONTENT.items():
-            if pattern.search(text):
-                errors.append(f"{record_label} privacy check found {label}")
-
-    return len(candidate_files)
 
 
 def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
@@ -1975,25 +1063,25 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
                     f"{', '.join(unexpected_values)}"
                 )
 
-    for case_id, contract in REQUIRED_EVOLUTION_EVAL_CONTRACTS.items():
+    for case_id, contract in REQUIRED_HANDOFF_EVAL_CONTRACTS.items():
         case = cases_by_id.get(case_id)
         if case is None:
-            errors.append(f"missing required evolution eval: {case_id}")
+            errors.append(f"missing required evolution-handoff eval: {case_id}")
             continue
 
         if case.get("expected_controller") != contract["controller"]:
             errors.append(
-                f"evolution eval {case_id} must use controller "
+                f"evolution-handoff eval {case_id} must use controller "
                 f"{contract['controller']!r}"
             )
         if case.get("expected_mode") != contract["mode"]:
             errors.append(
-                f"evolution eval {case_id} must use mode {contract['mode']!r}"
+                f"evolution-handoff eval {case_id} must use mode {contract['mode']!r}"
             )
         routes = case.get("expected_routes", [])
         if isinstance(routes, list) and set(routes) != contract["routes"]:
             errors.append(
-                f"evolution eval {case_id} has the wrong route contract"
+                f"evolution-handoff eval {case_id} has the wrong route contract"
             )
         for field in ("must", "must_not"):
             values = case.get(field, [])
@@ -2002,7 +1090,7 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
             missing_values = sorted(contract[field] - set(values))
             if missing_values:
                 errors.append(
-                    f"evolution eval {case_id} is missing required {field} "
+                    f"evolution-handoff eval {case_id} is missing required {field} "
                     f"items: {', '.join(missing_values)}"
                 )
 
@@ -2056,20 +1144,6 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
                         f"authority marker {marker!r}"
                     )
 
-    evolve_modes = {
-        case.get("expected_mode")
-        for case in cases_by_id.values()
-        if case.get("expected_controller") == "star-writing-evolve"
-    }
-    missing_evolve_modes = sorted(
-        {"audit", "plan", "stage", "evolve"} - evolve_modes
-    )
-    if missing_evolve_modes:
-        errors.append(
-            "star-writing-evolve lacks direct eval coverage for modes: "
-            + ", ".join(missing_evolve_modes)
-        )
-
     ledger_modes = {
         case.get("expected_mode")
         for case in cases_by_id.values()
@@ -2086,11 +1160,8 @@ def validate_eval_specs(skill_names: set[str], errors: list[str]) -> int:
 
 
 def main() -> int:
-    if sys.argv[1:] == ["--print-source-snapshot"]:
-        print(f"sha256:{source_snapshot_sha256()}")
-        return 0
     if sys.argv[1:]:
-        print("usage: validate_plugin_suite.py [--print-source-snapshot]")
+        print("usage: validate_plugin_suite.py")
         return 2
 
     errors: list[str] = []
@@ -2100,7 +1171,6 @@ def main() -> int:
     validate_reference_structure(errors)
     validate_markdown_links(errors)
     validate_path_portability(errors)
-    candidate_count = validate_candidate_ledger(skill_names, errors)
     spec_count = validate_eval_specs(skill_names, errors)
 
     if errors:
@@ -2111,9 +1181,8 @@ def main() -> int:
 
     print(
         "STAR Writing Skills plugin-suite validation passed: "
-        f"{len(skill_names)} skills, {spec_count} behavioral specifications "
-        f"and {candidate_count} persistent evolution candidates structurally "
-        "valid, all local Markdown links resolved, no machine-specific paths "
+        f"{len(skill_names)} skills and {spec_count} behavioral specifications "
+        "structurally valid, all local Markdown links resolved, no machine-specific paths "
         "detected. "
         "No behavioral executions were performed."
     )

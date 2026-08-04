@@ -51,16 +51,14 @@ Keep four layers separate:
 Do not promote a personal style preference, project fact, or remembered venue
 rule into a universal writing principle.
 
-Skill evolution is a separate lifecycle. Feedback may adapt the current task or
-create a task-local observation, but it does not authorize project evolution
-state, persistent source changes, or canonical promotion-ledger writes. Keep
-the paper controller responsible for the paper. After a material task, perform
-a bounded learning check only when there was an explicit correction, accepted
-nontrivial improvement, repeated friction, failure, or skill gap. A no-op is
-valid; do not manufacture an update from a smooth session, silence, or generic
-praise. When such a learning review is in scope, read the
-[evidence-driven evolution policy](references/evolution-policy.md) and route to
-`star-writing-evolve`. Do not interrupt a paper task for routine evolution
+Generic skill evolution is outside STAR Writing. Feedback may adapt the current
+paper task, but it does not authorize a learning store or skill-source change.
+Keep the paper controller responsible for the deliverable. If the user
+explicitly asks the system to learn from a reusable writing-workflow gap, form
+only the public-safe handoff defined in the
+[evolution handoff overlay](references/evolution-policy.md). Route the actual
+evolution request to `hotskills-selfevol star-writing-skills` in the separate
+STAR HotSkills plugin. Do not interrupt ordinary paper work for learning
 bookkeeping.
 
 During paper tasks, bundled files under `references/` are immutable templates.
@@ -76,12 +74,6 @@ project root:
   expiring submission rules;
 - `.star-writing/author-style-profile.md` for project-specific writing
   preferences.
-
-Only `star-writing-evolve` may create authorized project-local learning state
-under `.star-writing/evolution/`. Observations, candidates, evaluations,
-decisions, and receipts there are inactive evidence. They do not constrain
-paper writing, authorize canonical skill changes, or replace the Project
-Writing Ledger.
 
 Persistent state is optional. Read
 [state-and-paths.md](references/state-and-paths.md) before discovering or
@@ -193,9 +185,9 @@ check needed to resolve it.
    finalization, or submission. For a claimed full audit, traverse every
    applicable content unit in document order and record completion.
 9. **Handoff.** Report what was confirmed, what changed, what remains
-   unestablished, and what was verified. When a material learning signal was
-   explicitly in scope, report its task-local or authorized project-local state;
-   otherwise do not append a ritual evolution proposal.
+   unestablished, and what was verified. When reusable learning was explicitly
+   requested, return only the public-safe task-local handoff; otherwise do not
+   append one.
 
 ## Enforce cross-stage constraints
 

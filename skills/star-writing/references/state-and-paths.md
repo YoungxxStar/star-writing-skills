@@ -20,10 +20,6 @@ directory or state file.
   supplied for the current research task. Preserve their existing locations.
 - **Project state** records current contracts and decisions under
   `.star-writing/` at the resolved project root.
-- **Project evolution state** records inactive observations, candidates,
-  evaluations, decisions, and receipts under `.star-writing/evolution/`. It is
-  evidence for possible workflow improvement, not a writing instruction source
-  or an authority grant.
 - **User state** contains confirmed preferences intended to apply across
   projects. It must never contain project facts or scientific evidence.
 
@@ -55,26 +51,6 @@ Project-local state paths are:
 .star-writing/author-style-profile.md
 .star-writing/submission-overlays/<target>-<cycle>-<category>-<stage>.md
 ```
-
-When the current user explicitly authorizes project-local learning state, use:
-
-```text
-.star-writing/evolution/observations/
-.star-writing/evolution/candidates/
-.star-writing/evolution/evaluations/
-.star-writing/evolution/decisions/
-.star-writing/evolution/receipts/
-.star-writing/evolution/archive/
-```
-
-These paths are optional and owned by `star-writing-evolve`. A writing task,
-ledger update, praise, correction, or prior project record does not authorize
-their creation. A project evolution record is inactive evidence and cannot
-authorize a canonical skill edit, commit, installation, push, or release.
-Read the project-evolution workspace contract through `star-writing-evolve`
-before creating or updating any of these paths. Current-record directories use
-one validated JSON object per record; do not mix project evolution state into
-the Markdown Writing Ledger.
 
 The first three files form one logical Project Writing Ledger without creating
 another aggregate file. `paper-contract.md` owns current core propositions,
@@ -126,8 +102,5 @@ template.
 - Do not store credentials, tokens, personal identifiers, or submission secrets
   in writing-state files.
 - Before writing state, reread the existing file and respect concurrent edits.
-- Before writing a new evolution record, confirm the exact path is absent;
-  before updating one, read and recheck that exact file rather than relying on
-  an index, prior turn, or candidate summary.
 - Merge concurrent ledger work by stable entry ID and meaning; never select a
   winner by modification time or overwrite a changed entry silently.

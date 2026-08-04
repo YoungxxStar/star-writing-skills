@@ -7,11 +7,11 @@ stages, equations, algorithms, or implementation paths.
 
 - [Method snapshot](#method-snapshot)
 - [Information availability matrix](#information-availability-matrix)
-- [Object and notation ledger](#object-and-notation-ledger)
+- [Object and notation audit view](#object-and-notation-audit-view)
 - [Equation audit](#equation-audit)
 - [Procedure-to-implementation map](#procedure-to-implementation-map)
 - [Capability status](#capability-status)
-- [Mechanism status](#mechanism-status)
+- [Mechanism evidence stage](#mechanism-evidence-stage)
 - [Main-to-supplement allocation](#main-to-supplement-allocation)
 - [Repair order](#repair-order)
 

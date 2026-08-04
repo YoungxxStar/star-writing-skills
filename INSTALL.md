@@ -44,8 +44,8 @@ Variables such as `star_source`, `star_commit`, and `star_archive_root` are
 shared by later blocks. If the shell session ends, stop and repeat preflight;
 do not reconstruct their values from memory. Do not reuse these shell blocks
 unchanged on Windows. Use a separately checked equivalent flow. Do not install
-the twelve skills independently with a skill installer; STAR Writing Skills is
-one plugin bundle.
+the skills independently with a skill installer; STAR Writing Skills is one
+plugin bundle.
 
 ## Keep five locations distinct
 
@@ -160,8 +160,6 @@ Run the repository checks against the clean checkout selected above:
 
 ```bash
 python3 "$star_source/scripts/validate_plugin_suite.py"
-python3 "$star_source/scripts/test_candidate_validator.py"
-python3 "$star_source/scripts/test_project_evolution_validator.py"
 python3 "$star_creator_root/scripts/validate_plugin.py" "$star_source"
 ```
 

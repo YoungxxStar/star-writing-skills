@@ -8,7 +8,7 @@ several collaborators.
 - [Select the work mode](#select-the-work-mode)
 - [Choose the sequence](#choose-the-sequence)
 - [State-machine gates](#state-machine-gates)
-- [Use the evolution side path](#use-the-evolution-side-path)
+- [Hand off reusable workflow lessons](#hand-off-reusable-workflow-lessons)
 - [Transactional collaboration](#transactional-collaboration)
 - [Stop conditions](#stop-conditions)
 
@@ -63,9 +63,9 @@ Use the minimum sequence that resolves the request:
   decision: evidence controls.
 - Final package: review unresolved scientific risks before submit.
 - Reusable workflow success, correction, failure, or better method: keep the
-  active paper controller in place, then route the learning question to
-  `star-writing-evolve`. Do not mix a paper edit and a skill-source mutation
-  under one implicit authorization.
+  active paper controller in place, then prepare the public-safe HotSkills
+  handoff only when the user requests reusable learning. Do not mix a paper
+  edit and a skill-source mutation under one implicit authorization.
 
 Do not polish unstable science. Do not redesign experiments merely because a
 sentence is difficult to defend.
@@ -166,30 +166,19 @@ Report:
 - what remains exploratory, unsupported, contradicted, or unresolved;
 - what validation was run.
 
-## Use the evolution side path
+## Hand off reusable workflow lessons
 
-Evolution is not a paper-writing mode or gate. It runs beside the active task
-and must not silently change its controller or artifact scope. Use
-`star-writing-evolve` to reconstruct feedback, test whether it exposes an
-execution lapse or reusable rule gap, and implement persistent skill-source
-changes only with explicit authorization.
+Evolution is not a paper-writing mode or gate. Keep the active writing skill
+responsible for the paper. Adapt the current task to explicit feedback, then
+distinguish an execution lapse, project convention, author preference, venue
+rule, and plausible reusable skill gap.
 
-1. Adapt the current task to explicit feedback when safe.
-2. Record a reusable lesson as a task-local candidate rather than a rule.
-3. Route an explicit learning request to `star-writing-evolve` for audit or
-   planning.
-4. Persist an identified candidate only after the user separately authorizes
-   that ledger write; persistence does not activate it.
-5. Enter evolve mode for an active-rule change only after the user authorizes
-   the identified development source and change scope.
-6. Include local read-only structural checks in the authorized write, while
-   treating stateful or external validation, versioning, commit, installation,
-   push, and release as distinct states and permissions.
-
-Read the
-[evolution policy](evolution-policy.md) for signal interpretation, scope
-placement, authorization, conflict resolution, regression testing, and
-concurrent evolution.
+When the user explicitly requests reusable skill evolution, prepare the
+minimal public-safe handoff in the
+[evolution handoff overlay](evolution-policy.md). Route the source-changing
+work to `hotskills-selfevol star-writing-skills` in STAR HotSkills. STAR
+Writing does not persist learning records, modify skill source, or perform
+adoption.
 
 ## Transactional collaboration
 

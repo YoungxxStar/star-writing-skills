@@ -9,12 +9,10 @@ Treat submission requirements as a live, target-specific overlay on a
 substantively stable artifact. Never encode remembered limits as current policy.
 
 Do not load the
-[shared evolution policy](../star-writing/references/evolution-policy.md) for
-ordinary paper work. If the user explicitly asks the plugin to learn, or this
-task exposes a material, plausibly reusable success, correction, or gap, keep
-this skill responsible for the paper, retain only a task-local candidate, and route plugin
-maintenance to `star-writing-evolve`. Feedback alone cannot authorize a source
-change.
+[evolution handoff overlay](../star-writing/references/evolution-policy.md) for
+ordinary paper work. If the user explicitly requests reusable learning, keep
+this skill responsible for the paper and return only a public-safe task-local
+handoff. Do not persist learning state or change skill source.
 
 Before substantive artifact work, follow
 [the Writing Ledger contract](../star-writing/references/writing-ledger-contract.md).

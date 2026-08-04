@@ -125,10 +125,10 @@ scope in the handoff and route it to the responsible skill:
 - `star-writing-submit` for live target rules and package readiness.
 
 Do not load the shared
-[evolution policy](../star-writing/references/evolution-policy.md) during
+[evolution handoff overlay](../star-writing/references/evolution-policy.md) during
 ordinary orientation. If the user explicitly asks the plugin to learn from the
 episode, retain only a task-local observation and route that separate question
-to `star-writing-evolve`.
+to `hotskills-selfevol star-writing-skills` in STAR HotSkills.
 
 Use the shared
 [principle registry](../star-writing/references/principle-tags.md) only when the
@@ -145,7 +145,7 @@ Lead with the paper's central contract, not the reading process. End with:
 - ambiguities that require an author decision;
 - one recommended next skill and a short ready-to-use prompt.
 
-Do not modify files, create `.star-writing` state, initialize an evolution
-workspace, or continue into rewriting merely to make the onboarding feel
+Do not modify files, create `.star-writing` state, or continue into rewriting
+merely to make the onboarding feel
 complete. If the artifact changes during orientation, rebind the map to the
 latest snapshot before reporting.

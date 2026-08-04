@@ -32,10 +32,10 @@ instructions. A new skill needs a distinct trigger, responsibility, and output
 contract. Project conventions and individual preferences do not automatically
 belong in the reusable plugin.
 
-Behavioral evolution follows the
-[evidence-driven evolution policy](skills/star-writing/references/evolution-policy.md).
-Candidate records are review material rather than active instructions or
-authority grants.
+Generic skill evolution is managed outside this repository by STAR HotSkills.
+Within STAR Writing, the
+[handoff overlay](skills/star-writing/references/evolution-policy.md) keeps
+paper work, Writing Ledger state, and reusable maintenance requests separate.
 
 ## Preserve user control
 
@@ -57,8 +57,6 @@ Run from the canonical development checkout:
 
 ```bash
 python3 scripts/validate_plugin_suite.py
-python3 scripts/test_candidate_validator.py
-python3 scripts/test_project_evolution_validator.py
 python3 <plugin-creator-root>/scripts/validate_plugin.py .
 ```
 

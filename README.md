@@ -2,7 +2,7 @@
 
 ### Toward a research-writing agent that learns with you—under your control.
 
-**Learn in the task. Remember by permission. Evolve through evidence.**
+**Understand first. Decide together. Write from evidence.**
 
 STAR Writing Skills is a Codex plugin for researchers who need more than prose
 generation. Give it a manuscript or project path. STAR begins by mapping the
@@ -13,8 +13,8 @@ review and submission preparation.
 
 The vision is a writing agent that becomes a better collaborator over time—not
 through hidden memory or silent self-modification, but through preferences you
-confirm, project decisions you accept, and reusable workflow lessons you
-explicitly authorize.
+confirm and project decisions you accept. Reusable skill evolution is handled
+by the optional, separately governed STAR HotSkills companion.
 
 **Typical outputs:** Paper Map · motivation and argument audit · Writing Ledger ·
 claim–evidence review · method–implementation check · approval-gated revision
@@ -127,16 +127,17 @@ remind me to start a new Codex thread so the installed snapshot is loaded.
 The agent-guided, manual, update, rollback, and troubleshooting procedures are
 in [INSTALL.md](INSTALL.md).
 
-## Learn, remember, evolve
+## Learn and remember
 
-STAR separates four different kinds of learning:
+STAR Writing separates three forms of task and project learning from generic
+skill evolution:
 
 | Layer | What changes | Persistence |
 |---|---|---|
 | Task adaptation | The current response follows new evidence and feedback | Current task only |
 | Author style profile | Confirmed recurring presentation preferences guide later interactions | Only after an authorized project-local or cross-project profile write |
 | Project Writing Ledger | Accepted propositions, concepts, terms, and symbols constrain later project writing | Only after an authorized project-state write |
-| Workflow evolution | A reusable lesson may change the maintained skill suite | Only after explicit authorization, evidence, conflict checks, and validation |
+| Skill evolution | A reusable lesson may change a maintained skill | External to this plugin; use STAR HotSkills with separate evidence and authorization |
 
 The Project Writing Ledger is one logical contract over
 `.star-writing/paper-contract.md`,
@@ -148,16 +149,16 @@ One local edit never becomes a permanent author preference. A preference must
 be confirmed or supported by repeated evidence, and its profile governs
 presentation rather than scientific truth.
 
-Feedback, praise, friction, and self-discovered methods are possible evolution
-signals, not automatic updates. Project-local and canonical evolution records
-always remain inactive evidence. Only a separately authorized, implemented,
-and validated change to canonical skill source can alter active behavior.
-Installation, push, release, and new-session adoption are separate actions.
+STAR Writing does not create an evolution pool or modify its own skills. When a
+reusable workflow gap is worth investigating, it can produce a minimized,
+public-safe handoff. Invoke `hotskills-selfevol star-writing-skills` in STAR
+HotSkills to evaluate and, when separately authorized, implement that change.
+The Writing Ledger remains project meaning and expression state, never
+skill-evolution evidence.
 
 ## Skill map
 
-The bundle contains one router, ten focused paper skills, and one maintenance
-skill.
+The bundle contains one router and ten focused paper skills.
 
 | Stage | Skill | Responsibility |
 |---|---|---|
@@ -172,7 +173,6 @@ skill.
 | Refine | `star-writing-polish` | Improve language without silently changing scientific content |
 | Challenge | `star-writing-review` | Run skeptical novelty, validity, mechanism, utility, and consistency reviews |
 | Deliver | `star-writing-submit` | Check live venue rules, rendered artifacts, identity, and packages |
-| Maintain | `star-writing-evolve` | Audit and implement separately authorized, evidence-gated skill evolution |
 
 Use a focused skill when one responsibility clearly owns the task. Use the
 router when the work spans several stages.
@@ -182,7 +182,8 @@ router when the work spans several stages.
 - `start`, `review`, `inspect`, and `audit` are read-only by default.
 - `preview` shows numbered proposals; it does not edit source files.
 - A named-file edit authorizes only that writing scope. Project state, Git,
-  installation, publication, submission, and skill evolution remain separate.
+  installation, publication, submission, and external skill evolution remain
+  separate.
 - Only accepted, source-consistent Ledger entries constrain later writing.
 - A substantive recommendation exposes its governing principle, such as
   **[SUPPORT-GATE]**, **[TERM-STABILITY]**, or **[CONTRACT-ALIGNMENT]**; these
@@ -203,14 +204,12 @@ From the canonical development checkout:
 
 ```bash
 python3 scripts/validate_plugin_suite.py
-python3 scripts/test_candidate_validator.py
-python3 scripts/test_project_evolution_validator.py
 python3 <plugin-creator-root>/scripts/validate_plugin.py .
 ```
 
 The suite validator checks plugin structure, local links, portability, routing,
-evolution-record schemas, privacy guardrails, and the behavioral specifications
-in `evals/cases.json`. These checks do not execute an agent or prove writing
+Writing Ledger contracts, and the behavioral specifications in
+`evals/cases.json`. These checks do not execute an agent or prove writing
 quality. Consequential behavioral changes require matched clean-context tests
 before release.
 
@@ -232,9 +231,8 @@ informed by several public projects and standards:
   provided a useful reference for modular, section-aware scientific-writing
   workflows.
 - [Hermes Agent](https://github.com/NousResearch/hermes-agent) motivated our
-  exploration of turning selected feedback into reviewable workflow-improvement
-  candidates. STAR adapts that direction into a user-authorized,
-  evidence-gated process.
+  earlier exploration of reviewable workflow improvement. Generic skill
+  evolution now lives in the separate STAR HotSkills project.
 - The [Agent Skills specification](https://agentskills.io) informed the
   portable `SKILL.md` package structure.
 
