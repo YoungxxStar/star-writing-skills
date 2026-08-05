@@ -14,7 +14,8 @@ review and submission preparation.
 The vision is a writing agent that becomes a better collaborator over time—not
 through hidden memory or silent self-modification, but through preferences you
 confirm and project decisions you accept. Reusable skill evolution is handled
-by the optional, separately governed STAR HotSkills companion.
+by the optional, separately governed
+[STAR HotSkills](https://github.com/YoungxxStar/star-hotskills) companion.
 
 **Typical outputs:** Paper Map · motivation and argument audit · Writing Ledger ·
 claim–evidence review · method–implementation check · approval-gated revision
@@ -151,10 +152,12 @@ presentation rather than scientific truth.
 
 STAR Writing does not create an evolution pool or modify its own skills. When a
 reusable workflow gap is worth investigating, it can produce a minimized,
-public-safe handoff. Invoke `hotskills-selfevol star-writing-skills` in STAR
-HotSkills to evaluate and, when separately authorized, implement that change.
-The Writing Ledger remains project meaning and expression state, never
-skill-evolution evidence.
+public-safe handoff. Invoke `$star-hotskills:hotskills-selfevol` with the target
+`star-writing-skills` to evaluate and, when separately authorized, implement
+that change. STAR Writing works without the companion; installing STAR
+HotSkills does not grant it permission to change this plugin. The Writing
+Ledger remains project meaning and expression state, never skill-evolution
+evidence.
 
 ## Skill map
 
@@ -232,7 +235,8 @@ informed by several public projects and standards:
   workflows.
 - [Hermes Agent](https://github.com/NousResearch/hermes-agent) motivated our
   earlier exploration of reviewable workflow improvement. Generic skill
-  evolution now lives in the separate STAR HotSkills project.
+  evolution now lives in the separate
+  [STAR HotSkills](https://github.com/YoungxxStar/star-hotskills) project.
 - The [Agent Skills specification](https://agentskills.io) informed the
   portable `SKILL.md` package structure.
 
