@@ -70,7 +70,15 @@ State the exact surviving difference. Distinguish novelty of problem, mechanism,
 - Do not cite a complete pipeline as proof that one component performs every operation.
 - Do not combine distinct works into one shared capability unless each supports that characterization.
 - Prefer a canonical published version when available; use an original preprint when it is the authoritative or only version.
-- Verify authorship, title, year, venue, and persistent identifier when bibliography accuracy is in scope.
+- When bibliography accuracy is in scope, resolve one coherent publication
+  record across the identity-bearing fields present in its canonical
+  authoritative record: authorship, title, publication state and year, venue
+  or container, volume, issue, page range or article number, and persistent
+  identifier. Do not require fields that the publication type or authoritative
+  record omits. Treat preprints, accepted manuscripts, versions of record,
+  corrections, retractions, translations, and reprints as distinct linked
+  records unless the canonical source explicitly identifies them as the same
+  record. Keep this check separate from proposition-level support review.
 - Narrow the prose when the source supports only a narrower statement.
 
 Learn conceptual and rhetorical moves from sources, not distinctive wording.

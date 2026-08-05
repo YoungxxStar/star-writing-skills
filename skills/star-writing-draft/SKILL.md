@@ -148,6 +148,13 @@ Verify before handoff:
 
 When editing a file, inspect the diff and reread the rendered or surrounding
 text. Report what changed, what remained fixed, and what still lacks evidence.
+If drafting consumed a snapshot-bound Project Writing Ledger and the authorized
+revision materially changed the bound artifact, compare the delivered artifact
+identity with the ledger's recorded binding before handoff. When ledger
+maintenance was not separately authorized, leave its files unchanged and
+report the stale identity binding plus any affected pending dependencies. A
+digest mismatch alone does not make semantically unchanged accepted entries
+invalid; route entry-level reconciliation to `star-writing-ledger`.
 Whether planning, drafting, or applying a revision, explain each substantive
 proposed or applied change group with
 [a highlighted governing principle tag](../star-writing/references/principle-tags.md)
