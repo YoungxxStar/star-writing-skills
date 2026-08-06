@@ -17,6 +17,9 @@ reports, and focused skill improvements are welcome.
 The canonical Git checkout is the development source. Do not develop against
 an installed plugin cache or generated marketplace copy.
 
+Read [AGENTS.md](AGENTS.md) for the repository-wide operating contract and the
+documentation synchronization matrix used by human and agent contributors.
+
 ## Make one evidence-grounded change
 
 Explain:
@@ -65,6 +68,11 @@ the change. A positive case must demonstrate the intended behavior, and the
 nearest negative case must protect a valid alternative. Structural validation
 alone does not establish writing quality.
 
+For Diff2PS changes, include a fixture that binds exact endpoint identities and
+demonstrates complete hunk and non-empty changed-line classification. Mixed
+hunks must preserve exact source spans for both substantive items and
+non-substantive exclusions.
+
 Do not change the plugin version or create a release tag unless a maintainer
 requests it.
 
@@ -77,6 +85,9 @@ requests it.
 - [ ] Local Markdown links resolve.
 - [ ] Relevant positive and negative cases pass.
 - [ ] Documentation and metadata match the implemented behavior.
+- [ ] README, AGENTS, CHANGELOG, CONTRIBUTING, and INSTALL were reviewed and
+      every document affected by the public behavior, repository contract,
+      release milestone, contribution flow, or installation flow was updated.
 - [ ] Remaining limitations and untested generality axes are disclosed.
 
 ## License

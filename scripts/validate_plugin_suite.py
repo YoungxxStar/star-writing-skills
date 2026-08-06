@@ -69,6 +69,7 @@ CONTROLLER_MODES = {
     "star-writing-review": {"audit"},
     "star-writing-submit": {"submit"},
     "star-writing-ledger": {"audit", "converge", "revise"},
+    "diff2ps": {"audit", "draft"},
 }
 PRINCIPLE_TAG_CONSUMERS = {
     "star-writing": "references/principle-tags.md",
@@ -82,6 +83,7 @@ PRINCIPLE_TAG_CONSUMERS = {
     "star-writing-review": "../star-writing/references/principle-tags.md",
     "star-writing-submit": "../star-writing/references/principle-tags.md",
     "star-writing-ledger": "../star-writing/references/principle-tags.md",
+    "diff2ps": "../star-writing/references/principle-tags.md",
 }
 HANDOFF_OVERLAY_CONSUMERS = {
     "star-writing": "references/evolution-policy.md",
@@ -95,6 +97,7 @@ HANDOFF_OVERLAY_CONSUMERS = {
     "star-writing-review": "../star-writing/references/evolution-policy.md",
     "star-writing-submit": "../star-writing/references/evolution-policy.md",
     "star-writing-ledger": "../star-writing/references/evolution-policy.md",
+    "diff2ps": "../star-writing/references/evolution-policy.md",
 }
 WRITING_LEDGER_CONSUMERS = {
     "star-writing": "references/writing-ledger-contract.md",
@@ -108,6 +111,7 @@ WRITING_LEDGER_CONSUMERS = {
     "star-writing-polish": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-review": "../star-writing/references/writing-ledger-contract.md",
     "star-writing-submit": "../star-writing/references/writing-ledger-contract.md",
+    "diff2ps": "../star-writing/references/writing-ledger-contract.md",
 }
 WRITING_LEDGER_REQUIRED_SNIPPETS = {
     Path("skills/star-writing-ledger/SKILL.md"): {
@@ -193,6 +197,9 @@ REQUIRED_GUARDRAIL_EVAL_IDS = {
     "ledger-ok-but-corrected-value",
     "ledger-apply-visible-batch-only",
     "ledger-praise-is-not-approval",
+    "diff2ps-endpoint-handoff",
+    "diff2ps-reflow-negative",
+    "diff2ps-binary-projection-boundary",
 }
 REQUIRED_START_EVAL_CONTRACTS = {
     "paper-start-orientation": {

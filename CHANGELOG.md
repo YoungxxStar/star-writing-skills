@@ -6,6 +6,7 @@ versioned source evidence.
 
 | Version | Milestone | Development note |
 |---|---|---|
+| `0.14.0` | **[SEMANTIC VERSION HANDOFF]** | Added Diff2PS for exhaustive, source-verified comparison of two exact Git or document endpoints. It classifies every diff hunk and non-empty changed line, separates substantive changes from exact reflow and other non-substantive exclusions, and renders gray `[before]`, red `[after]`, and blue sequential `[psN]` explanations in TeX and PDF. |
 | `0.13.1` | **[EVIDENCE-GATED HARDENING]** | Adopted two matched-evaluation HotSkills improvements: detect stale snapshot-bound Writing Ledger identities at draft handoff without silently editing project state, and resolve bibliography metadata as one coherent publication record without conflating related publication states. |
 | `0.13.0` | **[HOTSKILLS SEPARATION]** | Removed the plugin-owned evolution store and controller. STAR Writing now emits only a privacy-minimized handoff; generic and self evolution belong to the separately governed STAR HotSkills plugin. |
 | `0.12.2` | **[GUIDED FIRST RUN]** | Rebuilt the public reader journey around the controlled-learning vision, an end-to-end paper scenario, approval-gated revision, exact-revision agent-guided installation, and an MIT-licensed contribution path. |

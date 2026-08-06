@@ -1,7 +1,7 @@
 {
   "name": "star-writing-skills",
-  "version": "0.13.1",
-  "description": "A controlled research-writing workflow that maps papers before editing and preserves accepted project decisions across drafting, review, and submission.",
+  "version": "0.14.0",
+  "description": "A controlled research-writing workflow for defensible drafting, review, submission, and source-verified semantic version handoffs.",
   "author": {
     "name": "STAR"
   },
@@ -15,13 +15,14 @@
   "interface": {
     "displayName": "STAR Writing Skills",
     "shortDescription": "Understand first. Decide together. Write defensibly.",
-    "longDescription": "A modular research-writing system for read-only paper onboarding, interactive proposition and terminology control, framing, literature positioning, method and evidence audits, drafting, approval-gated revision, purpose-specific review, live submission checks, and project Writing Ledgers.",
+    "longDescription": "A modular research-writing system for paper onboarding, semantic version handoffs, project Writing Ledgers, framing, literature, methods, evidence, drafting, review, and submission checks.",
     "developerName": "STAR",
     "category": "Productivity",
     "capabilities": [
       "Plan",
       "Write",
-      "Review"
+      "Review",
+      "Compare"
     ],
     "defaultPrompt": [
       "Start read-only, map this paper and its evidence, and recommend the next defensible step.",

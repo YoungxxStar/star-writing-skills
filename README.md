@@ -19,14 +19,14 @@ by the optional, separately governed
 
 **Typical outputs:** Paper Map · motivation and argument audit · Writing Ledger ·
 claim–evidence review · method–implementation check · approval-gated revision
-preview · submission-readiness audit
+preview · semantic version handoff · submission-readiness audit
 
 STAR is designed for different research fields, languages, paper types, and
 publication stages. Scientific claims remain grounded in responsible code,
 data, mathematics, literature, and records. Submission requirements remain
 bound to current authoritative sources.
 
-## One paper, five controlled moves
+## One paper, six controlled moves
 
 1. **Start with a path.** `star-writing-start` reads the complete current
    manuscript and the associated sources needed to understand its load-bearing
@@ -42,6 +42,9 @@ bound to current authoritative sources.
 5. **Carry accepted decisions forward.** Drafting, polishing, review, and
    submission checks reuse the accepted contract, apply only authorized edits,
    and report what remains unresolved.
+6. **Hand off a completed revision.** `diff2ps` binds two exact snapshots,
+   classifies the full textual diff, and renders source-verbatim gray
+   `[before]`, red `[after]`, and blue `[psN]` explanations in TeX and PDF.
 
 ```text
 Source: main.tex @ <current-snapshot>
@@ -99,6 +102,26 @@ Use $star-writing-skills:star-writing-start on <paper-or-project-path>.
 Build a compact Paper Map and recommend the next defensible step.
 Read-only; do not create project state or edit files.
 ```
+
+## Hand off a large revision
+
+Use Diff2PS after many commits or broad manuscript edits when a raw line diff
+is no longer an adequate author handoff:
+
+```text
+Use $star-writing-skills:diff2ps to compare <before-ref> and <after-ref>
+for <repository-relative-document-path>.
+
+Resolve both refs to exact commits, classify every diff hunk and non-empty
+changed line, and distinguish substantive changes from exact non-substantive
+exclusions. Generate comparison.tex and comparison.pdf with source-verbatim
+gray [before], red [after], and blue sequential [psN] comments. Do not modify
+either input version.
+```
+
+Direct UTF-8 documents are also supported. For binary formats, the handoff
+records the artifact, extractor, options, and extracted-text identity so the
+scope of source-verbatim checks remains explicit.
 
 ## Install with Codex
 
@@ -161,7 +184,7 @@ evidence.
 
 ## Skill map
 
-The bundle contains one router and ten focused paper skills.
+The bundle contains one router and eleven focused skills.
 
 | Stage | Skill | Responsibility |
 |---|---|---|
@@ -176,6 +199,7 @@ The bundle contains one router and ten focused paper skills.
 | Refine | `star-writing-polish` | Improve language without silently changing scientific content |
 | Challenge | `star-writing-review` | Run skeptical novelty, validity, mechanism, utility, and consistency reviews |
 | Deliver | `star-writing-submit` | Check live venue rules, rendered artifacts, identity, and packages |
+| Hand off | `diff2ps` | Explain endpoint changes exhaustively with source-verified before/after excerpts and numbered comments |
 
 Use a focused skill when one responsibility clearly owns the task. Use the
 router when the work spans several stages.
@@ -193,6 +217,8 @@ router when the work spans several stages.
   tags are interaction metadata, not manuscript content or evidence.
 - Full audits traverse the artifact in document order. Search, compilation,
   and linting are supporting checks rather than substitutes for complete review.
+- Semantic version handoffs bind exact endpoints and classify every textual diff
+  hunk and non-empty changed line before claiming whole-document coverage.
 - Submission checks are bound to the named venue, cycle, track, stage, and
   accessible live requirements.
 - Final readiness is bound to the exact rendered or packaged artifact. A
@@ -216,11 +242,16 @@ Writing Ledger contracts, and the behavioral specifications in
 quality. Consequential behavioral changes require matched clean-context tests
 before release.
 
+Repository-wide maintenance expectations, including which public documents
+must change with a skill, workflow, installation, or release update, are in
+[AGENTS.md](AGENTS.md).
+
 ## Contributors and history
 
 - Maintainer: [YoungxxStar](https://github.com/YoungxxStar)
 - Contributor: `kingstar`
 - Contributions: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Repository guide: [AGENTS.md](AGENTS.md)
 - License: [MIT](LICENSE)
 - Development milestones: [CHANGELOG.md](CHANGELOG.md)
 
