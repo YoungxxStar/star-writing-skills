@@ -113,6 +113,8 @@ named-file edit does not by itself authorize ledger creation or maintenance.
   audit, or rejection-risk analysis.
 - Use `star-writing-submit` for current target rules, formatting, identity,
   artifacts, reproducibility, or package checks.
+- Use `diff2ps` for an exhaustive, source-verified semantic handoff between two
+  exact document snapshots, with numbered before--after comments in TeX or PDF.
 
 When a request asks whether a section or paper is defensible overall, let
 `star-writing-review` control the judgment and use `star-writing-evidence` for
@@ -149,6 +151,7 @@ controller for the current stage, then load its sibling `SKILL.md` explicitly:
 - [polish](../star-writing-polish/SKILL.md);
 - [review](../star-writing-review/SKILL.md);
 - [submit](../star-writing-submit/SKILL.md).
+- [version handoff](../diff2ps/SKILL.md).
 
 Load only references required by the active task. When several stages are
 needed, complete them in dependency order rather than merging incompatible

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diff2PS"
+  short_description: "Semantic before-after handoff in TeX and PDF"
+  default_prompt: "Use $diff2ps to compare two document versions and produce a source-verified TeX and PDF handoff."

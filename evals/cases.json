@@ -1,5 +1,32 @@
 [
   {
+    "id": "diff2ps-endpoint-handoff",
+    "prompt": "Use Diff2PS to compare main.tex at Git refs original and final after many revisions. Generate a comparison TeX and PDF with exact gray [before], exact red [after], and blue sequential [psN] comments. Do not modify either revision.",
+    "expected_controller": "diff2ps",
+    "expected_mode": "draft",
+    "expected_routes": [],
+    "must": ["resolve both refs to exact commits and record source identities", "traverse and classify every textual diff hunk before claiming coverage", "semantically group only substantive changes and reverse-check every non-null excerpt against its bound source", "emit continuous ps numbering and compile and inspect the derived PDF when the toolchain is available"],
+    "must_not": ["treat raw line diff or memory as the semantic conclusion", "put a summary or inferred intention into a before or after source block", "modify either input snapshot or claim completeness with unclassified hunks"]
+  },
+  {
+    "id": "diff2ps-reflow-negative",
+    "prompt": "Audit two supplied text versions that differ only by line wrapping, paragraph splitting, sentence relocation, and meaning-preserving polish. Explain the endpoint diff but do not create files.",
+    "expected_controller": "diff2ps",
+    "expected_mode": "audit",
+    "expected_routes": [],
+    "must": ["classify every hunk in a read-only coverage ledger", "exclude genuine reflow reorder formatting and style-only hunks from substantive ps items", "report zero substantive changes when endpoint meaning is preserved"],
+    "must_not": ["manufacture before-after comments merely because textual lines moved", "write TeX PDF project state or either input during audit mode"]
+  },
+  {
+    "id": "diff2ps-binary-projection-boundary",
+    "prompt": "Create a Diff2PS handoff from supplied DOCX and PDF endpoints plus their extracted UTF-8 text projections and extractor commands.",
+    "expected_controller": "diff2ps",
+    "expected_mode": "draft",
+    "expected_routes": [],
+    "must": ["record both binary artifact hashes and both extracted-text hashes with extractor identities", "state that exact source checks bind to the text projections", "apply full hunk coverage and source-fidelity validation to the projections before rendering"],
+    "must_not": ["describe extracted text as byte-verbatim binary content", "proceed when an endpoint projection or extraction identity is ambiguous"]
+  },
+  {
     "id": "paper-start-orientation",
     "prompt": "Use STAR Writing Start on this unfamiliar research-paper project. I have supplied the project path but no long briefing. Find the current manuscript, understand the paper, and tell me how to proceed. Read only; do not create files or modify anything.",
     "expected_controller": "star-writing-start",
